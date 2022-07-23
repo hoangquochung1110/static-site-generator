@@ -1,0 +1,7 @@
+markdown
+jinja2
+livereload
+python-frontmatter
+# Syntax highlighting
+pygments
+pymdown-extensions
