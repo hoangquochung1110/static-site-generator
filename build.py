@@ -6,6 +6,8 @@ import markdown.extensions.fenced_code
 import pymdownx.magiclink
 import frontmatter
 import jinja2
+import highlighting
+import witchhazel
 
 
 
@@ -35,13 +37,13 @@ def get_sources() -> Iterator[pathlib.Path]:
 def parse_source(source: pathlib.Path) -> frontmatter.Post:
     """Can get content of the file by post.content"""
     post = frontmatter.load(str(source))
-    breakpoint()
     return post
 
 def render_markdown(content: str) -> str:
     """Turn markdown content into html-formatted string."""
     markdown_.reset()
     content = markdown_.convert(content)
+    content = highlighting.highlight(content)
     return content
 
 def write_post(post: frontmatter.Post, content: str):
@@ -69,13 +71,20 @@ def write_posts() -> Sequence[frontmatter.Post]:
 
     return posts
 
-def write_index(post: Sequence[frontmatter.Post]):
+
+def write_pygments_style_sheet():
+    css = highlighting.get_style_css(witchhazel.WitchHazelStyle)
+    pathlib.Path("./docs/static/pygments.css").write_text(css)
+
+
+def write_index(posts: Sequence[frontmatter.Post]):
     """Render the index page."""
     posts = sorted(posts, key=lambda post: post["date"], reverse=True)
     path = pathlib.Path("./docs/index.html")
     template = jinja_env.get_template("index.html")
     rendered = template.render(posts=posts)
     path.write_text(rendered)
+
 
 def write_rss(posts: Sequence[frontmatter.Post]):
     posts = sorted(posts, key=lambda post: post["date"], reverse=True)
@@ -84,7 +93,9 @@ def write_rss(posts: Sequence[frontmatter.Post]):
     rendered = template.render(posts=posts, root="")
     path.write_text(rendered)
 
+
 def main():
+    write_pygments_style_sheet()
     posts = write_posts()
     write_index(posts)
     write_rss(posts)

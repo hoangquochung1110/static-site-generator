@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Thea Flowers">
+  <link rel="shortcut icon" href="https://blog.thea.codes/favicon.ico">
+
+  <title>Let's clean up your messy commit history - Hung Hoang</title>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" href="" />
+
+  <!-- Bootstrap core CSS -->
+  <link href="./static/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./static/style.css" rel="stylesheet">
+
+  <!-- Syntax highlighting css -->
+  <link href="./static/pygments.css" rel="stylesheet">
+
+  
+<meta property="og:title" content="Let's clean up your messy commit history - Thea Flowers">
+<meta property="twitter:title" content="Let's clean up your messy commit history - Thea Flowers">
+
+
+
+
+
+
+
+<meta property="og:url" content="https://blog.thea.codes/clean-commit-history">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@theavalkyrie">
+
+</head>
+<body>
+  <div class="container">
+
+    
+<article>
+  <aside class="timestamp">
+    <time>Posted by Hung Hoang on 2016-03-24 10:00</time>
+    · <a href="/">view all posts</a>
+  </aside>
+  <h1>Let's clean up your messy commit history</h1>
+  <content>
+    <h2 id="do-you-have-readable-git-commit-history">Do you have readable Git commit history ?</h2>
+<h3 id="reuse-the-most-recent-commit-message-with-git-commit-amend">Reuse the most recent commit message with <code>git commit --amend</code></h3>
+<p>Recall back to the time when I haven't been familiarized with code quality assurance (aka linters), I very often failed those linter checks. As a result, there were commit messages look like this</p>
+<pre><code>$ git commit -m &quot;Improve code style&quot;
+</code></pre>
+<p>The command is tedious and the message does not provide any meaningful information. Then <code>git commit --amend --no-edit</code> comes into play. It allows you to reuse your last commit message for the current commit.
+Suppose you want to remove trailing white space in <code>apps/users/views.py</code>:</p>
+<pre><code>$ git add apps/users/views.py apps/users/serializers.py
+$ git commit -m &quot;Provide UserViewSet&quot;
+$ git add apps/users/views.py
+$ git commit --amend --no-edit
+</code></pre>
+<h3 id="clean-up-lengthy-commit-history-with-git-rebase">Clean up lengthy commit history with <code>git rebase</code></h3>
+<p>During my feature branch workflow, it's very often to have several commits as a result of code review or 
+I have to leave the task till the next day.</p>
+<p>At the end of the task, my commit history may end up this like</p>
+<pre><code>(cs50w-network) hunghoang@MacBook-Pro project4 % git log --oneline
+58701f5 (HEAD -&gt; feature/migrate-to-htmx-alpinejs, origin/feature/migrate-to-htmx-alpinejs) Remove unused vanilla js
+bf2f1b7 Fix navbar offsetHeight
+c798ff0 minor change
+05c3b93 Provide separate api directory
+202f666 Disable follow-btn on host user timeline
+93b22fd Support followers_count update
+93e8647 Improve the feature of prevent editing 2 post simultaneously
+e4e5aa5 Reuse PostViewSet
+88b55b9 Refine post/list.html
+09b9acf Re-arrange auth templates
+0250ecb Re-arrange template to project-level
+30ae17b Integrate htmx into post/list.html
+</code></pre>
+<p>These logs of changes are important while the feature is in development phase but they looks scattered and unnessary when looking through entire history of the <code>main</code> branch. Squashing commits not only make commit history neater so that others can understand but also easy to resolve conflicts at once when I <code>git merge</code> afterwards.</p>
+<p><strong>First</strong>, make sure you're at the feature-branch:</p>
+<pre><code>$ git switch feature-branch
+</code></pre>
+<p><strong>Second</strong>, use rebase to squash the branch on top of its original base commit:</p>
+<pre><code>$ git rebase --keep-base -i main
+</code></pre>
+<p>What are these flag for ?
+<a href="https://git-scm.com/docs/git-rebase"><code>--keep-base</code></a> flag to tell git rebase on to the base commit from <code>main</code> which feature-branch was branched off.
+<code>-i</code> stands for interactive which enables rebase <a href="https://git-scm.com/docs/git-rebase#_interactive_mode">interactive mode</a>. This will open your text editor with a file you can use to select rebase operations.</p>
+<p><strong>Third</strong>, change the rebase file to squash all commits into the first one
+Please notice when rebasing, commits are listed in the opposite order when compared to using <code>git log</code></p>
+<pre><code>pick 30ae17b Integrate htmx into post/list.html
+pick 93e8647 Improve the feature of prevent editing 2 post simultaneously
+pick 93b22fd Support followers_count update
+pick 202f666 Disable follow-btn on host user timeline
+pick 05c3b93 Provide separate api directory
+pick c798ff0 minor change
+pick bf2f1b7 Fix navbar offsetHeight
+pick f98b90a Remove unused vanilla js
+
+# Rebase 3349b96..f98b90a onto 8b92fd6 (12 commands)
+#
+# Commands:
+# p, pick &lt;commit&gt; = use commit
+# r, reword &lt;commit&gt; = use commit, but edit the commit message
+# e, edit &lt;commit&gt; = use commit, but stop for amendingx
+# s, squash &lt;commit&gt; = use commit, but meld into previous commit
+# f, fixup [-C | -c] &lt;commit&gt; = like &quot;squash&quot; but keep only the previous
+#                    commit's log message, unless -C is used, in which case
+#                    keep only this commit's message; -c is same as -C but
+#                    opens the editor
+...
+</code></pre>
+<p>(Further comments removed for brevity.)</p>
+<p>The block of comments below commits is the mini cheatsheet of possible operations
+To tell squash all commits into the first one, let's change all the commit lines except the first one with <code>f</code>:</p>
+<pre><code>pick 30ae17b Integrate htmx into post/list.html
+f 93e8647 Improve the feature of prevent editing 2 post simultaneously
+f 93b22fd Support followers_count update
+f 202f666 Disable follow-btn on host user timeline
+f 05c3b93 Provide separate api directory
+f c798ff0 minor change
+f bf2f1b7 Fix navbar offsetHeight
+f f98b90a Remove unused vanilla js
+
+# Rebase 3349b96..f98b90a onto 8b92fd6 (12 commands)
+#
+# Commands:
+</code></pre>
+<p><strong>Fourth</strong>, save and close the file, and Git will perform the squashing. Upon completion, let's <code>git log --oneline</code> to see the result.</p>
+<p><strong>Fifth</strong>, you may want to pull the latest version of your main branch then merge <code>feature-branch</code></p>
+<h3 id="conclusion">Conclusion</h3>
+<p><code>git commit --amend --no-edit</code> and <code>git rebase --keep-base -i main</code> are two of most used Git command I take advantage of during feature branch workflow. Hope they can help you.</p>
+  </content>
+ 
+  <!-- <aside class="support-me">
+    👋 Hey, if you found this post useful I would love to <a href="mailto:me@thea.codes">hear from you</a>.
+    If you loved it you can consider <a href="https://ko-fi.com/theacodes" target="_blank" rel="noopener">tipping me on Ko-fi</a> or <a href="https://github.com/sponsors/theacodes" target="_blank" rel="noopener">sponsoring me</a> on GitHub.
+    I don't get paid for this content, so kind words and support encourage me to create more!
+  </aside> -->
+</article>
+
+
+    <footer>
+      <div class="row">
+        <div class="col-md-1 d-none d-md-block img-me-container">
+          <img class="img-me img-fluid" src="./static/me.jpg">
+        </div>
+        <div class="col-md info">
+          <span class="name">Hung Hoang</span><br>
+          <a href="https://thea.codes"><i class="fa fa-link" aria-hidden="true"></i> thea.codes</a>
+          · <a href="https://github.com/hoangquochung1110" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> hoangquochung1110</a>
+          · <a href="https://www.instagram.com/h7ng__/" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i> h7ng__</a>
+          <br>
+          <span class="location"><i class="fas fa-map-marker"></i> Saigon, Vietnam</span>
+        </div>
+        <div class="col-md">
+          <p class="disclaimer">
+            &copy; 2018 &mdash; 2020<br>
+            All text is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> license<br>
+            All code is available under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> license
+          </p>
+      </div>
+
+    </footer>
+  </div>
+
+  <!-- webfonts & icons-->
+  <link href="/static/fontawesome/css/fontawesome-all.min.css" rel="stylesheet">
+
+  <!-- Google Analytics (that's right, I'm tracking you) -->
+  <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-47725506-1', 'blog.thea.codes');
+    ga('send', 'pageview');
+
+  </script>
+
+</body>
+</html>

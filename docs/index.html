@@ -8,7 +8,7 @@
   <meta name="author" content="Thea Flowers">
   <link rel="shortcut icon" href="https://blog.thea.codes/favicon.ico">
 
-  <title>{% block title %}Blog{% endblock %} - Hung Hoang</title>
+  <title>Blog - Hung Hoang</title>
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" href="" />
@@ -22,12 +22,26 @@
   <!-- Syntax highlighting css -->
   <link href="./static/pygments.css" rel="stylesheet">
 
-  {% block meta %}{% endblock %}
+  
 </head>
 <body>
   <div class="container">
 
-    {% block content %}{% endblock %}
+    
+<nav>
+  <h1>Blog posts & articles by Hung Hoang <a class="rss" href="/feed.xml" target="_blank" title="RSS feed"><i class="fas fa-rss"></i></a></h1>
+  <dl class="posts-list">
+  
+    <a href="/clean-commit-history">
+      <dt>Let's clean up your messy commit history</dt>
+      <dd>
+        <time>2016-03-24 10:00</time>
+      </dd>
+    </a>
+  
+  </dl>
+</nav>
+
 
     <footer>
       <div class="row">
@@ -36,7 +50,7 @@
         </div>
         <div class="col-md info">
           <span class="name">Hung Hoang</span><br>
-          <!-- <a href="https://thea.codes"><i class="fa fa-link" aria-hidden="true"></i> thea.codes</a> -->
+          <a href="https://thea.codes"><i class="fa fa-link" aria-hidden="true"></i> thea.codes</a>
           · <a href="https://github.com/hoangquochung1110" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> hoangquochung1110</a>
           · <a href="https://www.instagram.com/h7ng__/" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i> h7ng__</a>
           <br>
