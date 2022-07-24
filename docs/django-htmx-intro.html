@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Thea Flowers">
+  <link rel="shortcut icon" href="https://blog.thea.codes/favicon.ico">
+
+  <title>How Django meets htmx &#58; A quick tour of modern server side rendering. - Hung Hoang</title>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" href="" />
+
+  <!-- Bootstrap core CSS -->
+  <link href="./static/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./static/style.css" rel="stylesheet">
+
+  <!-- Syntax highlighting css -->
+  <link href="./static/pygments.css" rel="stylesheet">
+
+  
+<meta property="og:title" content="How Django meets htmx &#58; A quick tour of modern server side rendering. - Hung Hoang">
+<meta property="twitter:title" content="How Django meets htmx &#58; A quick tour of modern server side rendering. - Hung Hoang">
+
+
+
+
+
+
+
+<meta property="og:url" content="">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
+
+</head>
+<body>
+  <div class="container">
+
+    
+<article>
+  <aside class="timestamp">
+    <time>Posted by Hung Hoang on 2022-03-10 10:00</time>
+    · <a href="/">view all posts</a>
+  </aside>
+  <h1>How Django meets htmx &#58; A quick tour of modern server side rendering.</h1>
+  <content>
+    <h3 id="htmx">htmx</h3>
+<p>The philosophy of htmx is to write less Javascript code, this library gives you access to modern browser features such as AJAX, CSS Transitions, WebSockets and Server Sent Events directly in HTML, using attributes like <code>hx-get</code> or <code>hx-trigger</code>.</p>
+<p>A few considerable features of htmx:</p>
+<ul>
+<li>Any element, not just anchor tag or form can issue an HTTP request.</li>
+<li>Any event, not just form or button can trigger requests.</li>
+</ul>
+<p>The quick demo below illustrate how to make POST request to create/update data on a dynamic page.</p>
+<h4 id="context">Context</h4>
+<p>You want to update the user profile with a form. A POST request is sent when the form is submitted.
+The input should be validated and new data should be automatically updated after form submission.</p>
+<p>Simplified project structure:</p>
+<pre><code>manage.py
+users/
+    views.py
+    urls.py
+templates/
+    users/
+         profile.html
+         password_update.html
+</code></pre>
+<h2 id="step-1-install-htmx-and-render-a-form-that-displays-input-fields">STEP 1: Install htmx and render a form that displays input fields</h2>
+<p>Insert this script into profile.html template, detailed installation instructions can be found <a href="https://htmx.org/docs/#installing">here</a>. I'll skip the profile page for the sake of a brief tutorial.</p>
+<p><code>password_update.html</code> is a <strong>fragment</strong> instead of a full html file. A view that responses a fragment html is the key technique helps htmx render element dynamically.</p>
+<pre class="lang-html"><span class="cm">&lt;!-- password_update.html --&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">form</span> <span class="na">hx-post</span><span class="o">=</span><span class="s">&quot;{% url &#39;user-password-update&#39; %}&quot;</span> <span class="na">hx-swap</span><span class="o">=</span><span class="s">&quot;outerHTML&quot;</span><span class="p">&gt;</span>
+    {% csrf_token %}
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row my-2&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col&quot;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>Old password:<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+                {{form.old_password}}
+                {% for error in form.old_password.errors %}
+                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;error-feedback&quot;</span><span class="p">&gt;</span>{{error}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                {% endfor %}
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row my-2&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col&quot;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>New password:<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+                {{form.new_password1}}
+                {% for error in form.new_password1.errors %}
+                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;error-feedback&quot;</span><span class="p">&gt;</span>{{error}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                {% endfor %}
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row my-2&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col&quot;</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>Confirm password:<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+                {{form.new_password2}}
+                {% for error in form.new_password2.errors %}
+                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;error-feedback&quot;</span><span class="p">&gt;</span>{{error}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+                {% endfor %}
+            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;Save&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-primary mt-3&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</pre>
+<p>This form tag tells <code>htmx</code>:</p>
+<blockquote>
+<p>Once form is submitted, issue an HTTP POST request to user-password-update url then replace entire target element with the content of the response dynamically.</p>
+</blockquote>
+<p><code>hx-post</code> is basically like the standard <code>action</code> attribute which tells browser where to send data to. In this case to <code>user-password-update</code> url.</p>
+<p>The second attribute <code>hx-swap</code> describe the way how htmx swap the HTML code returned by Django view onto the page. <code>outerHTML</code> in this case means entire form itself.</p>
+<p><code>hx-target</code> is usually paired with <code>hx-swap</code> if you want to load the response into a different element other than the one triggering request. A popular example is that you submit a <code>TaskCreateForm</code> then append the newly-created task to a <code>ul</code>  tag.</p>
+<p>If <code>hx-target</code> is not specified, its default value is the element that make the request.</p>
+<h2 id="step-2-write-django-views-that-accepts-request-from-browsers-and-handle-the-logic-of-password-update">STEP 2: Write Django views that accepts request from browsers and handle the logic of password update.</h2>
+<pre class="lang-python3"><span class="c1"># views.py</span>
+<span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="kn">import</span> <span class="n">UpdateView</span><span class="p">,</span> <span class="n">TemplateView</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.forms</span> <span class="kn">import</span> <span class="n">PasswordChangeForm</span>
+
+<span class="k">class</span> <span class="nc">UserProfileView</span><span class="p">(</span><span class="n">TemplateView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Display current user profile data.&quot;&quot;&quot;</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s2">&quot;users/profile/profile.html&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Provide form to template for first-time loading.&quot;&quot;&quot;</span>
+        <span class="n">context_data</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">context_data</span><span class="p">[</span><span class="s2">&quot;form&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">PasswordChangeForm</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">context_data</span>
+
+<span class="k">class</span> <span class="nc">PasswordChangeViewAdmin</span><span class="p">(</span><span class="n">PasswordChangeView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Allow change password for current user.&quot;&quot;&quot;</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s2">&quot;users/profile/password_update.html&quot;</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">PasswordChangeForm</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="n">reverse_lazy</span><span class="p">(</span><span class="s2">&quot;admin-login&quot;</span><span class="p">)</span>
+</pre>
+<pre class="lang-python3"><span class="c1"># urls.py</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s2">&quot;profile/&quot;</span><span class="p">,</span> <span class="n">include</span><span class="p">([</span>
+        <span class="n">path</span><span class="p">(</span>
+            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">views</span><span class="o">.</span><span class="n">UserProfileView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;user-profile&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">path</span><span class="p">(</span>
+            <span class="s2">&quot;update/&quot;</span><span class="p">,</span>
+            <span class="n">views</span><span class="o">.</span><span class="n">UserProfileUpdateView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;user-profile-update&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">])),</span>
+<span class="p">]</span>
+</pre>
+<p>There are 2 possible outcome. If <code>PasswordChangeForm</code> takes invalid data (two password does not match, for example), PasswordChangeViewAdmin return a response with <code>password_update.html</code> fragment and the <code>PasswordChangeForm</code> instance in the context data. htmx takes this fragment and load it on the page. As you're changing your old password so the page should dynamically re-render the form.</p>
+<p><img alt="htmx re-render form tag" src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/g5s0d9cfbllfbqj1zyaj.png" /></p>
+<p>The second scenario is that the data you submit is valid, according to the initial implementation of <code>PasswordChangeViewAdmin</code>, it should return a response including the admin-login template. Now here comes the problem: the page is expected to load the admin-login page into the form tag. It does not make sense and not what we want to do.</p>
+<h2 id="step-3-redirect-after-successful-form-submission">STEP 3: Redirect after successful form submission</h2>
+<p>The solution to this circumstance is to modify the behavior of <code>hx-post</code>, prevent it from swapping response onto the page. Instead we should redirect users to another page: </p>
+<pre class="lang-python3"><span class="k">class</span> <span class="nc">PasswordChangeViewAdmin</span><span class="p">(</span><span class="n">PasswordChangeView</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Allow change password for current user.&quot;&quot;&quot;</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s2">&quot;users/profile/password_update.html&quot;</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">PasswordChangeForm</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="n">reverse_lazy</span><span class="p">(</span><span class="s2">&quot;admin-login&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Insert HX-Redirect attribute to response header.</span>
+
+<span class="sd">        The purpose is to modify htmx swapping mechanism</span>
+<span class="sd">        in case of successful update.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponse</span><span class="p">()</span>
+        <span class="n">response</span><span class="p">[</span><span class="s2">&quot;HX-Redirect&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="s2">&quot;admin-login&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span>
+</pre>
+<p>By this way, we tell htmx to redirect user to the login page to re-sign in rather than staying on the current page.</p>
+<p>Hopefully this quick example gives you some inspirations of what htmx can do in combination with Django forms. It gives you ability to render elements without reloading page. More importantly, it can be achieved but not write a single line of Javascript code...</p>
+  </content>
+ 
+  <!-- <aside class="support-me">
+    👋 Hey, if you found this post useful I would love to <a href="mailto:me@thea.codes">hear from you</a>.
+    If you loved it you can consider <a href="https://ko-fi.com/theacodes" target="_blank" rel="noopener">tipping me on Ko-fi</a> or <a href="https://github.com/sponsors/theacodes" target="_blank" rel="noopener">sponsoring me</a> on GitHub.
+    I don't get paid for this content, so kind words and support encourage me to create more!
+  </aside> -->
+</article>
+
+
+    <footer>
+      <div class="row">
+        <div class="col-md-1 d-none d-md-block img-me-container">
+          <img class="img-me img-fluid" src="./static/me.jpg">
+        </div>
+        <div class="col-md info">
+          <span class="name">Hung Hoang</span><br>
+          <!-- <a href="https://thea.codes"><i class="fa fa-link" aria-hidden="true"></i> thea.codes</a> -->
+          · <a href="https://github.com/hoangquochung1110" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> hoangquochung1110</a>
+          · <a href="https://www.instagram.com/h7ng__/" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i> h7ng__</a>
+          <br>
+          <span class="location"><i class="fas fa-map-marker"></i> Saigon, Vietnam</span>
+        </div>
+        <div class="col-md">
+          <p class="disclaimer">
+            &copy; 2018 &mdash; 2020<br>
+            All text is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> license<br>
+            All code is available under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> license
+          </p>
+      </div>
+
+    </footer>
+  </div>
+
+  <!-- webfonts & icons-->
+  <link href="/static/fontawesome/css/fontawesome-all.min.css" rel="stylesheet">
+
+  <!-- Google Analytics (that's right, I'm tracking you) -->
+  <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-47725506-1', 'blog.thea.codes');
+    ga('send', 'pageview');
+
+  </script>
+
+</body>
+</html>

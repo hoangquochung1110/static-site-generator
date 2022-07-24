@@ -1,6 +1,6 @@
 ---
 title: Let's clean up your messy commit history
-date: 2016-03-24 10:00
+date: 2022-05-06 10:00
 ---
 
 ## Do you have readable Git commit history ?

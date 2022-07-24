@@ -39,11 +39,16 @@ def parse_source(source: pathlib.Path) -> frontmatter.Post:
     post = frontmatter.load(str(source))
     return post
 
+def fixup_styles(content: str) -> str:
+    content = content.replace('<table>', '<table class="table">')
+    return content
+
 def render_markdown(content: str) -> str:
     """Turn markdown content into html-formatted string."""
     markdown_.reset()
     content = markdown_.convert(content)
     content = highlighting.highlight(content)
+    content = fixup_styles(content)
     return content
 
 def write_post(post: frontmatter.Post, content: str):

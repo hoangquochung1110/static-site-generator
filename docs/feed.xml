@@ -12,7 +12,21 @@
     <title>Let&#39;s clean up your messy commit history</title>
     <link>/clean-commit-history</link>
     <guid>/clean-commit-history</guid>
-    <pubDate>2016-03-24 10:00</pubDate>
+    <pubDate>2022-05-06 10:00</pubDate>
+  </item>
+  
+  <item>
+    <title>Database indexing in a nutshell with B+tree and Hash in comparison</title>
+    <link>/database-index</link>
+    <guid>/database-index</guid>
+    <pubDate>2022-04-25 10:00</pubDate>
+  </item>
+  
+  <item>
+    <title>How Django meets htmx &amp;#58; A quick tour of modern server side rendering.</title>
+    <link>/django-htmx-intro</link>
+    <guid>/django-htmx-intro</guid>
+    <pubDate>2022-03-10 10:00</pubDate>
   </item>
   
 
