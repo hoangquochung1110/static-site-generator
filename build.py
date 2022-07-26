@@ -9,7 +9,7 @@ import jinja2
 import highlighting
 import witchhazel
 
-
+ROOT_URL = "https://hoangquochung1110.github.io/static-site-generator"
 
 # Jinja will look up templates in `templates` folder
 jinja_env = jinja2.Environment(
@@ -95,7 +95,7 @@ def write_rss(posts: Sequence[frontmatter.Post]):
     posts = sorted(posts, key=lambda post: post["date"], reverse=True)
     path = pathlib.Path("./docs/feed.xml")
     template = jinja_env.get_template("rss.xml")
-    rendered = template.render(posts=posts, root="")
+    rendered = template.render(posts=posts, root=ROOT_URL)
     path.write_text(rendered)
 
 

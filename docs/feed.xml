@@ -3,36 +3,36 @@
 <channel>
   <title></title>
   <description>Hung Hoang' Blog</description>
-  <link></link>
-  <atom:link href="/feed.xml"
+  <link>https://hoangquochung1110.github.io/static-site-generator</link>
+  <atom:link href="https://hoangquochung1110.github.io/static-site-generator/feed.xml"
     rel="self" type="application/rss+xml" />
 
   
   <item>
     <title>Do you have readable Git commit history ?</title>
-    <link>/clean-commit-history</link>
-    <guid>/clean-commit-history</guid>
+    <link>https://hoangquochung1110.github.io/static-site-generator/clean-commit-history</link>
+    <guid>https://hoangquochung1110.github.io/static-site-generator/clean-commit-history</guid>
     <pubDate>2022-05-06 10:00</pubDate>
   </item>
   
   <item>
     <title>Database indexing in a nutshell with B+tree and Hash in comparison</title>
-    <link>/database-index</link>
-    <guid>/database-index</guid>
+    <link>https://hoangquochung1110.github.io/static-site-generator/database-index</link>
+    <guid>https://hoangquochung1110.github.io/static-site-generator/database-index</guid>
     <pubDate>2022-04-25 10:00</pubDate>
   </item>
   
   <item>
     <title>Manage State in ReactJS with to-do app</title>
-    <link>/react-todo-list</link>
-    <guid>/react-todo-list</guid>
+    <link>https://hoangquochung1110.github.io/static-site-generator/react-todo-list</link>
+    <guid>https://hoangquochung1110.github.io/static-site-generator/react-todo-list</guid>
     <pubDate>2022-03-10 10:00</pubDate>
   </item>
   
   <item>
     <title>How Django meets htmx &amp;#58; A quick tour of modern server side rendering.</title>
-    <link>/django-htmx-intro</link>
-    <guid>/django-htmx-intro</guid>
+    <link>https://hoangquochung1110.github.io/static-site-generator/django-htmx-intro</link>
+    <guid>https://hoangquochung1110.github.io/static-site-generator/django-htmx-intro</guid>
     <pubDate>2022-03-10 10:00</pubDate>
   </item>
   
