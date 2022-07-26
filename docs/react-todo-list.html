@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Thea Flowers">
+  <link rel="shortcut icon" href="https://blog.thea.codes/favicon.ico">
+
+  <title>Manage State in ReactJS with to-do app - Hung Hoang</title>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" href="" />
+
+  <!-- Bootstrap core CSS -->
+  <link href="./static/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./static/style.css" rel="stylesheet">
+
+  <!-- Syntax highlighting css -->
+  <link href="./static/pygments.css" rel="stylesheet">
+
+  
+<meta property="og:title" content="Manage State in ReactJS with to-do app - Hung Hoang">
+<meta property="twitter:title" content="Manage State in ReactJS with to-do app - Hung Hoang">
+
+
+
+
+
+
+
+<meta property="og:url" content="">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
+
+</head>
+<body>
+  <div class="container">
+
+    
+<article>
+  <aside class="timestamp">
+    <time>Posted by Hung Hoang on 2022-03-10 10:00</time>
+    · <a href="./">view all posts</a>
+  </aside>
+  <h1>Manage State in ReactJS with to-do app</h1>
+  <content>
+    <p>In this post, let's examine how to use useState to manage state in a react component. State is one of two major pillars of React, it's simply what we use to handle values that change over time, the value of a counter for instance.</p>
+<h2 id="usestate-hook">useState hook</h2>
+<p>Hooks are a new feature in React 16.8. They allow us to use state (and other features) without writing a class component. Therefore, when it comes to using hooks, it means you're going to have functional components.</p>
+<h2 id="lets-get-started">Let's get started</h2>
+<p>Our to-do list app is made of two main components <strong>App</strong> and <strong>Overview</strong>. The app should render an input field and a submit button. You can add a few to-do items and they should be shown in numerical order. Note that we will use <code>&lt;ul&gt;</code> tag to display list item. Yes, we can make an order list by using <code>&lt;ol&gt;</code> but in this guide we wanna know how to manage states with useState so let's move on with <code>&lt;ul&gt;</code>.</p>
+<iframe src="https://codesandbox.io/embed/mystifying-golick-wkf3e?fontsize=14&hidenavigation=1&theme=dark"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="mystifying-golick-wkf3e"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+<h3 id="app-component">App component</h3>
+<pre class="lang-jsx">// App component to handle input form with the logic
+import &#39;./App.css&#39;;
+import Overview from &#39;./components/Overview&#39;;
+import { useState } from &#39;react&#39;;
+import uniqid from &quot;uniqid&quot;;
+
+function App() {
+
+  const [task, setTask] = useState({
+    text: &#39;&#39;,
+    order: 1,
+    id: uniqid()
+  });
+  const [tasks, setTasks] = useState([]);
+
+  // order remains regardless of how much input changes
+  // order changes its value only when form is submitted or an item deleted
+  const inputChangeHandler = (e) =&gt;{
+    setTask((prevTask) =&gt; ({
+      ...prevTask, 
+      text: e.target.value
+    }));
+  } 
+
+  const submitHandler = (e) =&gt; {
+    e.preventDefault();
+    // Avoid setTask right before setTasks whose value depends on Task !!!
+    setTasks((prevTasks) =&gt; [...prevTasks, task]);
+    setTask((prevTask) =&gt; ({
+      text: &#39;&#39;,
+      order: prevTask.order + 1,
+      id: uniqid()
+    }))
+  }
+
+  const deleteHandler = (e) =&gt; {
+    const id = e.target.parentNode.id;
+    let deletedAt;
+    // Remove target item
+    let reducedList = tasks
+      .filter((task, index) =&gt; {  
+        if(task.id == id){
+          deletedAt = index;
+          return false;
+        }
+        return true;
+      })
+      .map((item, index) =&gt; {
+        if(index &gt;= deletedAt) return {...item, order: item.order -1};
+        else return item;
+      })
+
+    // Update tasks
+    setTasks([...reducedList]);
+
+    // clear text field, decrease order after item deleted
+    setTask({
+      text: &#39;&#39;,
+      order: task.order - 1,
+      id: uniqid()
+    })
+  }
+
+  return (
+      &lt;&gt;
+          &lt;form onSubmit={submitHandler}&gt;
+              &lt;input type=&quot;text&quot; id=&quot;taskInput&quot; value={task.text} onChange={inputChangeHandler} placeholder=&quot;Create a task&quot;&gt;&lt;/input&gt;
+              &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+          &lt;/form&gt;
+          &lt;Overview tasks={tasks} handleDelete={deleteHandler}/&gt;
+      &lt;/&gt;
+  )
+}
+
+export default App;
+</pre>
+<h4 id="app-breakdown">App breakdown</h4>
+<ul>
+<li>Declaring a state variable</li>
+</ul>
+<pre class="lang-jsx">  const [task, setTask] = useState({
+    text: &quot;&quot;,
+    order: 0,
+    id: uniqid()
+  });
+  const [tasks, setTasks] = useState([]);
+</pre>
+<p><code>useState(initialValue)</code> returns a pair of value <code>[state, setState]</code>. initialValue can be anything, from a number, a string to an obj or an array. <code>setState</code> is an updater function. Here I declare <code>task</code> to manage a single to-do item data and <code>tasks</code> to keep track of many items.</p>
+<ul>
+<li>Reading state</li>
+</ul>
+<p>In functional components, you can read a state directly:</p>
+<pre class="lang-jsx">&lt;input
+          ...
+          value={task.text}
+&gt;&lt;/input&gt;
+</pre>
+<ul>
+<li>Updating state</li>
+</ul>
+<p>As mentioned above,<code>setState</code> function to set or update a state, whatever returned by this function is set as a new state value.
+<code>setState</code> has two forms. The first one is by passing a new value as an argument: <code>setState(newStateValue)</code>. Refer to line 65 where we update <code>tasks</code> array by passing in a new array:</p>
+<pre class="lang-jsx">    let reducedList = tasks.filter(...)
+
+    // Update tasks
+    setTasks([...reducedList]);
+</pre>
+<p><strong>IMPORTANT NOTE 1</strong>: State updates may be asynchronous. React may batch multiple setState() calls into a single update for performance. Therefore, never rely on state values to calculate the new, next state.</p>
+<p>The first form of setState() works perfectly for most cases but in some cases, the new state value is calculated based on the previous value like a counter state, increase the old value by 1 whenever the button is clicked.</p>
+<p>The following code may fail to update the task:</p>
+<pre class="lang-jsx">// May fail to update
+setTask({...task, text: &#39;&#39;});// update text, others unchanged
+</pre>
+<p>In our app, we update the input field whenever users press a key. Because we want <code>order</code> and <code>id</code> properties to be unchanged for every <em>onChange</em> events. It means we're going to just update <code>task</code> partially instead of an entirely new state. In this circumstance, the second form of <code>setState()</code> comes in.</p>
+<p><code>setState((state, props) =&gt; newValue)</code> </p>
+<p>It accepts a function rather than an object. This function takes previous state as a first argument and props at the time when update is applied as second argument. Implement the second form to our handler:</p>
+<pre class="lang-jsx">  const inputChangeHandler = (e) =&gt; {
+    setTask((prevTask) =&gt; ({
+      ...prevTask,
+      text: e.target.value
+    }));
+  };
+</pre>
+<p>Use spread operator to keep those properties remained and specify which property to be set.</p>
+<p><code>setTasks</code> works exactly the same as <code>setTask</code>:</p>
+<pre class="lang-jsx">  const submitHandler = (e) =&gt; {
+    e.preventDefault();
+    // Avoid setTask right before setTasks whose value depends on Task&#39;s value !!!
+    setTasks((prevTasks) =&gt; [...prevTasks, task]);
+    setTask((prevTask) =&gt; ({
+      text: &#39;&#39;,
+      order: prevTask.order + 1,
+      id: uniqid()
+    }))
+  }
+</pre>
+<p><strong>IMPORTANT NOTE 2</strong>: In React, state should be treated as immutable. Try to avoid to set state directly like state.order++ because it can lead to unexpected results or bugs. Instead, always use setState() updater function.</p>
+<p>This note can be clearly illustrated by <code>deleteHandler</code> as below:</p>
+<pre class="lang-jsx">  const deleteHandler = (e) =&gt; {
+    const id = e.target.parentNode.id;
+    let deletedAt;
+    // Remove target item
+    let reducedList = tasks
+      .filter((task, index) =&gt; {  
+        if(task.id == id){
+          deletedAt = index;
+          return false;
+        }
+        return true;
+      })
+      .map((item, index) =&gt; {
+        if(index &gt;= deletedAt) return {...item, order: item.order -1};
+        else return item;
+      })
+
+    // Update tasks
+    setTasks([...reducedList]);
+
+    // clear text field, decrease order after item deleted
+    setTask({
+      text: &#39;&#39;,
+      order: task.order - 1,
+      id: uniqid()
+    })
+  }
+</pre>
+<p>Just make a copy of <code>Tasks</code> so that we can make some modifications on this copy (remove item, update its value) on the side rather than set its state directly.
+After construct an array of reduced, re-ordered to-do tasks, we now can use first form of <code>setState</code> to safely update <code>Tasks</code></p>
+<p>Never try to update <code>tasks</code> like this:</p>
+<pre class="lang-jsx">setTasks((prevTasks) =&gt; {
+  prevTasks.forEach((item, index) =&gt; {
+        if (index &gt;= deletedAt){
+          item.order -= 1; // You are changing state directly
+        }
+  })
+})
+</pre>
+<h3 id="overview-component">Overview component</h3>
+<pre class="lang-jsx">import React from &quot;react&quot;;
+import &#39;./Overview.css&#39;;
+
+const Overview = (props) =&gt; {
+  return (
+    &lt;ul className=&quot;task-list&quot;&gt;
+      {props.tasks.map((item) =&gt; {
+        return (
+          &lt;li key={item.id} id={item.id}&gt;
+            &lt;span&gt;
+              {item.order}. {item.text}
+            &lt;/span&gt;
+            &lt;button onClick={props.handleDelete}&gt;X&lt;/button&gt;
+          &lt;/li&gt;
+        );
+      })}
+    &lt;/ul&gt;
+  );
+};
+
+export default Overview;
+</pre>
+<p>As you can see, we use <code>&lt;ul&gt;</code> to implement an ordered list. The order numbers get updated for every add/delete action. Here we use function map to dynamically render list item.</p>
+<h2 id="conclusiontakeaways">CONCLUSION/TAKEAWAYS:</h2>
+<ol>
+<li>
+<p>State should be treated as immutable. Never set the state directly like state.value++. Always rely on <code>setState</code> to manage state, avoid unexpected results and bugs.</p>
+</li>
+<li>
+<p>State updates may be async. If your new state value is calculated based the old state, use the second form of <code>setState</code> where you pass in a function. If your new state value is independent from the previous state, feel free to use to first form of it <code>setState(newValue)</code></p>
+</li>
+</ol>
+  </content>
+ 
+  <!-- <aside class="support-me">
+    👋 Hey, if you found this post useful I would love to <a href="mailto:me@thea.codes">hear from you</a>.
+    If you loved it you can consider <a href="https://ko-fi.com/theacodes" target="_blank" rel="noopener">tipping me on Ko-fi</a> or <a href="https://github.com/sponsors/theacodes" target="_blank" rel="noopener">sponsoring me</a> on GitHub.
+    I don't get paid for this content, so kind words and support encourage me to create more!
+  </aside> -->
+</article>
+
+
+    <footer>
+      <div class="row">
+        <div class="col-md-1 d-none d-md-block img-me-container">
+          <img class="img-me img-fluid" src="./static/me.jpg">
+        </div>
+        <div class="col-md info">
+          <span class="name">Hung Hoang</span><br>
+          <!-- <a href="https://thea.codes"><i class="fa fa-link" aria-hidden="true"></i> thea.codes</a> -->
+          · <a href="https://github.com/hoangquochung1110" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> hoangquochung1110</a>
+          · <a href="https://www.instagram.com/h7ng__/" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i> h7ng__</a>
+          <br>
+          <span class="location"><i class="fas fa-map-marker"></i> Saigon, Vietnam</span>
+        </div>
+        <div class="col-md">
+          <p class="disclaimer">
+            &copy; 2018 &mdash; 2020<br>
+            All text is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> license<br>
+            All code is available under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> license
+          </p>
+      </div>
+
+    </footer>
+  </div>
+
+  <!-- webfonts & icons-->
+  <link href="/static/fontawesome/css/fontawesome-all.min.css" rel="stylesheet">
+
+  <!-- Google Analytics (that's right, I'm tracking you) -->
+  <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-47725506-1', 'blog.thea.codes');
+    ga('send', 'pageview');
+
+  </script>
+
+</body>
+</html>

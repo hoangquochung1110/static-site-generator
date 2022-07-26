@@ -23,6 +23,13 @@
   </item>
   
   <item>
+    <title>Manage State in ReactJS with to-do app</title>
+    <link>/react-todo-list</link>
+    <guid>/react-todo-list</guid>
+    <pubDate>2022-03-10 10:00</pubDate>
+  </item>
+  
+  <item>
     <title>How Django meets htmx &amp;#58; A quick tour of modern server side rendering.</title>
     <link>/django-htmx-intro</link>
     <guid>/django-htmx-intro</guid>
