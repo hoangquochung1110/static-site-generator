@@ -1,11 +1,11 @@
 ---
-title: Let's clean up your messy commit history
+title: Do you have readable Git commit history ?
 date: 2022-05-06 10:00
 ---
 
-## Do you have readable Git commit history ?
 
-### Reuse the most recent commit message with `git commit --amend` 
+# Reuse the most recent commit message with `git commit --amend` 
+
 Recall back to the time when I haven't been familiarized with code quality assurance (aka linters), I very often failed those linter checks. As a result, there were commit messages look like this
 ```
 $ git commit -m "Improve code style"
@@ -18,7 +18,8 @@ $ git commit -m "Provide UserViewSet"
 $ git add apps/users/views.py
 $ git commit --amend --no-edit
 ```
-### Clean up lengthy commit history with `git rebase`
+
+# Clean up lengthy commit history with `git rebase`
 During my feature branch workflow, it's very often to have several commits as a result of code review or 
 I have to leave the task till the next day.
 
@@ -102,5 +103,5 @@ f f98b90a Remove unused vanilla js
 
 **Fifth**, you may want to pull the latest version of your main branch then merge `feature-branch`
 
-### Conclusion
+# Conclusion
 `git commit --amend --no-edit` and `git rebase --keep-base -i main` are two of most used Git command I take advantage of during feature branch workflow. Hope they can help you.
