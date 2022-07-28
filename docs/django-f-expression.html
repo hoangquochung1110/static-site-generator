@@ -71,102 +71,119 @@
   </aside>
   <h1>Upgrade django queries with F() expression</h1>
   <content>
-    <h1 id="tl-dr">TL; DR</h1>
-<p>When you reference to a model field for read/write operations, let's use F() expression
-- Query of multiple objects: reduce queries
-- A single object: no much difference in query time but it update value relative to what it is in the database -&gt; avoid dirty read -&gt; for example:
-- Need to refresh_from_db after query because Python only knows about expression instead of actual result</p>
+    <h3 id="tl-dr">TL; DR</h3>
+<p>When you reference to a model field for read/write operations, let's use F() expression</p>
+<ul>
+<li>Query of multiple objects: reduce number of queries</li>
+<li>A single object: no much difference in query time but it update value relative to what it is in the database -&gt; avoid race condition or <a href="https://ebrary.net/64771/computer_science/dirty_writes">dirty read</a>.</li>
+<li>Need to refresh_from_db after query because Python only knows about SQL expression instead of actual result.</li>
+</ul>
 <h3 id="bulk-update">Bulk update</h3>
-<p>Suppose the government in your country raise tax rate by 5% which makes you have to raise your listing product price by 20%. What would your django query look like ?
-````
-class Product(models.Model):</p>
-<pre><code>name = models.TextField()
-price = models.DecimalField()
-in_stock = models.IntegerField(
-    help_text="Number of items available in inventory"
-)
-</code></pre>
-<pre><code>
-A naive implementation of updating multiple products may be like this:
-</code></pre>
-<p>products = Product.objects.all()
-for product in products:
-    product.price =* 1.2
-    product.save()</p>
-<pre><code>
-Think of it more carefully, we can realize that the new price is relative to the current price no matter what it is. Intuitively, we want to reference to `price` field of `Product` model when running update process.
+<p>Suppose the government in your country raise tax rate by 5% which makes you have to raise your listing product price by 20%. What would your django query look like ?</p>
+<pre class="lang-python3"><span class="k">class</span> <span class="nc">Product</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
 
-And here it comes, F() expression. The Django official doc states:
-&gt; An F() object represents the value of a model field, transformed value of a model field, or annotated column. 
-&gt; It makes it possible to refer to model field values and perform database operations using them without actually having to pull them out of the database into Python memory.
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">()</span>
+    <span class="n">in_stock</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="s2">&quot;Number of items available in inventory&quot;</span>
+    <span class="p">)</span>
+</pre>
+<p>A naive implementation of updating multiple products may be like this:</p>
+<pre class="lang-python3"><span class="n">products</span> <span class="o">=</span> <span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">products</span><span class="p">:</span>
+    <span class="n">product</span><span class="o">.</span><span class="n">price</span> <span class="o">=*</span> <span class="mf">1.2</span>
+    <span class="n">product</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre>
+<p>Think of it more carefully, we can realize that the new price is relative to the current price no matter what it is. Intuitively, we want to reference to <code>price</code> field of <code>Product</code> model when running update process.</p>
+<p>And here it comes, F() expression. The Django official doc states:</p>
+<blockquote>
+<p>An F() object represents the value of a model field, transformed value of a model field, or annotated column. 
+It makes it possible to refer to model field values and perform database operations using them without actually having to pull them out of the database into Python memory.</p>
+</blockquote>
+<p>Let's try the problem with <code>F()</code> and <code>update()</code> queryset method</p>
+<pre class="lang-python3"><span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">F</span>
 
-Let's try the problem with `F()` and `update()` queryset method
+<span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">price</span><span class="o">=</span><span class="n">F</span><span class="p">(</span><span class="s2">&quot;price&quot;</span><span class="p">)</span><span class="o">*</span><span class="mf">1.2</span><span class="p">)</span>
+</pre>
+<p>Although the above query looks like a normal Python assignment of value to an instance attribute, in fact it is a SQL expression. This expression instruct database to multiply the price field in database by 120 percent.</p>
+<p>New price value is based on current price value so we don't need to load it into Python memory. That's why F() comes into play.</p>
+<h3 id="update-a-single-object">Update a single object</h3>
+<p>Let's say you want to update <code>in_stock</code> field after every order payment is completed.</p>
+<p>A naive implementation may be like this:</p>
+<pre class="lang-python3"><span class="k">def</span> <span class="nf">process_payment</span><span class="p">(</span><span class="n">product</span><span class="p">:</span> <span class="n">Product</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">():</span>
+        <span class="n">payment</span> <span class="o">=</span> <span class="n">Payment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="n">product</span><span class="p">)</span>
+        <span class="n">product</span><span class="o">.</span><span class="n">in_stock</span> <span class="o">=</span> <span class="n">product</span><span class="o">.</span><span class="n">in_stock</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">product</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">update_fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;in_stock&quot;</span><span class="p">])</span>
+</pre>
+<p>So what's the problem ?
+Let's imagine there are multiple users trying to make orders for a product, the scenario looks like this:</p>
+<table class="table">
+<thead>
+<tr>
+<th>Process 1</th>
+<th>Process 2</th>
+<th>in_stock</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Select <code>in_stock</code> -&gt; 5</td>
+<td></td>
+<td>5</td>
+</tr>
+<tr>
+<td></td>
+<td>Select <code>in_stock</code> -&gt; 5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Update <code>in_stock</code> = 5-1</td>
+<td></td>
+<td>4</td>
+</tr>
+<tr>
+<td></td>
+<td>Update <code>in_stock</code> = 5-1</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>In this case, two processes are updating <code>product.in_stock</code> at the same time but <code>in_stock</code> value just decrease by 1. That's incorrect.</p>
+<p>The main issue is that you decrease <code>in_stock</code> based on what you fetched, what if you give database an instruction to update <code>in_stock</code> based on what is currently stored ?</p>
+<pre class="lang-python3"><span class="k">def</span> <span class="nf">process_payment</span><span class="p">(</span><span class="n">product</span><span class="p">:</span> <span class="n">Product</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">():</span>
+        <span class="n">payment</span> <span class="o">=</span> <span class="n">Payment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="n">product</span><span class="p">)</span>
+        <span class="n">product</span><span class="o">.</span><span class="n">in_stock</span> <span class="o">=</span> <span class="n">F</span><span class="p">(</span><span class="s2">&quot;in_stock&quot;</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">product</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">update_fields</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;in_stock&quot;</span><span class="p">]])</span>
+</pre>
+<p>The difference between two approach is quite small but let's look at SQL generated by update commands:</p>
+<p>The naive approach:</p>
+<pre class="lang-sql"><span class="k">UPDATE</span><span class="w"> </span><span class="n">product_product</span><span class="w"></span>
+<span class="k">SET</span><span class="w"> </span><span class="n">in_stock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">262</span><span class="p">;</span><span class="w"></span>
+</pre>
+<p>This will decrease the quantity = 4 regardless of the current value of in_stock in database</p>
+<p>The F() approach:</p>
+<pre class="lang-sql"><span class="k">UPDATE</span><span class="w"> </span><span class="n">product_product</span><span class="w"></span>
+<span class="k">SET</span><span class="w"> </span><span class="n">in_stock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in_stock</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">262</span><span class="p">;</span><span class="w"></span>
+</pre>
+<p>The quantity of product with id 262 will reduce by 1 and not set by a fixed value. This is how to use an F expression to solve the race condition problem.</p>
+<h3 id="note">Note</h3>
+<p>The F() object which is assign to model field persist after saving model instance and will be applied on each <code>save()</code> so we need to <code>refresh_from_db</code> to get the updated instace. </p>
+<p>Try to read an instance without refreshing from database may lead to unexpected result:</p>
+<pre class="lang-python3"><span class="n">In</span> <span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="n">product</span> <span class="o">=</span> <span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">262</span><span class="p">)</span>
 
-</code></pre>
-<p>from django.db.models import F</p>
-<p>Product.objects.update(price=F("price")*1.2)</p>
-<pre><code>Although the above query looks like a normal Python assignment of value to an instance attribute, in fact it is a SQL expression. This expression instruct database to increase the price field in database by 1.
+<span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="n">product</span><span class="o">.</span><span class="n">in_stock</span> <span class="o">=</span> <span class="n">F</span><span class="p">(</span><span class="s2">&quot;in_stock&quot;</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
 
-New price value is based on current price value so we don't need to load it into Python memory. That's why F() comes into play.
+<span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="n">product</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
-### Update a single object
-Let's say you want to update `in_stock` field after every order payment is completed.
+<span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="n">product</span><span class="o">.</span><span class="n">in_stock</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">CombinedExpression</span><span class="p">:</span> <span class="n">F</span><span class="p">(</span><span class="n">in_stock</span><span class="p">)</span> <span class="o">-</span> <span class="n">Value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span>
 
-A naive implementation may be like this
-</code></pre>
-<p>def process_payment(product: Product):
-    with transaction.atomic():
-        payment = Payment.objects.create(product=product)
-        product.in_stock = product.in_stock - 1
-        product.save(update_fields=["in_stock"])</p>
-<pre><code>
-So what's the problem ?
-Let's imagine there are multiple users trying to make orders for a product, the scenario looks like this:
-| Process 1               | Process 2                |  in_stock    |
-| -----------             | -----------              | -----------
-| Select `in_stock` -&gt; 5  |                          |  5
-|                         | Select `in_stock` -&gt; 5   |  5
-| Update `in_stock` = 5-1|                          |  4
-|                         | Update `in_stock` = 5-1 |  4
-
-In this case, two processes are updating `product.in_stock` at the same time but `in_stock` value just decrease by 1. That's incorrect.
-
-The main issue is that you decrease `in_stock` based on what you fetched, what if you give database an instruction to update `in_stock` based on what is currently stored ?
-
-</code></pre>
-<p>def process_payment(product: Product):
-    with transaction.atomic():
-        payment = Payment.objects.create(product=product)
-        product.in_stock = F("in_stock") - 1
-        product.save(update_fields=["in_stock"]])</p>
-<pre><code>
-The difference between two approach is quite small but let's look at SQL generated by update commands:
-- The naive approach:
-</code></pre>
-<p>UPDATE product_product
-SET in_stock = 4
-WHERE id = 262;</p>
-<pre><code>This will decrease the quantity = 4 regardless of the current value of in_stock in database
-
-- The F() approach:
-</code></pre>
-<p>UPDATE product_product
-SET in_stock = in_stock + 1
-WHERE id = 262;</p>
-<pre><code>The quantity of product with id 262 will reduce by 1 and not set by a fixed value. This is how to use an F expression to solve the race condition problem.
-
-### Note
-The F() object which is assign to model field persist after saving model instance and will be applied on each `save()` so we need to `refresh_from_db` to get the updated instace. 
-
-Try to read an instance without refreshing from database may lead to unexpected result:
-</code></pre>
-<p>In [12]: product = Product.objects.get(id=262)</p>
-<p>In [13]: product.in_stock = F("in_stock") - 1</p>
-<p>In [14]: product.save()</p>
-<p>In [15]: product.n_vets
-Out[15]: <CombinedExpression: F(in_stock) - Value(1)></p>
-<p>In [16]: 
-```</p>
+<span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> 
+</pre>
 <h3 id="summary">Summary</h3>
 <p>Throughout the article, we pointed out two use cases of F() expression
 - Reduce the number of queries some operations require by getting the database, rather than Python, to do work.
@@ -196,7 +213,7 @@ Out[15]: <CombinedExpression: F(in_stock) - Value(1)></p>
         </div>
         <div class="col-md">
           <p class="disclaimer">
-            &copy; 2018 &mdash; 2020<br>
+            &copy; 2022 &mdash; 2022<br>
             All text is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> license<br>
             All code is available under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> license
           </p>
