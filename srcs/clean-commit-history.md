@@ -1,6 +1,7 @@
 ---
 title: Do you have readable Git commit history ?
 date: 2022-05-06 10:00
+description: Advance uses of git commit and git rebase in feature branch workflow.
 ---
 
 

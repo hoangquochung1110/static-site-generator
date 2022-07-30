@@ -11,7 +11,7 @@
   <title>Upgrade django queries with F() expression - Hung Hoang</title>
 
   <!-- RSS -->
-  <link rel="alternate" type="application/rss+xml" href="" />
+  <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
 
   <!-- Bootstrap core CSS -->
   <link href="./static/bootstrap.min.css" rel="stylesheet">
@@ -50,12 +50,15 @@
 <meta property="twitter:title" content="Upgrade django queries with F() expression - Hung Hoang">
 
 
+<meta property="og:description" content="use cases of F() expression in Django to reduce number of queries and avoid race condition.">
+<meta property="twitter:description" content="use cases of F() expression in Django to reduce number of queries and avoid race condition.">
 
 
 
 
 
-<meta property="og:url" content="">
+
+<meta property="og:url" content="/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="">
 
@@ -91,7 +94,7 @@
 <p>A naive implementation of updating multiple products may be like this:</p>
 <pre class="lang-python3"><span class="n">products</span> <span class="o">=</span> <span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">products</span><span class="p">:</span>
-    <span class="n">product</span><span class="o">.</span><span class="n">price</span> <span class="o">=*</span> <span class="mf">1.2</span>
+    <span class="n">product</span><span class="o">.</span><span class="n">price</span> <span class="o">*=</span> <span class="mf">1.2</span>
     <span class="n">product</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 </pre>
 <p>Think of it more carefully, we can realize that the new price is relative to the current price no matter what it is. Intuitively, we want to reference to <code>price</code> field of <code>Product</code> model when running update process.</p>

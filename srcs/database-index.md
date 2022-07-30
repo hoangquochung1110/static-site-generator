@@ -1,6 +1,7 @@
 ---
 title: Database indexing in a nutshell with B+tree and Hash in comparison
 date: 2022-04-25 10:00
+description: introduction to b-tree and hash indexing.
 ---
 People is often said that indexing is a go-to technique to process efficiently queries in database. This post is for summarizing what database index is and revisiting hash and B+Tree.
 
