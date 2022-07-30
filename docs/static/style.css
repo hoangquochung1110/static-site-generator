@@ -58,14 +58,15 @@ nav dt {
   margin-top: 1.2rem;
 }
 
-nav dl a,
-nav dl a:focus {
+nav dl a {
   color: #41b990;
   text-decoration: none;
   font-size: 120%;
 }
 
-nav dl a:hover {
+nav dl a:hover,
+nav dl a:focus {
+  color: #3a846b;
   text-decoration: none;
 }
 
