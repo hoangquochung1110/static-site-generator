@@ -9,6 +9,13 @@
 
   
   <item>
+    <title>Commit message with title and body with one-liner git command</title>
+    <link>https://hoangquochung1110.github.io/static-site-generator/git-commit-title-body-one-liner</link>
+    <guid>https://hoangquochung1110.github.io/static-site-generator/git-commit-title-body-one-liner</guid>
+    <pubDate>2022-08-11 15:00</pubDate>
+  </item>
+  
+  <item>
     <title>Upgrade django queries with F() expression</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/django-f-expression</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/django-f-expression</guid>
