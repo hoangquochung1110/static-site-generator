@@ -77,8 +77,8 @@
     <h3 id="tl-dr">TL; DR</h3>
 <p>When you reference to a model field for read/write operations, let's use F() expression</p>
 <ul>
-<li>Query of multiple objects: reduce number of queries</li>
-<li>A single object: no much difference in query time but it update value relative to what it is in the database -&gt; avoid race condition or <a href="https://ebrary.net/64771/computer_science/dirty_writes">dirty read</a>.</li>
+<li>Help refer to model field directly in the database, no need to load it into Python memory -&gt; save queries.</li>
+<li>Can help avoid race condition or <a href="https://ebrary.net/64771/computer_science/dirty_writes">dirty read</a>.</li>
 <li>Need to refresh_from_db after query because Python only knows about SQL expression instead of actual result.</li>
 </ul>
 <h3 id="bulk-update">Bulk update</h3>
@@ -97,8 +97,9 @@
     <span class="n">product</span><span class="o">.</span><span class="n">price</span> <span class="o">*=</span> <span class="mf">1.2</span>
     <span class="n">product</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 </pre>
+<p>In this case, you are doing <code>SELECT price FROM product</code> then <code>UPDATE product SET price = new_value WHERE condition</code> each record. It means 2 query (1 for READ and 1 for WRITE) for each object.</p>
 <p>Think of it more carefully, we can realize that the new price is relative to the current price no matter what it is. Intuitively, we want to reference to <code>price</code> field of <code>Product</code> model when running update process.</p>
-<p>And here it comes, F() expression. The Django official doc states:</p>
+<p>And here it comes, F() expression. <a href="https://docs.djangoproject.com/en/4.1/ref/models/expressions/#f-expressions">The Django official doc</a> states:</p>
 <blockquote>
 <p>An F() object represents the value of a model field, transformed value of a model field, or annotated column. 
 It makes it possible to refer to model field values and perform database operations using them without actually having to pull them out of the database into Python memory.</p>
@@ -188,9 +189,11 @@ Let's imagine there are multiple users trying to make orders for a product, the 
 <span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> 
 </pre>
 <h3 id="summary">Summary</h3>
-<p>Throughout the article, we pointed out two use cases of F() expression
-- Reduce the number of queries some operations require by getting the database, rather than Python, to do work.
-- Avoid race condition when two process retrieve and update the same instance.</p>
+<p>Throughout the article, we pointed out two use cases of F() expression:</p>
+<ul>
+<li>Reduce the number of queries some operations require by getting the database, rather than Python, to do work.</li>
+<li>Avoid race condition when two process retrieve and update the same instance.</li>
+</ul>
   </content>
  
   <!-- <aside class="support-me">

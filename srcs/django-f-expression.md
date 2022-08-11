@@ -7,8 +7,8 @@ description: use cases of F() expression in Django to reduce number of queries a
 ### TL; DR
 When you reference to a model field for read/write operations, let's use F() expression
 
-- Query of multiple objects: reduce number of queries
-- A single object: no much difference in query time but it update value relative to what it is in the database -> avoid race condition or [dirty read](https://ebrary.net/64771/computer_science/dirty_writes).
+- Help refer to model field directly in the database, no need to load it into Python memory -> save queries.
+- Can help avoid race condition or [dirty read](https://ebrary.net/64771/computer_science/dirty_writes).
 - Need to refresh_from_db after query because Python only knows about SQL expression instead of actual result.
 
 ### Bulk update
@@ -34,9 +34,11 @@ for product in products:
     product.save()
 ```
 
+In this case, you are doing `SELECT price FROM product` then `UPDATE product SET price = new_value WHERE condition` each record. It means 2 query (1 for READ and 1 for WRITE) for each object.
+
 Think of it more carefully, we can realize that the new price is relative to the current price no matter what it is. Intuitively, we want to reference to `price` field of `Product` model when running update process.
 
-And here it comes, F() expression. The Django official doc states:
+And here it comes, F() expression. [The Django official doc](https://docs.djangoproject.com/en/4.1/ref/models/expressions/#f-expressions) states:
 > An F() object represents the value of a model field, transformed value of a model field, or annotated column. 
 > It makes it possible to refer to model field values and perform database operations using them without actually having to pull them out of the database into Python memory.
 
@@ -107,7 +109,7 @@ WHERE id = 262;
 The quantity of product with id 262 will reduce by 1 and not set by a fixed value. This is how to use an F expression to solve the race condition problem.
 
 ### Note
-The F() object which is assign to model field persist after saving model instance and will be applied on each `save()` so we need to `refresh_from_db` to get the updated instace. 
+The F() object which is assign to model field persist after saving model instance and will be applied on each `save()` so we need to `refresh_from_db` to get the updated instance. 
 
 Try to read an instance without refreshing from database may lead to unexpected result:
 
@@ -125,6 +127,7 @@ In [16]:
 ```
 
 ### Summary
-Throughout the article, we pointed out two use cases of F() expression
+Throughout the article, we pointed out two use cases of F() expression:
+
 - Reduce the number of queries some operations require by getting the database, rather than Python, to do work.
 - Avoid race condition when two process retrieve and update the same instance.
