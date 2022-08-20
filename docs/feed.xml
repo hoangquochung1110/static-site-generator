@@ -3,50 +3,50 @@
 <channel>
   <title></title>
   <description>Hung Hoang' Blog</description>
-  <link>https://hoangquochung1110.github.io/static-site-generator</link>
-  <atom:link href="https://hoangquochung1110.github.io/static-site-generator/feed.xml"
+  <link>https://www.hung.codes</link>
+  <atom:link href="https://www.hung.codes/feed.xml"
     rel="self" type="application/rss+xml" />
 
   
   <item>
     <title>Commit message with title and body with one-liner git command</title>
-    <link>https://hoangquochung1110.github.io/static-site-generator/git-commit-title-body-one-liner</link>
-    <guid>https://hoangquochung1110.github.io/static-site-generator/git-commit-title-body-one-liner</guid>
+    <link>https://www.hung.codes/git-commit-title-body-one-liner</link>
+    <guid>https://www.hung.codes/git-commit-title-body-one-liner</guid>
     <pubDate>2022-08-11 15:00</pubDate>
   </item>
   
   <item>
     <title>Upgrade django queries with F() expression</title>
-    <link>https://hoangquochung1110.github.io/static-site-generator/django-f-expression</link>
-    <guid>https://hoangquochung1110.github.io/static-site-generator/django-f-expression</guid>
+    <link>https://www.hung.codes/django-f-expression</link>
+    <guid>https://www.hung.codes/django-f-expression</guid>
     <pubDate>2022-07-27 17:00</pubDate>
   </item>
   
   <item>
     <title>Do you have readable Git commit history ?</title>
-    <link>https://hoangquochung1110.github.io/static-site-generator/clean-commit-history</link>
-    <guid>https://hoangquochung1110.github.io/static-site-generator/clean-commit-history</guid>
+    <link>https://www.hung.codes/clean-commit-history</link>
+    <guid>https://www.hung.codes/clean-commit-history</guid>
     <pubDate>2022-05-06 10:00</pubDate>
   </item>
   
   <item>
     <title>Database indexing in a nutshell with B+tree and Hash in comparison</title>
-    <link>https://hoangquochung1110.github.io/static-site-generator/database-index</link>
-    <guid>https://hoangquochung1110.github.io/static-site-generator/database-index</guid>
+    <link>https://www.hung.codes/database-index</link>
+    <guid>https://www.hung.codes/database-index</guid>
     <pubDate>2022-04-25 10:00</pubDate>
   </item>
   
   <item>
     <title>Manage State in ReactJS with to-do app</title>
-    <link>https://hoangquochung1110.github.io/static-site-generator/react-todo-list</link>
-    <guid>https://hoangquochung1110.github.io/static-site-generator/react-todo-list</guid>
+    <link>https://www.hung.codes/react-todo-list</link>
+    <guid>https://www.hung.codes/react-todo-list</guid>
     <pubDate>2022-03-10 10:00</pubDate>
   </item>
   
   <item>
     <title>How Django meets htmx &amp;#58; A quick tour of modern server side rendering.</title>
-    <link>https://hoangquochung1110.github.io/static-site-generator/django-htmx-intro</link>
-    <guid>https://hoangquochung1110.github.io/static-site-generator/django-htmx-intro</guid>
+    <link>https://www.hung.codes/django-htmx-intro</link>
+    <guid>https://www.hung.codes/django-htmx-intro</guid>
     <pubDate>2022-03-10 10:00</pubDate>
   </item>
   
