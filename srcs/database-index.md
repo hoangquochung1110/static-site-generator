@@ -2,7 +2,9 @@
 title: Database indexing in a nutshell with B+tree and Hash in comparison
 date: 2022-04-25 10:00
 description: introduction to b-tree and hash indexing.
+category: blog
 ---
+
 People is often said that indexing is a go-to technique to process efficiently queries in database. This post is for summarizing what database index is and revisiting hash and B+Tree.
 
 Index is a data structure that organizes records to optimize certain kinds of retrieval operations. We may create index on a field of the table then retrieve all records that satisfy search conditions on `search-key` field. Without index, our query would end up scanning linearly the entire content of the table to fetch only one or a few records.

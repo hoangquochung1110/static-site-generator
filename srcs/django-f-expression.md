@@ -2,6 +2,7 @@
 title: Upgrade django queries with F() expression
 date: 2022-07-27 17:00
 description: use cases of F() expression in Django to reduce number of queries and avoid race condition.
+category: blog
 ---
 
 ### TL; DR

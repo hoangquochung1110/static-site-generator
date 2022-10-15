@@ -2,6 +2,7 @@
 title: Manage State in ReactJS with to-do app
 date: 2022-03-10 10:00
 description: Tutorial to make a React to-do app with live deployment
+category: blog
 ---
 
 In this post, let's examine how to use useState to manage state in a react component. State is one of two major pillars of React, it's simply what we use to handle values that change over time, the value of a counter for instance.
