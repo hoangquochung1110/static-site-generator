@@ -1,6 +1,6 @@
 import argparse
 import pathlib
-FileNotFoundError
+
 parser = argparse.ArgumentParser()
 parser.add_argument("article")
 args = parser.parse_args()

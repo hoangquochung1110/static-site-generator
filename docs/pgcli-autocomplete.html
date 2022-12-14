@@ -8,7 +8,7 @@
   <meta name="author" content="Hung Hoang">
   <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
 
-  <title>Blog - Hung Hoang</title>
+  <title>Ease Postgres SQL queries with auto-completion and syntax-highlighting - Hung Hoang</title>
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
@@ -46,75 +46,47 @@
   <!-- End Google Console Verify-->
 
   
-<meta name="description" content="Home page"/>
+<meta property="og:title" content="Ease Postgres SQL queries with auto-completion and syntax-highlighting - Hung Hoang">
+<meta property="twitter:title" content="Ease Postgres SQL queries with auto-completion and syntax-highlighting - Hung Hoang">
+
+
+<meta name="description" content="This is a postgres client that does auto-completion and syntax highlighting.">
+<meta property="og:description" content="This is a postgres client that does auto-completion and syntax highlighting.">
+<meta property="twitter:description" content="This is a postgres client that does auto-completion and syntax highlighting.">
+
+
+
+
+
+
+<meta property="og:url" content="/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
 
 </head>
 <body>
   <div class="container">
 
     
-<nav>
-  <h1>Blog posts & articles by Hung Hoang <a class="rss" href="/feed.xml" target="_blank" title="RSS feed"><i class="fas fa-rss"></i></a></h1>
-  <dl class="posts-list">
-  
-    <a href="./pgcli-autocomplete">
-      <dt>Ease Postgres SQL queries with auto-completion and syntax-highlighting</dt>
-      <dd>
-        <time>2022-12-14 22:00</time>
-      </dd>
-    </a>
-  
-    <a href="./vscode-cheatsheet">
-      <dt>My favorite Visual Studio Code cheatsheet for Mac</dt>
-      <dd>
-        <time>2022-10-15 10:00</time>
-      </dd>
-    </a>
-  
-    <a href="./git-commit-title-body-one-liner">
-      <dt>Commit message with title and body with one-liner git command</dt>
-      <dd>
-        <time>2022-08-11 15:00</time>
-      </dd>
-    </a>
-  
-    <a href="./django-f-expression">
-      <dt>Upgrade django queries with F() expression</dt>
-      <dd>
-        <time>2022-07-27 17:00</time>
-      </dd>
-    </a>
-  
-    <a href="./clean-commit-history">
-      <dt>Do you have readable Git commit history ?</dt>
-      <dd>
-        <time>2022-05-06 10:00</time>
-      </dd>
-    </a>
-  
-    <a href="./database-index">
-      <dt>Database indexing in a nutshell with B+tree and Hash in comparison</dt>
-      <dd>
-        <time>2022-04-25 10:00</time>
-      </dd>
-    </a>
-  
-    <a href="./react-todo-list">
-      <dt>Manage State in ReactJS with to-do app</dt>
-      <dd>
-        <time>2022-03-10 10:00</time>
-      </dd>
-    </a>
-  
-    <a href="./django-htmx-intro">
-      <dt>How Django meets htmx &#58; A quick tour of modern server side rendering.</dt>
-      <dd>
-        <time>2022-03-10 10:00</time>
-      </dd>
-    </a>
-  
-  </dl>
-</nav>
+<article>
+  <aside class="timestamp">
+    <time>Posted by Hung Hoang on 2022-12-14 22:00</time>
+    · <a href="./">view all posts</a>
+  </aside>
+  <h1>Ease Postgres SQL queries with auto-completion and syntax-highlighting</h1>
+  <content>
+    <p>Recently, I've just explored some wonderful postgres CLI extension which makes data query much comfortable.
+One of my favorite one is <a href="https://github.com/dbcli/pgcli">pgcli</a> - a postgres client that does auto-completion and syntax highlighting.</p>
+<p>To install on macOS with Homebrew:</p>
+<pre class="lang-shell">brew install pgcli
+</pre>
+<p>Connect to your postgres db:</p>
+<pre class="lang-shell">pgcli -h &lt;HOST_ADDRESS&gt; -d &lt;DB_NAME&gt; -U &lt;USERNAME&gt; -W
+</pre>
+<p>My quick demo:
+<img alt="screenshots/pgcli.gif" src="https://media.giphy.com/media/qmRqWCQrUdtmXtf0Lj/giphy.gif" /></p>
+  </content>
+</article>
 
 
     <footer>
