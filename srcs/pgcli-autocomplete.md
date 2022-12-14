@@ -5,7 +5,7 @@ description: This is a postgres client that does auto-completion and syntax high
 category: blog
 ---
 
-Recently, I've just explored some wonderful postgres CLI extension which makes data query much comfortable.
+Recently, I've just explored some wonderful postgres CLI extensions/plugins which make data query much comfortable.
 One of my favorite one is [pgcli](https://github.com/dbcli/pgcli) - a postgres client that does auto-completion and syntax highlighting.
 
 To install on macOS with Homebrew:
