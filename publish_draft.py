@@ -1,18 +1,33 @@
-import argparse
 import pathlib
+from simple_term_menu import TerminalMenu
 
-parser = argparse.ArgumentParser()
-parser.add_argument("article")
-args = parser.parse_args()
 
-def move_draft_to_srcs(article: str):
-    srcs_path = pathlib.Path("./srcs")
-    root_path = pathlib.Path(".")
+root_path = pathlib.Path(__file__).parent
+drafts_path = root_path / "drafts"
+srcs_path = root_path / "srcs"
+
+
+def menu():
+    posts: pathlib.PosixPath = list(drafts_path.glob("*.md"))
+    options = [post.name for post in posts]
+    draft_menu = TerminalMenu(options)
+    draft_menu._init_term()
     try:
-        draft_article = root_path / article
+        while True:
+            menu_entry_index = draft_menu.show()
+            move_draft_to_srcs(options[menu_entry_index])
+    except KeyboardInterrupt:
+        import sys
+        sys.exit(0)
+
+    
+def move_draft_to_srcs(article: str):
+    try:
+        draft_article = drafts_path / article
     except FileNotFoundError:
         print(f"No such file name in drafts directory: {article}")
     draft_article.rename(srcs_path / draft_article.name)
 
-move_draft_to_srcs(args.article)
-# TODO: auto build after moving to /srcs/
+
+if __name__ == "__main__":
+    menu()

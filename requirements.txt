@@ -5,3 +5,5 @@ python-frontmatter
 # Syntax highlighting
 pygments
 pymdown-extensions
+# create menu for interactive command line
+simple-term-menu==1.5.2
