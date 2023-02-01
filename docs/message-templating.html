@@ -8,7 +8,7 @@
   <meta name="author" content="Hung Hoang">
   <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
 
-  <title>My quick demo of message templating - Hung Hoang</title>
+  <title>Application of Regex in my message templating webapp - Hung Hoang</title>
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
@@ -46,8 +46,8 @@
   <!-- End Google Console Verify-->
 
   
-<meta property="og:title" content="My quick demo of message templating - Hung Hoang">
-<meta property="twitter:title" content="My quick demo of message templating - Hung Hoang">
+<meta property="og:title" content="Application of Regex in my message templating webapp - Hung Hoang">
+<meta property="twitter:title" content="Application of Regex in my message templating webapp - Hung Hoang">
 
 
 <meta name="description" content="Short demo of regex in my messaging project.">
@@ -73,14 +73,14 @@
     <time>Posted by Hung Hoang on 2023-01-03 14:00</time>
     · <a href="./">view all posts</a>
   </aside>
-  <h1>My quick demo of message templating</h1>
+  <h1>Application of Regex in my message templating webapp</h1>
   <content>
-    <p>Last year, we started building a messaging system/webapp which delivers customized sms and emails to receivers at a given time.
-The project has released into production in last month (2023 Jan), I'd like to take note of my implementation of Regex in a real-life project.</p>
+    <p>Last year, I started building a messaging system/webapp which generates dynamic text messages with personalized content which helps Veterinarian clinics send appointments or announcement to their clients at a given time.</p>
+<p>The project has released into production in last month (2023 Jan), I'd like to take note of my implementation of Regex in a real-life project.</p>
 <h2 id="introduction">Introduction</h2>
 <h3 id="template">Template</h3>
-<p>Template is an entity within the system which can be simply a plain text.
-And in templates, we define <code>placeholders</code>, when we send template (message) to receiver, we may want to replace <code>placeholders</code> with actual values (receiver's name, mobile phones, etc).</p>
+<p>Template is an entity within the system which is defined as a blueprint for a message and it includes
+<code>placeholders</code>, for dynamic data that can be filled in at runtime.</p>
 <p>For example, a template may look like this</p>
 <pre class="lang-python3"><span class="n">template</span> <span class="o">=</span> <span class="s2">&quot;Hello &lt;ClientName&gt;. This is &lt;ClinicName&gt;. We wanted to follow-up with you to confirm &lt;PatientName&gt;&#39;s appointment on tomorrow. Please call &lt;LocationPhone&gt; if you need to reschedule.</span><span class="se">\n</span><span class="s2">&quot;</span>
 </pre>

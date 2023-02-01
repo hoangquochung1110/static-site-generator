@@ -1,25 +1,24 @@
 ---
-title: My quick demo of message templating
+title: Application of Regex in my message templating webapp
 date: 2023-01-03 14:00
 description: Short demo of regex in my messaging project.
 category: python
 ---
 
-Last year, we started building a messaging system/webapp which delivers customized sms and emails to receivers at a given time.
+Last year, I started building a messaging system/webapp which generates dynamic text messages with personalized content which helps Veterinarian clinics send appointments or announcement to their clients at a given time.
+
 The project has released into production in last month (2023 Jan), I'd like to take note of my implementation of Regex in a real-life project.
 
 ## Introduction
 ### Template
 
-Template is an entity within the system which can be simply a plain text.
-And in templates, we define `placeholders`, when we send template (message) to receiver, we may want to replace `placeholders` with actual values (receiver's name, mobile phones, etc).
-
+Template is an entity within the system which is defined as a blueprint for a message and it includes
+`placeholders`, for dynamic data that can be filled in at runtime.
 
 For example, a template may look like this
 ```python
 template = "Hello <ClientName>. This is <ClinicName>. We wanted to follow-up with you to confirm <PatientName>'s appointment on tomorrow. Please call <LocationPhone> if you need to reschedule.\n"
 ```
-
 
 And the actual message we want receiver (client) to see:
 
