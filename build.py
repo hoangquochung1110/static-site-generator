@@ -84,7 +84,7 @@ def write_posts() -> Sequence[frontmatter.Post]:
 def write_pygments_style_sheet():
     css = highlighting.get_style_css(witchhazel.WitchHazelStyle)
     pathlib.Path("./docs/static/pygments.css").write_text(css)
-
+    pathlib.Path("./docs/til/static/pygments.css").write_text(css)
 
 def write_index(posts: Sequence[frontmatter.Post]):
     """Render the index page."""
