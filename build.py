@@ -32,7 +32,8 @@ markdown_ = markdown.Markdown(
 
 def get_sources() -> Iterator[pathlib.Path]:
     """Get all markdown files."""
-    return pathlib.Path('.').glob('srcs/*.md')
+    srcs_path = pathlib.Path("./srcs")
+    return srcs_path.rglob('*.md')
 
 def parse_source(source: pathlib.Path) -> frontmatter.Post:
     """Can get content of the file by post.content"""
@@ -56,7 +57,10 @@ def write_post(post: frontmatter.Post, content: str):
         path = pathlib.Path("./docs/{}/index.html".format(post["stem"]))
         path.parent.mkdir(parents=True, exist_ok=True)
     else:
-        path = pathlib.Path("./docs/{}.html".format(post["stem"]))
+        if post.get("til", False):
+            path = pathlib.Path("./docs/til/{}.html".format(post["stem"]))
+        else:
+            path = pathlib.Path("./docs/{}.html".format(post["stem"]))
     
     template = jinja_env.get_template("post.html")
     rendered = template.render(post=post, content=content)
