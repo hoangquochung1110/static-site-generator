@@ -9,6 +9,13 @@
 
   
   <item>
+    <title>My quick demo of message templating</title>
+    <link>https://www.hung.codes/message-templating</link>
+    <guid>https://www.hung.codes/message-templating</guid>
+    <pubDate>2023-01-03 14:00</pubDate>
+  </item>
+  
+  <item>
     <title>Ease Postgres SQL queries with auto-completion and syntax-highlighting</title>
     <link>https://www.hung.codes/pgcli-autocomplete</link>
     <guid>https://www.hung.codes/pgcli-autocomplete</guid>
