@@ -30,10 +30,10 @@ markdown_ = markdown.Markdown(
     ]
 )
 
-def get_sources() -> Iterator[pathlib.Path]:
+def get_sources(path: str = "./srcs") -> Iterator[pathlib.Path]:
     """Get all markdown files."""
-    srcs_path = pathlib.Path("./srcs")
-    return srcs_path.rglob('*.md')
+    srcs_path = pathlib.Path(path)
+    return srcs_path.glob('*.md')
 
 def parse_source(source: pathlib.Path) -> frontmatter.Post:
     """Can get content of the file by post.content"""
@@ -80,6 +80,31 @@ def write_posts() -> Sequence[frontmatter.Post]:
 
     return posts
 
+def write_til(post: frontmatter.Post, content: str):
+    """Compose TIL articles as html."""
+    if post.get("legacy_url"):
+        path = pathlib.Path("./docs/{}/index.html".format(post["stem"]))
+        path.parent.mkdir(parents=True, exist_ok=True)
+    else:
+            path = pathlib.Path("./docs/til/{}.html".format(post["stem"]))
+    
+    template = jinja_env.get_template("post.html")
+    rendered = template.render(post=post, content=content)
+    path.write_text(rendered)
+
+def write_tils() -> Sequence[frontmatter.Post]:
+    """Get TIL articles and convert md into html."""
+    posts = []
+    sources = get_sources("./srcs/til")
+
+    for source in sources:
+        post = parse_source(source)
+        content = render_markdown(post.content)
+        post["stem"] = source.stem
+        write_til(post, content)
+        posts.append(post)
+    
+    return posts
 
 def write_pygments_style_sheet():
     css = highlighting.get_style_css(witchhazel.WitchHazelStyle)
@@ -94,6 +119,13 @@ def write_index(posts: Sequence[frontmatter.Post]):
     rendered = template.render(posts=posts)
     path.write_text(rendered)
 
+def write_til_index(posts: Sequence[frontmatter.Post]):
+    """Render the til page."""
+    posts = sorted(posts, key=lambda post: post["date"], reverse=True)
+    path = pathlib.Path("./docs/til/index.html")
+    template = jinja_env.get_template("til.html")
+    rendered = template.render(posts=posts)
+    path.write_text(rendered)
 
 def write_rss(posts: Sequence[frontmatter.Post]):
     posts = sorted(posts, key=lambda post: post["date"], reverse=True)
@@ -105,9 +137,11 @@ def write_rss(posts: Sequence[frontmatter.Post]):
 
 def main():
     write_pygments_style_sheet()
-    posts = write_posts()
-    write_index(posts)
-    write_rss(posts)
+    articles = write_posts()
+    write_index(articles)
+    tils = write_tils()
+    write_til_index(tils)
+    write_rss(articles)
 
 if __name__ == '__main__':
     main()

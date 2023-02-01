@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block meta %}
+<meta name="description" content="Home page"/>
+{% endblock %}
+
+{% block content %}
+<nav>
+  <h1>TIL - Today I learned <a class="rss" href="/feed.xml" target="_blank" title="RSS feed"><i class="fas fa-rss"></i></a></h1>
+  <h4>Small things that matter</h4>
+  <dl class="posts-list">
+    {% for post in posts if not post.get('hidden') %}
+      <a href="./{{post.stem}}">
+        <dt>{{post.title}}</dt>
+        <dd>
+          <time>{{post['date']}}</time>
+        </dd>
+      </a>
+    {% endfor %}
+    </dl>
+</nav>
+{% endblock %}
