@@ -12,21 +12,21 @@ def menu():
     options = [post.name for post in posts]
     draft_menu = TerminalMenu(options)
     draft_menu._init_term()
-    try:
-        while True:
-            menu_entry_index = draft_menu.show()
+    while True:
+        menu_entry_index = draft_menu.show()
+        try:
             move_draft_to_srcs(options[menu_entry_index])
-    except KeyboardInterrupt:
-        import sys
-        sys.exit(0)
-
+        except TypeError:
+            import sys
+            sys.exit(0)
     
 def move_draft_to_srcs(article: str):
     try:
         draft_article = drafts_path / article
     except FileNotFoundError:
         print(f"No such file name in drafts directory: {article}")
-    draft_article.rename(srcs_path / draft_article.name)
+    else:
+        draft_article.rename(srcs_path / draft_article.name)
 
 
 if __name__ == "__main__":
