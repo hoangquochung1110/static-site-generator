@@ -52,20 +52,6 @@ def render_markdown(content: str) -> str:
     content = fixup_styles(content)
     return content
 
-def write_post(post: frontmatter.Post, content: str):
-    if post.get("legacy_url"):
-        path = pathlib.Path("./docs/{}/index.html".format(post["stem"]))
-        path.parent.mkdir(parents=True, exist_ok=True)
-    else:
-        if post.get("til", False):
-            path = pathlib.Path("./docs/til/{}.html".format(post["stem"]))
-        else:
-            path = pathlib.Path("./docs/{}.html".format(post["stem"]))
-    
-    template = jinja_env.get_template("post.html")
-    rendered = template.render(post=post, content=content)
-    path.write_text(rendered)
-
 def write_posts() -> Sequence[frontmatter.Post]:
     posts = []
     sources = get_sources()
@@ -80,17 +66,20 @@ def write_posts() -> Sequence[frontmatter.Post]:
 
     return posts
 
-def write_til(post: frontmatter.Post, content: str):
-    """Compose TIL articles as html."""
+def write_post(post: frontmatter.Post, content: str):
     if post.get("legacy_url"):
         path = pathlib.Path("./docs/{}/index.html".format(post["stem"]))
         path.parent.mkdir(parents=True, exist_ok=True)
     else:
+        if post.get("til", False):
             path = pathlib.Path("./docs/til/{}.html".format(post["stem"]))
+        else:
+            path = pathlib.Path("./docs/{}.html".format(post["stem"]))
     
     template = jinja_env.get_template("post.html")
     rendered = template.render(post=post, content=content)
     path.write_text(rendered)
+
 
 def write_tils() -> Sequence[frontmatter.Post]:
     """Get TIL articles and convert md into html."""
@@ -105,6 +94,18 @@ def write_tils() -> Sequence[frontmatter.Post]:
         posts.append(post)
     
     return posts
+
+def write_til(post: frontmatter.Post, content: str):
+    """Compose TIL articles as html."""
+    if post.get("legacy_url"):
+        path = pathlib.Path("./docs/{}/index.html".format(post["stem"]))
+        path.parent.mkdir(parents=True, exist_ok=True)
+    else:
+            path = pathlib.Path("./docs/til/{}.html".format(post["stem"]))
+    
+    template = jinja_env.get_template("post.html")
+    rendered = template.render(post=post, content=content)
+    path.write_text(rendered)
 
 def write_pygments_style_sheet():
     css = highlighting.get_style_css(witchhazel.WitchHazelStyle)
