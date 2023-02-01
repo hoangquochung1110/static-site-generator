@@ -8,7 +8,7 @@
   <meta name="author" content="Hung Hoang">
   <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
 
-  <title>Blog - Hung Hoang</title>
+  <title>sed command to replace string in Unix - Hung Hoang</title>
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
@@ -46,96 +46,57 @@
   <!-- End Google Console Verify-->
 
   
-<meta name="description" content="Home page"/>
+<meta property="og:title" content="sed command to replace string in Unix - Hung Hoang">
+<meta property="twitter:title" content="sed command to replace string in Unix - Hung Hoang">
+
+
+<meta name="description" content="Advance uses of git commit and git rebase in feature branch workflow.">
+<meta property="og:description" content="Advance uses of git commit and git rebase in feature branch workflow.">
+<meta property="twitter:description" content="Advance uses of git commit and git rebase in feature branch workflow.">
+
+
+
+
+
+
+<meta property="og:url" content="/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
 
 </head>
 <body>
   <div class="container">
 
     
-<nav>
-  <h1>Blog posts & articles by Hung Hoang <a class="rss" href="/feed.xml" target="_blank" title="RSS feed"><i class="fas fa-rss"></i></a></h1>
-  <dl class="posts-list">
-  
-    <a href="./message-templating">
-      <dt>Application of Regex in my message templating webapp</dt>
-      <dd>
-        <time>2023-01-03 14:00</time>
-      </dd>
-    </a>
-  
-    <a href="./pgcli-autocomplete">
-      <dt>Ease Postgres SQL queries with auto-completion and syntax-highlighting</dt>
-      <dd>
-        <time>2022-12-14 22:00</time>
-      </dd>
-    </a>
-  
-    <a href="./factory_method_design_patterns">
-      <dt>Implementation of the Factory Method pattern in Python</dt>
-      <dd>
-        <time>2022-12-08 16:00</time>
-      </dd>
-    </a>
-  
-    <a href="./vscode-cheatsheet">
-      <dt>My favorite Visual Studio Code cheatsheet for Mac</dt>
-      <dd>
-        <time>2022-10-15 10:00</time>
-      </dd>
-    </a>
-  
-    <a href="./git-commit-title-body-one-liner">
-      <dt>Commit message with title and body with one-liner git command</dt>
-      <dd>
-        <time>2022-08-11 15:00</time>
-      </dd>
-    </a>
-  
-    <a href="./django-f-expression">
-      <dt>Upgrade django queries with F() expression</dt>
-      <dd>
-        <time>2022-07-27 17:00</time>
-      </dd>
-    </a>
-  
-    <a href="./clean-commit-history">
-      <dt>Do you have readable Git commit history ?</dt>
-      <dd>
-        <time>2022-05-06 10:00</time>
-      </dd>
-    </a>
-  
-    <a href="./sed-command">
-      <dt>sed command to replace string in Unix</dt>
-      <dd>
-        <time>2022-05-06 10:00</time>
-      </dd>
-    </a>
-  
-    <a href="./database-index">
-      <dt>Database indexing in a nutshell with B+tree and Hash in comparison</dt>
-      <dd>
-        <time>2022-04-25 10:00</time>
-      </dd>
-    </a>
-  
-    <a href="./react-todo-list">
-      <dt>Manage State in ReactJS with to-do app</dt>
-      <dd>
-        <time>2022-03-10 10:00</time>
-      </dd>
-    </a>
-  
-    <a href="./django-htmx-intro">
-      <dt>How Django meets htmx &#58; A quick tour of modern server side rendering.</dt>
-      <dd>
-        <time>2022-03-10 10:00</time>
-      </dd>
-    </a>
-  
-  </dl>
-</nav>
+<article>
+  <aside class="timestamp">
+    <time>Posted by Hung Hoang on 2022-05-06 10:00</time>
+    · <a href="./">view all posts</a>
+  </aside>
+  <h1>sed command to replace string in Unix</h1>
+  <content>
+    <p>SED is a text stream editor used on Unix systems to edit files quickly and efficiently. The tool searches through, replaces, adds, and deletes lines in a text file without opening the file in a text editor.</p>
+<h3 id="replace-string-using-the-sed-command">Replace String Using the sed Command</h3>
+<p>The Linux sed command is most commonly used for substituting text. It searches for the specified pattern in a file and replaces it with the wanted string.</p>
+<p>Example:</p>
+<pre class="lang-shell">sed -i <span class="s1">&#39;s/old_string/new_string/&#39;</span> filename.txt
+</pre>
+<p>option <code>i</code> means overwriting original file.</p>
+<p>By default, sed only replaces the first occurrence of the specified string in each line. It searches for the first instance of the specified word in a line, replaces it, and moves on to the next line.</p>
+<p>If you have multiple instances of the same word within a single line, add the g flag to the command to change all of them.</p>
+<p>The command for substituting each occurrence of a given string within a text is:</p>
+<pre class="lang-shell">sed <span class="s1">&#39;s/old_string/new_string/g&#39;</span> filename.txt
+</pre>
+<h3 id="replace-specific-occurrence-in-a-line-using-the-sed-command">Replace Specific Occurrence in a Line Using the sed Command</h3>
+<p>The sed command lets you choose which occurrence of a specified string you want to replace within each line. To do so, add a number flag such as 1, 2, etc.:</p>
+<pre class="lang-shell">sed <span class="s1">&#39;s/old_string/new_string/#&#39;</span> filename.txt
+</pre>
+<p>For example, to substitute the second occurrence of the word box in each line of the text with the word bin, use this command:</p>
+<pre class="lang-shell">sed <span class="s1">&#39;s/box/bin/2&#39;</span> foxinbox.txt
+</pre>
+<p>For advance usage, please refer <a href="https://phoenixnap.com/kb/linux-sed">this post</a></p>
+  </content>
+</article>
 
 
     <footer>

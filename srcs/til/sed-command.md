@@ -1,3 +1,11 @@
+---
+title: sed command to replace string in Unix
+date: 2022-05-06 10:00
+description: Advance uses of git commit and git rebase in feature branch workflow.
+category: blog
+til: true
+---
+
 SED is a text stream editor used on Unix systems to edit files quickly and efficiently. The tool searches through, replaces, adds, and deletes lines in a text file without opening the file in a text editor.
 
 ### Replace String Using the sed Command
