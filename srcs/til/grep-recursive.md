@@ -1,12 +1,12 @@
 ---
-title: "Uncovering the Hidden Gems of `grep`: 4 Lesser-Known but Essential Options"
+title: "Uncovering 4 Lesser-Known but Essential Options of `grep` command"
 date: 2022-11-29 15:00
 description: Search for a pattern within a directory using grep
 category: TIL
 til: true
 ---
 
-1. ### `grep -r` for pattern matching in all files within a directory and its subdirectories. 
+### `grep -r` for pattern matching in all files within a directory and its subdirectories. 
 
 There's a situation that I don't know which file contains the specific pattern that you are looking for. Then `grep -r` comes into play.
 
@@ -16,25 +16,20 @@ $ grep 'ˆZ' -r ~/Desktop
 
 The above grep command search for any line starting with `Z` in Desktop directory.
 
-2. ### `grep -v` to search for the whole word
+## `grep -v` to search for the whole word
 
 ```shell
-$ cat examples.txt
-
-grep examples
+hunghoang@MacBook-Pro Desktop % cat examples.txt
+my example
 linux exam on 19th
-
-$ grep exam examples.txt
-
-grep examples
+hunghoang@MacBook-Pro Desktop % grep "exam" examples.txt                  
+my example
 linux exam on 19th
-
-$ grep -w examples.txt
-
+hunghoang@MacBook-Pro Desktop % grep -w "exam" examples.txt               
 linux exam on 19th
 ```
 
-3. ### `grep -A` and `grep -B` to print number of lines after and before matching line
+## `grep -A` and `grep -B` to print number of lines after and before matching line
 
 The grep -A option stands for "after" and specifies the number of lines to be displayed after a match is found. When using this option, grep will display the matched line followed by the specified number of lines after it.
 
@@ -56,11 +51,11 @@ hunghoang@MacBook-Pro Desktop % grep -B1 'Man City' premier-league-table.txt
 2. Liverpool
 3. Man City
 ```
- 
+
 `grep -A2 Arsenal premier-league-table.txt` indicates that we want to show **2** lines **after** the line which contains `Arsenal` pattern while `grep -B1 'Man City' premier-league-table.txt` means the terminal should display **1** line **before** the line which matches `Man City` pattern.
 
 
-4. ### `grep -v` to perform invert match
+## `grep -v` to perform invert match
 
 This option is to display all lines that do NOT match the specified pattern.
 
@@ -73,4 +68,3 @@ hunghoang@MacBook-Pro Desktop % grep -v Arsenal premier-league-table.txt
 3. Man City
 4. Chelsea
 ```
-

@@ -8,7 +8,7 @@
   <meta name="author" content="Hung Hoang">
   <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
 
-  <title>Uncovering the Hidden Gems of `grep`: 4 Lesser-Known but Essential Options - Hung Hoang</title>
+  <title>Uncovering 4 Lesser-Known but Essential Options of `grep` command - Hung Hoang</title>
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
@@ -46,8 +46,8 @@
   <!-- End Google Console Verify-->
 
   
-<meta property="og:title" content="Uncovering the Hidden Gems of `grep`: 4 Lesser-Known but Essential Options - Hung Hoang">
-<meta property="twitter:title" content="Uncovering the Hidden Gems of `grep`: 4 Lesser-Known but Essential Options - Hung Hoang">
+<meta property="og:title" content="Uncovering 4 Lesser-Known but Essential Options of `grep` command - Hung Hoang">
+<meta property="twitter:title" content="Uncovering 4 Lesser-Known but Essential Options of `grep` command - Hung Hoang">
 
 
 <meta name="description" content="Search for a pattern within a directory using grep">
@@ -73,41 +73,24 @@
     <time>Posted by Hung Hoang on 2022-11-29 15:00</time>
     · <a href="./">view all posts</a>
   </aside>
-  <h1>Uncovering the Hidden Gems of `grep`: 4 Lesser-Known but Essential Options</h1>
+  <h1>Uncovering 4 Lesser-Known but Essential Options of `grep` command</h1>
   <content>
-    <ol>
-<li>
-<h3 id="grep-r-for-pattern-matching-in-all-files-within-a-directory-and-its-subdirectories"><code>grep -r</code> for pattern matching in all files within a directory and its subdirectories.</h3>
-</li>
-</ol>
+    <h3 id="grep-r-for-pattern-matching-in-all-files-within-a-directory-and-its-subdirectories"><code>grep -r</code> for pattern matching in all files within a directory and its subdirectories.</h3>
 <p>There's a situation that I don't know which file contains the specific pattern that you are looking for. Then <code>grep -r</code> comes into play.</p>
 <pre class="lang-shell">$ grep <span class="s1">&#39;ˆZ&#39;</span> -r ~/Desktop
 </pre>
 <p>The above grep command search for any line starting with <code>Z</code> in Desktop directory.</p>
-<ol>
-<li>
-<h3 id="grep-v-to-search-for-the-whole-word"><code>grep -v</code> to search for the whole word</h3>
-</li>
-</ol>
-<pre class="lang-shell">$ cat examples.txt
-
-grep examples
+<h2 id="grep-v-to-search-for-the-whole-word"><code>grep -v</code> to search for the whole word</h2>
+<pre class="lang-shell">hunghoang@MacBook-Pro Desktop % cat examples.txt
+my example
 linux exam on 19th
-
-$ grep exam examples.txt
-
-grep examples
+hunghoang@MacBook-Pro Desktop % grep <span class="s2">&quot;exam&quot;</span> examples.txt                  
+my example
 linux exam on 19th
-
-$ grep -w examples.txt
-
+hunghoang@MacBook-Pro Desktop % grep -w <span class="s2">&quot;exam&quot;</span> examples.txt               
 linux exam on 19th
 </pre>
-<ol>
-<li>
-<h3 id="grep-a-and-grep-b-to-print-number-of-lines-after-and-before-matching-line"><code>grep -A</code> and <code>grep -B</code> to print number of lines after and before matching line</h3>
-</li>
-</ol>
+<h2 id="grep-a-and-grep-b-to-print-number-of-lines-after-and-before-matching-line"><code>grep -A</code> and <code>grep -B</code> to print number of lines after and before matching line</h2>
 <p>The grep -A option stands for "after" and specifies the number of lines to be displayed after a match is found. When using this option, grep will display the matched line followed by the specified number of lines after it.</p>
 <p>The grep -B option stands for "before" and similarly specifies the number of lines to be displayed before a match is found. With this option, grep will display the specified number of lines before the matched line.</p>
 <p>Both -A and -B options are useful for context sensitive searching, when you need to see some lines before or after the match to understand it better. For example, grep -A 3 error log.txt would show three lines after each line containing the word "error" in the file "log.txt".</p>
@@ -125,11 +108,7 @@ hunghoang@MacBook-Pro Desktop % grep -B1 <span class="s1">&#39;Man City&#39;</sp
 <span class="m">3</span>. Man City
 </pre>
 <p><code>grep -A2 Arsenal premier-league-table.txt</code> indicates that we want to show <strong>2</strong> lines <strong>after</strong> the line which contains <code>Arsenal</code> pattern while <code>grep -B1 'Man City' premier-league-table.txt</code> means the terminal should display <strong>1</strong> line <strong>before</strong> the line which matches <code>Man City</code> pattern.</p>
-<ol>
-<li>
-<h3 id="grep-v-to-perform-invert-match"><code>grep -v</code> to perform invert match</h3>
-</li>
-</ol>
+<h2 id="grep-v-to-perform-invert-match"><code>grep -v</code> to perform invert match</h2>
 <p>This option is to display all lines that do NOT match the specified pattern.</p>
 <p>Given <code>premier-league-table.txt</code> file as above example:
 This will print only the lines that don’t match the pattern given:</p>
