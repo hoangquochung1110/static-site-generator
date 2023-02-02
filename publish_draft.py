@@ -1,33 +1,45 @@
 import pathlib
 from simple_term_menu import TerminalMenu
+import sys
 
-
-root_path = pathlib.Path(__file__).parent
-drafts_path = root_path / "drafts"
-srcs_path = root_path / "srcs"
+SOURCES = "srcs"
+DRAFTS = "drafts"
+TIL = "til"
 
 
 def menu():
-    posts: pathlib.PosixPath = list(drafts_path.glob("*.md"))
-    options = [post.name for post in posts]
-    draft_menu = TerminalMenu(options)
-    draft_menu._init_term()
-    while True:
-        menu_entry_index = draft_menu.show()
-        try:
-            move_draft_to_srcs(options[menu_entry_index])
-        except TypeError:
-            import sys
-            sys.exit(0)
+    """Populate terminal menu to pick a draft
     
-def move_draft_to_srcs(article: str):
-    try:
-        draft_article = drafts_path / article
-    except FileNotFoundError:
-        print(f"No such file name in drafts directory: {article}")
-    else:
-        draft_article.rename(srcs_path / draft_article.name)
+    and move to destination.
+    """
+    root_path = pathlib.Path(__file__).parent
+    drafts_path = root_path / DRAFTS
+    srcs_path = root_path / SOURCES
+    til_path = root_path / SOURCES / TIL
+    posts = list(drafts_path.glob("*.md"))
+    options = [post.name for post in posts]
+    destinations = [SOURCES, TIL]
+    draft_menu = TerminalMenu(options)
+    selected_index = draft_menu.show()
+    
+    if selected_index is None:
+        sys.exit(0)
 
+    destination_menu = TerminalMenu(destinations)
+    selected_dest_index = destination_menu.show()
+    if selected_dest_index is None:
+        sys.exit(0)
+
+    if destinations[selected_dest_index] == SOURCES:
+        dest_dir = srcs_path
+    else:
+        dest_dir = til_path
+
+    move_draft_to_dest(options[selected_index], drafts_path, dest_dir)
+
+def move_draft_to_dest(article: str, drafts_dir: pathlib.Path, dest_dir: pathlib.Path):
+    draft_article = drafts_dir / article
+    draft_article.rename(dest_dir / draft_article.name)
 
 if __name__ == "__main__":
     menu()
