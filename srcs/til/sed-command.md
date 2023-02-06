@@ -1,7 +1,7 @@
 ---
 title: sed command to replace string in Unix
-date: 2022-05-06 10:00
-description: Advance uses of git commit and git rebase in feature branch workflow.
+date: 2023-02-06 10:00
+description: A non-interactive way to modify and manipulate text files with ease
 category: blog
 til: true
 ---
