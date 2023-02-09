@@ -1,3 +1,10 @@
+---
+title: Passing safely data to Javascript in Django templates
+date: 2023-02-09 17:00
+description: Django templates are often used to pass data to JavaScript code. Unfortunately, if implemented incorrectly, this opens up the possibility of HTML injection, and thus XSS (Cross-Site Scripting) attacks.
+category: blog
+---
+
 ```javascript
 // DON'T EVER DO THIS
 const username = "{{username}}";
