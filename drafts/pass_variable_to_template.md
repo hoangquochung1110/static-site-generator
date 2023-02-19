@@ -15,3 +15,17 @@ Let's say `username` is `"Hung <3"` then the output would be
 ```javascript
 const username = "Hung &lt;3";
 ```
+
+### `json_script` filter   
+
+`json_scrip` safely outputs a Python object as JSON, wrapped in a `<script>` tag, ready for use with JavaScript:
+
+```javascript
+{{ username|json_script:"username" }};
+```
+
+Then you can use `document.getElementById` to find the element, and `JSON.parse` help us parse contained data.
+
+```javascript
+const username = JSON.parse(document.getElementById('username').textContent);
+```
