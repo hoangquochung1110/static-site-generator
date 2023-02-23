@@ -8,7 +8,7 @@
   <meta name="author" content="Hung Hoang">
   <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
 
-  <title>Blog - Hung Hoang</title>
+  <title>Another way to create and overwrite files: `cat >` - Hung Hoang</title>
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
@@ -46,48 +46,43 @@
   <!-- End Google Console Verify-->
 
   
-<meta name="description" content="Home page"/>
+<meta property="og:title" content="Another way to create and overwrite files: `cat >` - Hung Hoang">
+<meta property="twitter:title" content="Another way to create and overwrite files: `cat >` - Hung Hoang">
+
+
+<meta name="description" content="By combining the "cat" command with the output redirection operator (">"), you can create and overwrite files quickly and easily.">
+<meta property="og:description" content="By combining the "cat" command with the output redirection operator (">"), you can create and overwrite files quickly and easily.">
+<meta property="twitter:description" content="By combining the "cat" command with the output redirection operator (">"), you can create and overwrite files quickly and easily.">
+
+
+
+
+
+
+<meta property="og:url" content="/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
 
 </head>
 <body>
   <div class="container">
 
     
-<nav>
-  <h1>TIL - Today I learned <a class="rss" href="/feed.xml" target="_blank" title="RSS feed"><i class="fas fa-rss"></i></a></h1>
-  <h4>Small things that matter</h4>
-  <dl class="posts-list">
-    
-      <a href="./new-way-to-create-file">
-        <dt>Another way to create and overwrite files: `cat >`</dt>
-        <dd>
-          <time>2023-02-23 17:00</time>
-        </dd>
-      </a>
-    
-      <a href="./git-grep-branch">
-        <dt>grep a pattern on a Git branch</dt>
-        <dd>
-          <time>2023-02-14 15:00</time>
-        </dd>
-      </a>
-    
-      <a href="./sed-command">
-        <dt>sed command to replace string in Unix</dt>
-        <dd>
-          <time>2023-02-06 10:00</time>
-        </dd>
-      </a>
-    
-      <a href="./grep-recursive">
-        <dt>Uncovering 4 Lesser-Known but Essential Options of `grep` command</dt>
-        <dd>
-          <time>2022-11-29 15:00</time>
-        </dd>
-      </a>
-    
-    </dl>
-</nav>
+<article>
+  <aside class="timestamp">
+    <time>Posted by Hung Hoang on 2023-02-23 17:00</time>
+    · <a href="./">view all posts</a>
+  </aside>
+  <h1>Another way to create and overwrite files: `cat >`</h1>
+  <content>
+    <p>Today, I learn a way to create and append content to a file in one go.</p>
+<pre><code>cat &gt; newfile.txt
+# past your content
+# save it by ctrl+c
+</code></pre>
+<p>Goodbye <code>touch</code> !!!</p>
+  </content>
+</article>
 
 
     <footer>
