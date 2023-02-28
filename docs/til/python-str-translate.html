@@ -8,7 +8,7 @@
   <meta name="author" content="Hung Hoang">
   <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
 
-  <title>Blog - Hung Hoang</title>
+  <title>Python comes with two rare string method: `str.maketrans` and `str.translate` - Hung Hoang</title>
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
@@ -46,55 +46,54 @@
   <!-- End Google Console Verify-->
 
   
-<meta name="description" content="Home page"/>
+<meta property="og:title" content="Python comes with two rare string method: `str.maketrans` and `str.translate` - Hung Hoang">
+<meta property="twitter:title" content="Python comes with two rare string method: `str.maketrans` and `str.translate` - Hung Hoang">
+
+
+<meta name="description" content="str.maketrans and str.translate are helpful for complex string manipulation and translation">
+<meta property="og:description" content="str.maketrans and str.translate are helpful for complex string manipulation and translation">
+<meta property="twitter:description" content="str.maketrans and str.translate are helpful for complex string manipulation and translation">
+
+
+
+
+
+
+<meta property="og:url" content="/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
 
 </head>
 <body>
   <div class="container">
 
     
-<nav>
-  <h1>TIL - Today I learned <a class="rss" href="/feed.xml" target="_blank" title="RSS feed"><i class="fas fa-rss"></i></a></h1>
-  <h4>Small things that matter</h4>
-  <dl class="posts-list">
-    
-      <a href="./python-str-translate">
-        <dt>Python comes with two rare string method: `str.maketrans` and `str.translate`</dt>
-        <dd>
-          <time>2023-02-28 20:00</time>
-        </dd>
-      </a>
-    
-      <a href="./new-way-to-create-file">
-        <dt>Another way to create and overwrite files: `cat >`</dt>
-        <dd>
-          <time>2023-02-23 17:00</time>
-        </dd>
-      </a>
-    
-      <a href="./git-grep-branch">
-        <dt>grep a pattern on a Git branch</dt>
-        <dd>
-          <time>2023-02-14 15:00</time>
-        </dd>
-      </a>
-    
-      <a href="./sed-command">
-        <dt>sed command to replace string in Unix</dt>
-        <dd>
-          <time>2023-02-06 10:00</time>
-        </dd>
-      </a>
-    
-      <a href="./grep-recursive">
-        <dt>Uncovering 4 Lesser-Known but Essential Options of `grep` command</dt>
-        <dd>
-          <time>2022-11-29 15:00</time>
-        </dd>
-      </a>
-    
-    </dl>
-</nav>
+<article>
+  <aside class="timestamp">
+    <time>Posted by Hung Hoang on 2023-02-28 20:00</time>
+    · <a href="./">view all posts</a>
+  </aside>
+  <h1>Python comes with two rare string method: `str.maketrans` and `str.translate`</h1>
+  <content>
+    <p>In Python, the <code>str.maketrans()</code> and <code>str.translate()</code> methods are used for string manipulation and translation. The str.maketrans() method creates a translation table that can be used with the str.translate() method to replace specified characters in a string with other characters.</p>
+<p>Let's say we want replacements like this:</p>
+<pre class="lang-python3"><span class="o">&gt;&gt;&gt;</span> <span class="n">mapping</span> <span class="o">=</span> <span class="p">{</span>
+<span class="o">...</span>     <span class="s2">&quot; &quot;</span><span class="p">:</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span>
+<span class="o">...</span>     <span class="s2">&quot; &quot;</span><span class="p">:</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span>
+<span class="o">...</span>     <span class="s2">&quot;!&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="o">...</span> <span class="p">}</span>
+</pre>
+<p>Use <code>maketrans()</code> to make translation table</p>
+<pre class="lang-python3"><span class="o">&gt;&gt;&gt;</span> <span class="n">trans_table</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="n">mapping</span><span class="p">)</span>
+</pre>
+<p>Then apply translation:</p>
+<pre class="lang-python3"><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Replace-hyphens and spaces!&quot;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">trans_table</span><span class="p">)</span>
+<span class="s1">&#39;Replace-hyphens_and_spaces&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> 
+</pre>
+  </content>
+</article>
 
 
     <footer>
