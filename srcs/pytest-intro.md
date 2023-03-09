@@ -3,6 +3,8 @@ title: Pytest introduction in 5 minutes
 date: 2023-03-09 11:00
 description: Short introduction of pytest fixture, parametrize and scope
 category: blog
+tags:
+    - python
 ---
 
 ## Pytest 

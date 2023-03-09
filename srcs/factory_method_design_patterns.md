@@ -3,6 +3,8 @@ title: Implementation of the Factory Method pattern in Python
 date: 2022-12-08 16:00
 description: This article explores the Factory Method design pattern and its implementation in Python. It's one of the most widely used design patterns.
 category: Python
+tags:
+    - python
 ---
 
 Imagine an application that needs to convert a Song object into its string representation using a specified format. Converting an object to a different representation is often called serializing. You’ll often see these requirements implemented in a single function or method that contains all the logic and implementation, like in the following code:

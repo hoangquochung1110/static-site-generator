@@ -3,6 +3,9 @@ title: How Django meets htmx &#58; A quick tour of modern server side rendering.
 date: 2022-03-10 10:00
 description: The philosophy of htmx is to write less Javascript code, this library gives you access to modern browser features such as AJAX, CSS Transitions, WebSockets and Server Sent Events directly in HTML, using attributes like `hx-get` or `hx-trigger`.
 category: blog
+tags:
+    - python
+    - django
 ---
 
 ### htmx

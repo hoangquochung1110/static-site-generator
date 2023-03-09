@@ -3,6 +3,9 @@ title: Ease Postgres SQL queries with auto-completion and syntax-highlighting
 date: 2022-12-14 22:00
 description: This is a postgres client that does auto-completion and syntax highlighting.
 category: blog
+tags:
+    - bash
+    - productivity
 ---
 
 Recently, I've just explored some wonderful postgres CLI extensions/plugins which make data query much comfortable.

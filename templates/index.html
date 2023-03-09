@@ -9,6 +9,11 @@
   <dl class="posts-list">
   {% for post in posts if not post.get('hidden') %}
     <a href="./{{post.stem}}">
+      {% if post.tags %}
+        {% for i in range(post.tags|length) %}
+          <div style="background-color: {{ post.background_color[i] }};" class="pile">{{post.tags[i]}}</div>
+        {% endfor %}
+      {% endif %}
       <dt>{{post.title}}</dt>
       <dd>
         <time>{{post['date']}}</time>

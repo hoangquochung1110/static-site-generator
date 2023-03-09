@@ -54,7 +54,7 @@ nav time {
   font-size: 80%;
 }
 
-nav dt {
+nav .pile {
   margin-top: 1.2rem;
 }
 
@@ -72,6 +72,15 @@ nav dl a:focus {
 
 nav dt {
   font-weight: normal;
+}
+
+.pile {
+    color: #fff;
+    padding: 2px 8px;
+    display: inline-block;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
 }
 
 /* Post page */

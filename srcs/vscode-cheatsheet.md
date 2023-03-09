@@ -4,6 +4,8 @@ date: 2022-10-15 10:00
 description: My most frequent keyboard shortcuts in Visual Studio Code
 tag: cheatsheet
 category: cheatsheet
+tags:
+    - vscode
 ---
 
 ##### Most developers that use Visual Studio Code swear by its keyboard shortcuts since they make navigating and modifying code considerably quicker and simpler.

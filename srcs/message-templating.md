@@ -3,6 +3,9 @@ title: Application of Regex in my message templating webapp
 date: 2023-01-03 14:00
 description: Short demo of regex in my messaging project.
 category: python
+tags:
+    - python
+    - django
 ---
 
 Last year, I started building a messaging system/webapp which generates dynamic text messages with personalized content which helps Veterinarian clinics send appointments or announcement to their clients at a given time.

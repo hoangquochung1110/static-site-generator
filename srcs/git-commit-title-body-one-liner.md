@@ -3,6 +3,8 @@ title: Commit message with title and body with one-liner git command
 date: 2022-08-11 15:00
 description: Use multiple message flag (-m) allow developers to define commit message with title and body without opening an editor.
 category: blog
+tags:
+    - git
 ---
 
 When you use git, one of the most frequent used command is
