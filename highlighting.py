@@ -1,5 +1,4 @@
 """Highlights code blocks using Pygments."""
-
 import html
 import re
 
