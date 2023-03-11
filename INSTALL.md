@@ -10,6 +10,7 @@ Install `pre-commit``
 ```
 pip install pre-commit
 pre-commit install
+git config blame.ignoreRevsFile .git-blame-ignore-revs
 ```
 
 Install packages
