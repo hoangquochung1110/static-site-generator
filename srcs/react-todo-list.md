@@ -44,10 +44,10 @@ function App() {
   // order changes its value only when form is submitted or an item deleted
   const inputChangeHandler = (e) =>{
     setTask((prevTask) => ({
-      ...prevTask, 
+      ...prevTask,
       text: e.target.value
     }));
-  } 
+  }
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -65,7 +65,7 @@ function App() {
     let deletedAt;
     // Remove target item
     let reducedList = tasks
-      .filter((task, index) => {  
+      .filter((task, index) => {
         if(task.id == id){
           deletedAt = index;
           return false;
@@ -76,7 +76,7 @@ function App() {
         if(index >= deletedAt) return {...item, order: item.order -1};
         else return item;
       })
-    
+
     // Update tasks
     setTasks([...reducedList]);
 
@@ -147,7 +147,7 @@ setTask({...task, text: ''});// update text, others unchanged
 
 In our app, we update the input field whenever users press a key. Because we want `order` and `id` properties to be unchanged for every _onChange_ events. It means we're going to just update `task` partially instead of an entirely new state. In this circumstance, the second form of `setState()` comes in.
 
-`setState((state, props) => newValue)` 
+`setState((state, props) => newValue)`
 
 It accepts a function rather than an object. This function takes previous state as a first argument and props at the time when update is applied as second argument. Implement the second form to our handler:
 
@@ -185,7 +185,7 @@ This note can be clearly illustrated by `deleteHandler` as below:
     let deletedAt;
     // Remove target item
     let reducedList = tasks
-      .filter((task, index) => {  
+      .filter((task, index) => {
         if(task.id == id){
           deletedAt = index;
           return false;
@@ -196,7 +196,7 @@ This note can be clearly illustrated by `deleteHandler` as below:
         if(index >= deletedAt) return {...item, order: item.order -1};
         else return item;
       })
-    
+
     // Update tasks
     setTasks([...reducedList]);
 
@@ -254,5 +254,3 @@ As you can see, we use `<ul>` to implement an ordered list. The order numbers ge
 1. State should be treated as immutable. Never set the state directly like state.value++. Always rely on `setState` to manage state, avoid unexpected results and bugs.
 
 2. State updates may be async. If your new state value is calculated based the old state, use the second form of `setState` where you pass in a function. If your new state value is independent from the previous state, feel free to use to first form of it `setState(newValue)`
-
- 

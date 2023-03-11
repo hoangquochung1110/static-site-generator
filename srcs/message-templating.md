@@ -81,8 +81,8 @@ if __name__ == "__main__":
 Output
 ```shell
 hunghoang@localhost project4 % python re_revise.py
-Hello Michael. This is Saritasa. We wanted to follow-up with you 
-to confirm Luca's appointment on tomorrow. 
+Hello Michael. This is Saritasa. We wanted to follow-up with you
+to confirm Luca's appointment on tomorrow.
 Please call123456789 if you need to reschedule.
 ```
 

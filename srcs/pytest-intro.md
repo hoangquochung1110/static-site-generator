@@ -7,7 +7,7 @@ tags:
     - python
 ---
 
-## Pytest 
+## Pytest
 Pytest is a popular testing framework for Python that allows developers to write simple, scalable, and readable tests for their code. It is a powerful and flexible tool that provides features such as automatic test discovery, fixtures for managing test data, and plugins for extending its functionality
 
 Pytest emphasizes on the use of plain Python functions as test cases, making it easy to write and maintain tests. With its intuitive syntax and powerful features, pytest has become a go-to choice for developers looking to test their Python code efficiently.
@@ -44,7 +44,7 @@ import pytest
 
 def two_sum(nums: list[int], target: int) -> list[int]:
     """Given an array of integers nums and an integer target,
-    
+
     return indices of the two numbers such that they add up to target.
     """
     hashmap = {}

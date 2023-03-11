@@ -44,7 +44,7 @@ class SongSerializer:
 
 The `serialize()` method support JSON and XML formats. Let's say we're going to support more structures like yaml or csv, if-else structure becomes more complex and harder to read and harder to understand.
 
-Therefore, we need a component which decides an appropriate implementation based on the specified *format*. 
+Therefore, we need a component which decides an appropriate implementation based on the specified *format*.
 
 ###**Basic implementation of Factory Method**
 The central idea in Factory Method is to provide a separate component with the responsibility to decide which concrete implementation should be used based on some specified parameter. That parameter in our example is the *format*.

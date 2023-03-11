@@ -7,84 +7,84 @@
   <atom:link href="https://www.hung.codes/feed.xml"
     rel="self" type="application/rss+xml" />
 
-  
+
   <item>
     <title>Pytest introduction in 5 minutes</title>
     <link>https://www.hung.codes/pytest-intro</link>
     <guid>https://www.hung.codes/pytest-intro</guid>
     <pubDate>2023-03-09 11:00</pubDate>
   </item>
-  
+
   <item>
     <title>Application of Regex in my message templating webapp</title>
     <link>https://www.hung.codes/message-templating</link>
     <guid>https://www.hung.codes/message-templating</guid>
     <pubDate>2023-01-03 14:00</pubDate>
   </item>
-  
+
   <item>
     <title>Ease Postgres SQL queries with auto-completion and syntax-highlighting</title>
     <link>https://www.hung.codes/pgcli-autocomplete</link>
     <guid>https://www.hung.codes/pgcli-autocomplete</guid>
     <pubDate>2022-12-14 22:00</pubDate>
   </item>
-  
+
   <item>
     <title>Implementation of the Factory Method pattern in Python</title>
     <link>https://www.hung.codes/factory_method_design_patterns</link>
     <guid>https://www.hung.codes/factory_method_design_patterns</guid>
     <pubDate>2022-12-08 16:00</pubDate>
   </item>
-  
+
   <item>
     <title>My favorite Visual Studio Code cheatsheet for Mac</title>
     <link>https://www.hung.codes/vscode-cheatsheet</link>
     <guid>https://www.hung.codes/vscode-cheatsheet</guid>
     <pubDate>2022-10-15 10:00</pubDate>
   </item>
-  
+
   <item>
     <title>Commit message with title and body with one-liner git command</title>
     <link>https://www.hung.codes/git-commit-title-body-one-liner</link>
     <guid>https://www.hung.codes/git-commit-title-body-one-liner</guid>
     <pubDate>2022-08-11 15:00</pubDate>
   </item>
-  
+
   <item>
     <title>Upgrade django queries with F() expression</title>
     <link>https://www.hung.codes/django-f-expression</link>
     <guid>https://www.hung.codes/django-f-expression</guid>
     <pubDate>2022-07-27 17:00</pubDate>
   </item>
-  
+
   <item>
     <title>Do you have readable Git commit history ?</title>
     <link>https://www.hung.codes/clean-commit-history</link>
     <guid>https://www.hung.codes/clean-commit-history</guid>
     <pubDate>2022-05-06 10:00</pubDate>
   </item>
-  
+
   <item>
     <title>Database indexing in a nutshell with B+tree and Hash in comparison</title>
     <link>https://www.hung.codes/database-index</link>
     <guid>https://www.hung.codes/database-index</guid>
     <pubDate>2022-04-25 10:00</pubDate>
   </item>
-  
+
   <item>
     <title>Manage State in ReactJS with to-do app</title>
     <link>https://www.hung.codes/react-todo-list</link>
     <guid>https://www.hung.codes/react-todo-list</guid>
     <pubDate>2022-03-10 10:00</pubDate>
   </item>
-  
+
   <item>
     <title>How Django meets htmx &amp;#58; A quick tour of modern server side rendering.</title>
     <link>https://www.hung.codes/django-htmx-intro</link>
     <guid>https://www.hung.codes/django-htmx-intro</guid>
     <pubDate>2022-03-10 10:00</pubDate>
   </item>
-  
+
 
 </channel>
 </rss>

@@ -1,14 +1,15 @@
 import pathlib
 from typing import Iterator, Sequence
 
+import frontmatter
+import jinja2
 import markdown
 import markdown.extensions.fenced_code
 import pymdownx.magiclink
-import frontmatter
-import jinja2
+
 import highlighting
-import witchhazel
 import settings
+import witchhazel
 
 ROOT_URL = "https://www.hung.codes"
 
@@ -76,12 +77,12 @@ def write_post(post: frontmatter.Post, content: str):
             path = pathlib.Path("./docs/til/{}.html".format(post["stem"]))
         else:
             path = pathlib.Path("./docs/{}.html".format(post["stem"]))
-    
+
     template = jinja_env.get_template("post.html")
     try:
         default_value = settings.TAGS_MAPPING["default"]
         background_map = [
-            settings.TAGS_MAPPING.get(tag, default_value) 
+            settings.TAGS_MAPPING.get(tag, default_value)
             for tag in post["tags"]
         ]
         post["background_color"] = background_map
@@ -103,7 +104,7 @@ def write_tils() -> Sequence[frontmatter.Post]:
         post["stem"] = source.stem
         write_til(post, content)
         posts.append(post)
-    
+
     return posts
 
 def write_til(post: frontmatter.Post, content: str):
@@ -113,7 +114,7 @@ def write_til(post: frontmatter.Post, content: str):
         path.parent.mkdir(parents=True, exist_ok=True)
     else:
             path = pathlib.Path("./docs/til/{}.html".format(post["stem"]))
-    
+
     template = jinja_env.get_template("post.html")
     rendered = template.render(post=post, content=content)
     path.write_text(rendered)

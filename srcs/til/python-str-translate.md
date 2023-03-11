@@ -27,5 +27,5 @@ Then apply translation:
 >>> s = "Replace-hyphens and spaces!"
 >>> s.translate(trans_table)
 'Replace-hyphens_and_spaces'
->>> 
+>>>
 ```

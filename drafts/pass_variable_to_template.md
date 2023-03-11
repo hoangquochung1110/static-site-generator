@@ -16,7 +16,7 @@ Let's say `username` is `"Hung <3"` then the output would be
 const username = "Hung &lt;3";
 ```
 
-### `json_script` filter   
+### `json_script` filter
 
 `json_scrip` safely outputs a Python object as JSON, wrapped in a `<script>` tag, ready for use with JavaScript:
 

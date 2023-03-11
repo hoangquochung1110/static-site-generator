@@ -24,7 +24,7 @@ There are two things to discuss when it comes to hashing:
 
 Some people ask: why collision ? Does a [perfect hash function](https://en.wikipedia.org/wiki/Perfect_hash_function) ever exist ? In fact, let's say your keys is an infinite set, it's impossible to map them into a set of 32-bit integers without having no collision. There should be a trade-off between computation and collision rate.
 
-There are a few hashing scheme worth mentioning: [linear probing](https://en.wikipedia.org/wiki/Linear_probing#:~:text=Linear%20probing%20is%20a%20scheme,by%20Gene%20Amdahl%2C%20Elaine%20M.), [chained hashing](https://www.tutorialspoint.com/hashing-with-chaining-in-data-structure) and [extendible hashing](https://en.wikipedia.org/wiki/Extendible_hashing). Lookup/insert/delete algorithms vary by hashing scheme, for example, chained hashing deal with key collisions by placing elements have the same hash value in the same bucket. 
+There are a few hashing scheme worth mentioning: [linear probing](https://en.wikipedia.org/wiki/Linear_probing#:~:text=Linear%20probing%20is%20a%20scheme,by%20Gene%20Amdahl%2C%20Elaine%20M.), [chained hashing](https://www.tutorialspoint.com/hashing-with-chaining-in-data-structure) and [extendible hashing](https://en.wikipedia.org/wiki/Extendible_hashing). Lookup/insert/delete algorithms vary by hashing scheme, for example, chained hashing deal with key collisions by placing elements have the same hash value in the same bucket.
 
 ### Pros
 - Hash index is suitable for equality or primary key lookup. Queries can benefit from hash index to get amortized O(1) lookup cost. For example: `SELECT name, id FROM student WHERE id = '1315';`

@@ -45,7 +45,7 @@
   <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
   <!-- End Google Console Verify-->
 
-  
+
 <meta property="og:title" content="Upgrade django queries with F() expression - Hung Hoang">
 <meta property="twitter:title" content="Upgrade django queries with F() expression - Hung Hoang">
 
@@ -67,7 +67,7 @@
 <body>
   <div class="container">
 
-    
+
 <article>
   <aside class="timestamp">
     <time>Posted by Hung Hoang on 2022-07-27 17:00</time>
@@ -102,7 +102,7 @@
 <p>Think of it more carefully, we can realize that the new price is relative to the current price no matter what it is. Intuitively, we want to reference to <code>price</code> field of <code>Product</code> model when running update process.</p>
 <p>And here it comes, F() expression. <a href="https://docs.djangoproject.com/en/4.1/ref/models/expressions/#f-expressions">The Django official doc</a> states:</p>
 <blockquote>
-<p>An F() object represents the value of a model field, transformed value of a model field, or annotated column. 
+<p>An F() object represents the value of a model field, transformed value of a model field, or annotated column.
 It makes it possible to refer to model field values and perform database operations using them without actually having to pull them out of the database into Python memory.</p>
 </blockquote>
 <p>Let's try the problem with <code>F()</code> and <code>update()</code> queryset method</p>
@@ -187,7 +187,7 @@ Let's imagine there are multiple users trying to make orders for a product, the 
 <span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="n">product</span><span class="o">.</span><span class="n">in_stock</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="o">&lt;</span><span class="n">CombinedExpression</span><span class="p">:</span> <span class="n">F</span><span class="p">(</span><span class="n">in_stock</span><span class="p">)</span> <span class="o">-</span> <span class="n">Value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> 
+<span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span>
 </pre>
 <h3 id="summary">Summary</h3>
 <p>Throughout the article, we pointed out two use cases of F() expression:</p>

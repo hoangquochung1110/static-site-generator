@@ -143,7 +143,7 @@ The second scenario is that the data you submit is valid, according to the initi
 
 
 ## STEP 3: Redirect after successful form submission
-The solution to this circumstance is to modify the behavior of `hx-post`, prevent it from swapping response onto the page. Instead we should redirect users to another page: 
+The solution to this circumstance is to modify the behavior of `hx-post`, prevent it from swapping response onto the page. Instead we should redirect users to another page:
 
 ```python
 class PasswordChangeViewAdmin(PasswordChangeView):
@@ -166,7 +166,3 @@ class PasswordChangeViewAdmin(PasswordChangeView):
 By this way, we tell htmx to redirect user to the login page to re-sign in rather than staying on the current page.
 
 Hopefully this quick example gives you some inspirations of what htmx can do in combination with Django forms. It gives you ability to render elements without reloading page. More importantly, it can be achieved but not write a single line of Javascript code...
-
-
-
-

@@ -6,7 +6,7 @@ category: TIL
 til: true
 ---
 
-### `grep -r` for pattern matching in all files within a directory and its subdirectories. 
+### `grep -r` for pattern matching in all files within a directory and its subdirectories.
 
 There's a situation that I don't know which file contains the specific pattern that you are looking for. Then `grep -r` comes into play.
 
@@ -22,10 +22,10 @@ The above grep command search for any line starting with `Z` in Desktop director
 hunghoang@MacBook-Pro Desktop % cat examples.txt
 my example
 linux exam on 19th
-hunghoang@MacBook-Pro Desktop % grep "exam" examples.txt                  
+hunghoang@MacBook-Pro Desktop % grep "exam" examples.txt
 my example
 linux exam on 19th
-hunghoang@MacBook-Pro Desktop % grep -w "exam" examples.txt               
+hunghoang@MacBook-Pro Desktop % grep -w "exam" examples.txt
 linux exam on 19th
 ```
 
@@ -63,7 +63,7 @@ Given `premier-league-table.txt` file as above example:
 This will print only the lines that don’t match the pattern given:
 
 ```shell
-hunghoang@MacBook-Pro Desktop % grep -v Arsenal premier-league-table.txt    
+hunghoang@MacBook-Pro Desktop % grep -v Arsenal premier-league-table.txt
 2. Liverpool
 3. Man City
 4. Chelsea

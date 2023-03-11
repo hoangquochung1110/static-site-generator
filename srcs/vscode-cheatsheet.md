@@ -15,8 +15,8 @@ tags:
 | **Shortcuts**             |                            |
 | ---                                   | ---                        |
 | **Navigation**                        |                            |
-| &#8984 P                              | Quick Open, Go to File     | 
-| &#8984 T                              | Show all symbols           | 
+| &#8984 P                              | Quick Open, Go to File     |
+| &#8984 T                              | Show all symbols           |
 | &#8679; G                             | Go to Line                 |
 | &#8679; &#8984 O                      | Go to Symbol ... (in a file)                 |
 | &#8984&uarr; &#8984&darr;             | Go to beginning/end of file|

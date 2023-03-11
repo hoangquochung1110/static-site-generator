@@ -45,7 +45,7 @@
   <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
   <!-- End Google Console Verify-->
 
-  
+
 <meta property="og:title" content="Manage State in ReactJS with to-do app - Hung Hoang">
 <meta property="twitter:title" content="Manage State in ReactJS with to-do app - Hung Hoang">
 
@@ -67,7 +67,7 @@
 <body>
   <div class="container">
 
-    
+
 <article>
   <aside class="timestamp">
     <time>Posted by Hung Hoang on 2022-03-10 10:00</time>
@@ -107,10 +107,10 @@ function App() {
   // order changes its value only when form is submitted or an item deleted
   const inputChangeHandler = (e) =&gt;{
     setTask((prevTask) =&gt; ({
-      ...prevTask, 
+      ...prevTask,
       text: e.target.value
     }));
-  } 
+  }
 
   const submitHandler = (e) =&gt; {
     e.preventDefault();
@@ -128,7 +128,7 @@ function App() {
     let deletedAt;
     // Remove target item
     let reducedList = tasks
-      .filter((task, index) =&gt; {  
+      .filter((task, index) =&gt; {
         if(task.id == id){
           deletedAt = index;
           return false;
@@ -231,7 +231,7 @@ setTask({...task, text: &#39;&#39;});// update text, others unchanged
     let deletedAt;
     // Remove target item
     let reducedList = tasks
-      .filter((task, index) =&gt; {  
+      .filter((task, index) =&gt; {
         if(task.id == id){
           deletedAt = index;
           return false;

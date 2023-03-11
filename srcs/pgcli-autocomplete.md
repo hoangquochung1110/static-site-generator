@@ -23,5 +23,3 @@ pgcli -h <HOST_ADDRESS> -d <DB_NAME> -U <USERNAME> -W
 
 My quick demo:
 ![screenshots/pgcli.gif](https://media.giphy.com/media/qmRqWCQrUdtmXtf0Lj/giphy.gif)
-
-

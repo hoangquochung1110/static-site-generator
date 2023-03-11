@@ -1,6 +1,7 @@
 import pathlib
-from simple_term_menu import TerminalMenu
 import sys
+
+from simple_term_menu import TerminalMenu
 
 SOURCES = "srcs"
 DRAFTS = "drafts"
@@ -9,7 +10,7 @@ TIL = "til"
 
 def menu():
     """Populate terminal menu to pick a draft
-    
+
     and move to destination.
     """
     root_path = pathlib.Path(__file__).parent
@@ -21,7 +22,7 @@ def menu():
     destinations = [SOURCES, TIL]
     draft_menu = TerminalMenu(options)
     selected_index = draft_menu.show()
-    
+
     if selected_index is None:
         sys.exit(0)
 

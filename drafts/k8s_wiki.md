@@ -7,7 +7,7 @@ category: undefined
 
 # Pod
 
-The smallest and most fundamental object in Kubernetes. 
+The smallest and most fundamental object in Kubernetes.
 
 Instead of running containers directly on nodes, Kubernetes runs them inside pods.
 
@@ -15,7 +15,7 @@ You can think of a pod basically as a wrapper of your Kubernetes containers. A p
 
 Pods are immutable. You can not update fields like the name of the Pod or the name of the namespace.
 
-___ 
+___
 
 # ConfigMap
 
@@ -77,7 +77,7 @@ kubectl delete deployment,services,statefulsets -l 'environment in (dev, sit)'
 
 ```
 
-### **6 Kubernetes labeling best practices to follow** 
+### **6 Kubernetes labeling best practices to follow**
 
 1. Use correct syntax
 

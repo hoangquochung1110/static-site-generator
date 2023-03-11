@@ -8,7 +8,7 @@ tags:
 ---
 
 
-# Reuse the most recent commit message with `git commit --amend` 
+# Reuse the most recent commit message with `git commit --amend`
 
 Recall back to the time when I haven't been familiarized with code quality assurance (aka linters), I very often failed those linter checks. As a result, there were commit messages look like this
 ```
@@ -24,7 +24,7 @@ $ git commit --amend --no-edit
 ```
 
 # Clean up lengthy commit history with `git rebase`
-During my feature branch workflow, it's very often to have several commits as a result of code review or 
+During my feature branch workflow, it's very often to have several commits as a result of code review or
 I have to leave the task till the next day.
 
 At the end of the task, my commit history may end up this like

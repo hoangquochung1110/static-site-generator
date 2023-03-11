@@ -4,13 +4,13 @@
 
 ### Work Experience Summary
 
-- I've been in web development since my graduation. I worked as a backend developer for over half a year before I joined the compulsory **military service for 2 years** and I'm now ready to get back to work in February 2022. 
+- I've been in web development since my graduation. I worked as a backend developer for over half a year before I joined the compulsory **military service for 2 years** and I'm now ready to get back to work in February 2022.
 - During my previous role as a Python at Omni Apps, I took part in two main projects of the company: a timekeeping app and multi-class booking management system. These two require complex authorization and permission while I got involved in many stages of the project development: planning, implementation and testing.
 - For the last half of this year, I've fortunately had access to my computer occasionally while serving in the military. I took this wonderful opportunity to revise and strengthen my knowledge in web development so that I could to some extent get caught up with what's going on out there. I picked up JavaScript as well as familiarized myself with ReactJS which I lacked in my first full-time job leading to my limited understanding on what a frontend developer does. The other two problems that I went deeper into were system scaling and performance optimization techniques. Such knowledge of mine is just on paper therefore I'm now eager to turn it into practice.
 
 ### Mindset
 - In the early stage of my career, I would like to get involved as much as possible, play several roles in the process of a product development so that I can have a broad and overall picture on how a software development lifecycle works. This way makes me grow fast and I can contribute greater value back to my organization.
-- Willing to take on challenges. 
+- Willing to take on challenges.
 - Everyone always has a lesson for me learn.
 - Asking smart questions to improve product on daily basis.
 

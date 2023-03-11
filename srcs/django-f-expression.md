@@ -43,7 +43,7 @@ In this case, you are doing `SELECT price FROM product` then `UPDATE product SET
 Think of it more carefully, we can realize that the new price is relative to the current price no matter what it is. Intuitively, we want to reference to `price` field of `Product` model when running update process.
 
 And here it comes, F() expression. [The Django official doc](https://docs.djangoproject.com/en/4.1/ref/models/expressions/#f-expressions) states:
-> An F() object represents the value of a model field, transformed value of a model field, or annotated column. 
+> An F() object represents the value of a model field, transformed value of a model field, or annotated column.
 > It makes it possible to refer to model field values and perform database operations using them without actually having to pull them out of the database into Python memory.
 
 Let's try the problem with `F()` and `update()` queryset method
@@ -113,7 +113,7 @@ WHERE id = 262;
 The quantity of product with id 262 will reduce by 1 and not set by a fixed value. This is how to use an F expression to solve the race condition problem.
 
 ### Note
-The F() object which is assign to model field persist after saving model instance and will be applied on each `save()` so we need to `refresh_from_db` to get the updated instance. 
+The F() object which is assign to model field persist after saving model instance and will be applied on each `save()` so we need to `refresh_from_db` to get the updated instance.
 
 Try to read an instance without refreshing from database may lead to unexpected result:
 
@@ -127,7 +127,7 @@ In [14]: product.save()
 In [15]: product.in_stock
 Out[15]: <CombinedExpression: F(in_stock) - Value(1)>
 
-In [16]: 
+In [16]:
 ```
 
 ### Summary

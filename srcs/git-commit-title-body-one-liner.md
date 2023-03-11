@@ -27,7 +27,7 @@ Author: hunghoang-saritasa <hung.hoang@saritasa.com>
 Date:   Thu Aug 11 16:29:07 2022 +0700
 
     Subject line
-    
+
     Commit message
 ```
 
@@ -35,4 +35,3 @@ This new finding helps me save time a lot. No need to open a vim editor when com
 
 Bonus: Another way to achieve this commit message structure is opening quotes then press enter and closing the commit with quotes again
 ![git commit -m](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/c4gijdfwk9wg7l8kmue2.jpg)
- 
