@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Hung Hoang">
+  <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
+
+  <title>How to exclude commits from git blame - Hung Hoang</title>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./static/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./static/style.css" rel="stylesheet">
+
+  <!-- Syntax highlighting css -->
+  <link href="./static/pygments.css" rel="stylesheet">
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TG55DGQ');
+  </script>
+  <!-- End Google Tag Manager -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-235710440-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-235710440-2');
+  </script>
+  <!-- End Global site tag (gtag.js) - Google Analytics -->
+  <!-- Google Console Verify-->
+  <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
+  <!-- End Google Console Verify-->
+
+  
+<meta property="og:title" content="How to exclude commits from git blame - Hung Hoang">
+<meta property="twitter:title" content="How to exclude commits from git blame - Hung Hoang">
+
+
+<meta name="description" content="blame.ignoreRevsFile help us configure Git local to exclude formatting commits">
+<meta property="og:description" content="blame.ignoreRevsFile help us configure Git local to exclude formatting commits">
+<meta property="twitter:description" content="blame.ignoreRevsFile help us configure Git local to exclude formatting commits">
+
+
+
+
+
+
+<meta property="og:url" content="/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
+
+</head>
+<body>
+  <div class="container">
+
+    
+<article>
+  <aside class="timestamp">
+    <time>Posted by Hung Hoang on 2022-03-11 11:00</time>
+    · <a href="./">view all posts</a>
+  </aside>
+  <h1>How to exclude commits from git blame</h1>
+  <content>
+    <p><code>git blame</code> allows users to view the revision history of a file line-by-line. It provides information about the author of each line, the commit in which the line was last modified, and the time of the modification.</p>
+<p>At a point of time, I decided to set up <a href="https://pre-commit.com/">pre-commit</a>, a powerful tool to ensure code quality. After the tool has done its job (reformating files like remove trailing whites paces and adding new line at end of file), I messed up with my Git history. <code>git blame</code> becomes useless in such cases. Thousands of lines will be marked with an unimportant formatting change.</p>
+<p><img alt="Before apply .git-blame-ignore-revs" src="https://user-images.githubusercontent.com/99159244/224463554-bf525dd6-57b3-45e2-ad75-fc1d8048a314.png" /></p>
+<h2 id="-ignore-rev-option-comes-to-rescue"><code>--ignore-rev</code> option comes to rescue</h2>
+<p>This options help you blame a file without considering an unwanted commit</p>
+<pre class="lang-bash">git blame --ignore-rev d87e05 build.py
+</pre>
+<p>This is good didn't help much as I rarely use <code>git blame</code> in CLI.</p>
+<h2 id="exclude-commits-with-blameignorerevsfile-option">Exclude commits with <code>blame.ignoreRevsFile</code> option</h2>
+<p>According to <a href="https://black.readthedocs.io/en/stable/guides/introducing_black_to_your_project.html#avoiding-ruining-git-blame">Black documentation</a>:</p>
+<blockquote>
+<p>You can configure Git to automatically ignore revisions listed in a file on every call to git blame.</p>
+</blockquote>
+<p>So I created <code>.git-blame-ignore-rev</code> and put the full 40 characters commit identifier(s) into it:</p>
+<pre><code># Ignore code re-formation after pre-commit setup
+d78d0325fac64bfb69d5c47110e8c1b999dfcd18
+</code></pre>
+<p>then apply this configuration to my local Git config:</p>
+<pre><code>git config blame.ignoreRevsFile .git-blame-ignore-revs
+</code></pre>
+<p>Restarted VSCode and it picked up new Git config and didn't show the reformatting commit anymore!</p>
+<p><img alt="After apply .git-blame-ignore-revs" src="https://user-images.githubusercontent.com/99159244/224464197-afd8a4ec-94ab-4af8-b85c-a21390fc4114.png" /></p>
+  </content>
+</article>
+
+
+    <footer>
+      <div class="row">
+        <div class="col-md-1 d-none d-md-block img-me-container">
+          <img class="img-me img-fluid" src="./static/me.webp">
+        </div>
+        <div class="col-md info">
+          <span class="name">Hung Hoang</span><br>
+          · <a href="https://github.com/hoangquochung1110" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> hoangquochung1110</a>
+          · <a href="https://www.instagram.com/h7ng__/" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i> h7ng__</a>
+          <br>
+          <span class="location"><i class="fas fa-map-marker"></i> Saigon, Vietnam</span>
+        </div>
+        <div class="col-md">
+          <p class="disclaimer">
+            &copy; 2022 &mdash; 2022<br>
+            All text is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> license<br>
+            All code is available under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> license
+          </p>
+      </div>
+
+    </footer>
+  </div>
+
+  <!-- webfonts & icons-->
+  <link href="/static/fontawesome/css/fontawesome-all.min.css" rel="stylesheet">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TG55DGQ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+</body>
+</html>
