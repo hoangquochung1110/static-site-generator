@@ -7,6 +7,7 @@ tags:
     - python
 ---
 
+> This is part of **Testing, mocking and code coverage** lecture I prepare to present at **Python Camp Winter** - training activities during internships at Saritasa.
 ## Pytest
 Pytest is a popular testing framework for Python that allows developers to write simple, scalable, and readable tests for their code. It is a powerful and flexible tool that provides features such as automatic test discovery, fixtures for managing test data, and plugins for extending its functionality
 
