@@ -45,7 +45,7 @@
   <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
   <!-- End Google Console Verify-->
 
-
+  
 <meta property="og:title" content="Manage State in ReactJS with to-do app - Hung Hoang">
 <meta property="twitter:title" content="Manage State in ReactJS with to-do app - Hung Hoang">
 
@@ -67,7 +67,7 @@
 <body>
   <div class="container">
 
-
+    
 <article>
   <aside class="timestamp">
     <time>Posted by Hung Hoang on 2022-03-10 10:00</time>
@@ -202,7 +202,7 @@ export default App;
 setTask({...task, text: &#39;&#39;});// update text, others unchanged
 </pre>
 <p>In our app, we update the input field whenever users press a key. Because we want <code>order</code> and <code>id</code> properties to be unchanged for every <em>onChange</em> events. It means we're going to just update <code>task</code> partially instead of an entirely new state. In this circumstance, the second form of <code>setState()</code> comes in.</p>
-<p><code>setState((state, props) =&gt; newValue)</code> </p>
+<p><code>setState((state, props) =&gt; newValue)</code></p>
 <p>It accepts a function rather than an object. This function takes previous state as a first argument and props at the time when update is applied as second argument. Implement the second form to our handler:</p>
 <pre class="lang-jsx">  const inputChangeHandler = (e) =&gt; {
     setTask((prevTask) =&gt; ({

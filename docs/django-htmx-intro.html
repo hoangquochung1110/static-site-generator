@@ -45,7 +45,7 @@
   <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
   <!-- End Google Console Verify-->
 
-
+  
 <meta property="og:title" content="How Django meets htmx &#58; A quick tour of modern server side rendering. - Hung Hoang">
 <meta property="twitter:title" content="How Django meets htmx &#58; A quick tour of modern server side rendering. - Hung Hoang">
 
@@ -67,7 +67,7 @@
 <body>
   <div class="container">
 
-
+    
 <article>
   <aside class="timestamp">
     <time>Posted by Hung Hoang on 2022-03-10 10:00</time>
@@ -187,7 +187,7 @@ templates/
 <p><img alt="htmx re-render form tag" src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/g5s0d9cfbllfbqj1zyaj.png" /></p>
 <p>The second scenario is that the data you submit is valid, according to the initial implementation of <code>PasswordChangeViewAdmin</code>, it should return a response including the admin-login template. Now here comes the problem: the page is expected to load the admin-login page into the form tag. It does not make sense and not what we want to do.</p>
 <h2 id="step-3-redirect-after-successful-form-submission">STEP 3: Redirect after successful form submission</h2>
-<p>The solution to this circumstance is to modify the behavior of <code>hx-post</code>, prevent it from swapping response onto the page. Instead we should redirect users to another page: </p>
+<p>The solution to this circumstance is to modify the behavior of <code>hx-post</code>, prevent it from swapping response onto the page. Instead we should redirect users to another page:</p>
 <pre class="lang-python3"><span class="k">class</span> <span class="nc">PasswordChangeViewAdmin</span><span class="p">(</span><span class="n">PasswordChangeView</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Allow change password for current user.&quot;&quot;&quot;</span>
     <span class="n">template_name</span> <span class="o">=</span> <span class="s2">&quot;users/profile/password_update.html&quot;</span>

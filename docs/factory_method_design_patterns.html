@@ -45,7 +45,7 @@
   <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
   <!-- End Google Console Verify-->
 
-
+  
 <meta property="og:title" content="Implementation of the Factory Method pattern in Python - Hung Hoang">
 <meta property="twitter:title" content="Implementation of the Factory Method pattern in Python - Hung Hoang">
 
@@ -67,7 +67,7 @@
 <body>
   <div class="container">
 
-
+    
 <article>
   <aside class="timestamp">
     <time>Posted by Hung Hoang on 2022-12-08 16:00</time>
@@ -108,7 +108,7 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
 </pre>
 <p>The <code>serialize()</code> method support JSON and XML formats. Let's say we're going to support more structures like yaml or csv, if-else structure becomes more complex and harder to read and harder to understand.</p>
-<p>Therefore, we need a component which decides an appropriate implementation based on the specified <em>format</em>. </p>
+<p>Therefore, we need a component which decides an appropriate implementation based on the specified <em>format</em>.</p>
 <h3 id="basic-implementation-of-factory-method"><strong>Basic implementation of Factory Method</strong></h3>
 <p>The central idea in Factory Method is to provide a separate component with the responsibility to decide which concrete implementation should be used based on some specified parameter. That parameter in our example is the <em>format</em>.</p>
 <p>To complete the implementation of Factory Method, you add a new method ._get_serializer() that takes the desired format. This method evaluates the value of format and returns the matching serialization function:</p>

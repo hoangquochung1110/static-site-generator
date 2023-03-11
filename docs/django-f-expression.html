@@ -45,7 +45,7 @@
   <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
   <!-- End Google Console Verify-->
 
-
+  
 <meta property="og:title" content="Upgrade django queries with F() expression - Hung Hoang">
 <meta property="twitter:title" content="Upgrade django queries with F() expression - Hung Hoang">
 
@@ -67,7 +67,7 @@
 <body>
   <div class="container">
 
-
+    
 <article>
   <aside class="timestamp">
     <time>Posted by Hung Hoang on 2022-07-27 17:00</time>
@@ -176,7 +176,7 @@ Let's imagine there are multiple users trying to make orders for a product, the 
 </pre>
 <p>The quantity of product with id 262 will reduce by 1 and not set by a fixed value. This is how to use an F expression to solve the race condition problem.</p>
 <h3 id="note">Note</h3>
-<p>The F() object which is assign to model field persist after saving model instance and will be applied on each <code>save()</code> so we need to <code>refresh_from_db</code> to get the updated instance. </p>
+<p>The F() object which is assign to model field persist after saving model instance and will be applied on each <code>save()</code> so we need to <code>refresh_from_db</code> to get the updated instance.</p>
 <p>Try to read an instance without refreshing from database may lead to unexpected result:</p>
 <pre class="lang-python3"><span class="n">In</span> <span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="n">product</span> <span class="o">=</span> <span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">262</span><span class="p">)</span>
 

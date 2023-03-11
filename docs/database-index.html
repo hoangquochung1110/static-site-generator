@@ -45,7 +45,7 @@
   <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
   <!-- End Google Console Verify-->
 
-
+  
 <meta property="og:title" content="Database indexing in a nutshell with B+tree and Hash in comparison - Hung Hoang">
 <meta property="twitter:title" content="Database indexing in a nutshell with B+tree and Hash in comparison - Hung Hoang">
 
@@ -67,7 +67,7 @@
 <body>
   <div class="container">
 
-
+    
 <article>
   <aside class="timestamp">
     <time>Posted by Hung Hoang on 2022-04-25 10:00</time>
@@ -88,7 +88,7 @@ There are two things to discuss when it comes to hashing:</p>
 </ul>
 <p><img alt="hash function" src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/khkm46v11z8o3geabglx.png" /></p>
 <p>Some people ask: why collision ? Does a <a href="https://en.wikipedia.org/wiki/Perfect_hash_function">perfect hash function</a> ever exist ? In fact, let's say your keys is an infinite set, it's impossible to map them into a set of 32-bit integers without having no collision. There should be a trade-off between computation and collision rate.</p>
-<p>There are a few hashing scheme worth mentioning: <a href="https://en.wikipedia.org/wiki/Linear_probing#:~:text=Linear%20probing%20is%20a%20scheme,by%20Gene%20Amdahl%2C%20Elaine%20M.">linear probing</a>, <a href="https://www.tutorialspoint.com/hashing-with-chaining-in-data-structure">chained hashing</a> and <a href="https://en.wikipedia.org/wiki/Extendible_hashing">extendible hashing</a>. Lookup/insert/delete algorithms vary by hashing scheme, for example, chained hashing deal with key collisions by placing elements have the same hash value in the same bucket. </p>
+<p>There are a few hashing scheme worth mentioning: <a href="https://en.wikipedia.org/wiki/Linear_probing#:~:text=Linear%20probing%20is%20a%20scheme,by%20Gene%20Amdahl%2C%20Elaine%20M.">linear probing</a>, <a href="https://www.tutorialspoint.com/hashing-with-chaining-in-data-structure">chained hashing</a> and <a href="https://en.wikipedia.org/wiki/Extendible_hashing">extendible hashing</a>. Lookup/insert/delete algorithms vary by hashing scheme, for example, chained hashing deal with key collisions by placing elements have the same hash value in the same bucket.</p>
 <h3 id="pros">Pros</h3>
 <ul>
 <li>Hash index is suitable for equality or primary key lookup. Queries can benefit from hash index to get amortized O(1) lookup cost. For example: <code>SELECT name, id FROM student WHERE id = '1315';</code></li>
