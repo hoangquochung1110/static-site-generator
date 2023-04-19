@@ -5,6 +5,22 @@ description: Short explanation about Kubernetes core concepts
 category: undefined
 ---
 
+# YAML files
+
+- input for the creation of objects such as PODs, Replicas, Deployments, Services etc. All of these follow similar structure
+- contains 4 top level fields:
+    * apiVersion
+    * kind
+    * metadata
+    * spec
+
+It’s IMPORTANT to note that under metadata, you can only specify name or labels or
+anything else that kubernetes expects to be under metadata. You CANNOT add any
+other property as you wish underthis. However, under labels you CAN have any kind
+of key or value pairs as you see fit. So its IMPORTANT to understand what each of
+these parameters expect.
+
+
 # Pod
 
 The smallest and most fundamental object in Kubernetes.
