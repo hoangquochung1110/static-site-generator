@@ -9,6 +9,13 @@
 
   
   <item>
+    <title>Understanding Dirty Read and Non-Repeatable Phenomena in Postgres: A Visual Demo</title>
+    <link>https://www.hung.codes/isolation-level-postgres-p1</link>
+    <guid>https://www.hung.codes/isolation-level-postgres-p1</guid>
+    <pubDate>2023-04-25 15:00</pubDate>
+  </item>
+  
+  <item>
     <title>Pytest introduction in 5 minutes</title>
     <link>https://www.hung.codes/pytest-intro</link>
     <guid>https://www.hung.codes/pytest-intro</guid>
