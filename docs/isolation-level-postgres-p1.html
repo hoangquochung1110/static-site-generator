@@ -75,7 +75,17 @@
   </aside>
   <h1>Understanding Dirty Read and Non-Repeatable Phenomena in Postgres: A Visual Demo</h1>
   <content>
-    <p>In this video, you'll see a demonstration of dirty read and non-repeatable phenomena in Postgres by creating two transactions and manipulating data in a table. By visually presenting the effects of these phenomena, this video will help you understand the importance of transaction isolation levels and their impact on data consistency in a database system.</p>
+    <p>In this video, you'll see a demonstration of <strong>dirty read</strong> and <strong>non-repeatable phenomena</strong> in Postgres at <strong>Read Committed</strong> isolation level.</p>
+<h3 id="dirty-read-is-blocked">Dirty read is blocked:</h3>
+<ul>
+<li>The first transaction issues an update statement but not committed yet.</li>
+<li>The second transaction should not read uncommitted changes made by the first one.</li>
+</ul>
+<h3 id="non-repeated-read-is-active">Non-repeated read is active:</h3>
+<ul>
+<li>The first transaction: read the same row twice</li>
+<li>The second transaction: update this row between these 2 reads -&gt; the first transactions gets different results each time.</li>
+</ul>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/wPMy3143xRQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
   </content>
 </article>
