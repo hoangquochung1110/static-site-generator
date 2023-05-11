@@ -6,10 +6,16 @@ category: blog
 ---
 
 ### What is snapshots ?
-- A snapshot includes only the current data committed by the time it was taken, thus providing a consistent (in the ACID sense) view of the data for this particular moment.
-- To ensure isolation, each transaction uses its own snapshot. It means that different transactions can see different snapshots taken at different points in time, which are nevertheless consistent.
-- At the **Read Committed** isolation level, a snapshot is taken at the beginning of each statement, and it remains active only for the duration of this statement. -> Non-repeatable may happen.
-- At the **Repeatable Read** and **Serializable** levels, a snapshot is taken at the beginning of the first statement of a transaction, and it remains active until the whole transaction is complete. -> Reading data may be stale -> Should be ready to retry transactions.
+
+<details>
+<summary>Snapshots control which tuples are visible to SQL statements.</summary>
+
+    - A snapshot includes only the current data committed by the time it was taken, thus providing a consistent (in the ACID sense) view of the data for this particular moment.
+    - To ensure isolation, each transaction uses its own snapshot. It means that different transactions can see different snapshots taken at different points in time, which are nevertheless consistent.
+</details>
+
+* At the **Read Committed** isolation level, a snapshot is taken at the beginning of each statement, and it remains active only for the duration of this statement. -> Non-repeatable may happen.
+* At the **Repeatable Read** and **Serializable** levels, a snapshot is taken at the beginning of the first statement of a transaction, and it remains active until the whole transaction is complete. -> Reading data may be stale -> Should be ready to retry transactions.
 
 ### Export snapshots
 
