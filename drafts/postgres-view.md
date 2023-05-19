@@ -1,0 +1,6 @@
+Use cases of View in Postgres:
+
+- Simplifying complex queries: Views allow you to encapsulate complex SQL logic into a single object. You can create a view that joins multiple tables, applies filters, performs calculations, and returns a simplified result. This can make your queries more readable and maintainable.
+- Data security: Views can be used to restrict access to certain columns or rows in a table. By creating a view with limited columns or applying filters, you can control what data users can see. This is especially useful when dealing with sensitive data or implementing row-level security.
+- Data abstraction and encapsulation: Views provide a layer of abstraction over the underlying tables. They allow you to hide the underlying table structure and provide a simplified interface for querying the data. This can be useful when you want to present a subset of data or modify the structure of the data without impacting the underlying tables.
+- Report generation: Views can be used to create pre-defined reports that can be easily accessed by users. You can define a view that encapsulates the necessary joins, filters, and calculations required for generating a report. Users can then query the view to retrieve the report data without having to understand the underlying complexity.
