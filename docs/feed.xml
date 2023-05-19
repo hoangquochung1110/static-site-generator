@@ -9,7 +9,7 @@
 
   
   <item>
-    <title>Run additional script with Postgres initialization in Docker</title>
+    <title>Run additional script when Postgres container starts</title>
     <link>https://www.hung.codes/postgres-init-script</link>
     <guid>https://www.hung.codes/postgres-init-script</guid>
     <pubDate>2023-05-19 18:00</pubDate>

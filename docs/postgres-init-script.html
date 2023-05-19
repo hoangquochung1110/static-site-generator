@@ -8,7 +8,7 @@
   <meta name="author" content="Hung Hoang">
   <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
 
-  <title>Run additional script with Postgres initialization in Docker - Hung Hoang</title>
+  <title>Run additional script when Postgres container starts - Hung Hoang</title>
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
@@ -46,8 +46,8 @@
   <!-- End Google Console Verify-->
 
   
-<meta property="og:title" content="Run additional script with Postgres initialization in Docker - Hung Hoang">
-<meta property="twitter:title" content="Run additional script with Postgres initialization in Docker - Hung Hoang">
+<meta property="og:title" content="Run additional script when Postgres container starts - Hung Hoang">
+<meta property="twitter:title" content="Run additional script when Postgres container starts - Hung Hoang">
 
 
 <meta name="description" content="Learn how to run additional scripts during the initialization of a Postgres container in Docker. This feature allows you to set up initial data, create roles, and grant privileges. Discover how to leverage the power of initialization scripts and explore an example code snippet that demonstrates the process. Find out more about this Docker feature and its usage in this informative blog post.">
@@ -73,10 +73,9 @@
     <time>Posted by Hung Hoang on 2023-05-19 18:00</time>
     · <a href="./">view all posts</a>
   </aside>
-  <h1>Run additional script with Postgres initialization in Docker</h1>
+  <h1>Run additional script when Postgres container starts</h1>
   <content>
-    <h2 id="run-additional-script-when-postgres-container-starts">Run additional script when Postgres container starts</h2>
-<p>Today, I've just explored a feature when you start a postgres instance on Docker which allows you to set up initial data like <code>CREATE ROLE</code> or `GRANT <PRIVILEGE>.</p>
+    <p>Today, I've just explored a feature when you start a postgres instance on Docker which allows you to set up initial data like <code>CREATE ROLE</code> or <code>GRANT &lt;PRIVILEGE&gt;</code>.</p>
 <p>Postgres container will run any <code>*.sql</code> and <code>*.sh</code> found in the directory (which containing <code>docker-compose.yml</code>) to do further initialization before starting the service.</p>
 <p>NOTE: scripts in /docker-entrypoint-initdb.d are only run if you start the container with a data directory that is empty; any pre-existing database will be left untouched on container startup.</p>
 <p>Read more details <a href="https://github.com/docker-library/docs/tree/master/postgres#initialization-scripts">here</a></p>
