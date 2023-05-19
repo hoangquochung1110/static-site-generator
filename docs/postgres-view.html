@@ -8,7 +8,7 @@
   <meta name="author" content="Hung Hoang">
   <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
 
-  <title>Run additional script when Postgres container starts - Hung Hoang</title>
+  <title> - Hung Hoang</title>
 
   <!-- RSS -->
   <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
@@ -46,13 +46,9 @@
   <!-- End Google Console Verify-->
 
   
-<meta property="og:title" content="Run additional script when Postgres container starts - Hung Hoang">
-<meta property="twitter:title" content="Run additional script when Postgres container starts - Hung Hoang">
+<meta property="og:title" content=" - Hung Hoang">
+<meta property="twitter:title" content=" - Hung Hoang">
 
-
-<meta name="description" content="Learn how to run additional scripts during the initialization of a Postgres container in Docker. This feature allows you to set up initial data, create roles, and grant privileges. Discover how to leverage the power of initialization scripts and explore an example code snippet that demonstrates the process. Find out more about this Docker feature and its usage in this informative blog post.">
-<meta property="og:description" content="Learn how to run additional scripts during the initialization of a Postgres container in Docker. This feature allows you to set up initial data, create roles, and grant privileges. Discover how to leverage the power of initialization scripts and explore an example code snippet that demonstrates the process. Find out more about this Docker feature and its usage in this informative blog post.">
-<meta property="twitter:description" content="Learn how to run additional scripts during the initialization of a Postgres container in Docker. This feature allows you to set up initial data, create roles, and grant privileges. Discover how to leverage the power of initialization scripts and explore an example code snippet that demonstrates the process. Find out more about this Docker feature and its usage in this informative blog post.">
 
 
 
@@ -70,18 +66,18 @@
     
 <article>
   <aside class="timestamp">
-    <time>Posted by Hung Hoang on 2023-05-19 18:00</time>
+    <time>Posted by Hung Hoang on </time>
     · <a href="./">view all posts</a>
   </aside>
-  <h1>Run additional script when Postgres container starts</h1>
+  <h1></h1>
   <content>
-    <p>Today, I've just explored a feature when you start a postgres instance on Docker which allows you to set up initial data like <code>CREATE ROLE</code> or <code>GRANT &lt;PRIVILEGE&gt;</code>.</p>
-<p>You may learn more details <a href="https://github.com/docker-library/docs/tree/master/postgres#initialization-scripts">here</a></p>
-<h3 id="tldr">TL;DR:</h3>
-<p>We create <code>*.sql</code> or <code>*.sh</code> script to run SQL statement or bash script to prepare initial data.
-Postgres container will run any <code>*.sql</code> and <code>*.sh</code> found in the directory (which containing <code>docker-compose.yml</code>) to do further initialization before starting the service.</p>
-<p>NOTE: scripts in /docker-entrypoint-initdb.d are only run if you start the container with a data directory that is empty; any pre-existing database will be left untouched on container startup.</p>
-<p>And visit my example code <a href="https://gist.github.com/hoangquochung1110/5486440c7e2b43f98135ff7803750b5f">at my gist</a></p>
+    <p>Use cases of View in Postgres:</p>
+<ul>
+<li>Simplifying complex queries: Views allow you to encapsulate complex SQL logic into a single object. You can create a view that joins multiple tables, applies filters, performs calculations, and returns a simplified result. This can make your queries more readable and maintainable.</li>
+<li>Data security: Views can be used to restrict access to certain columns or rows in a table. By creating a view with limited columns or applying filters, you can control what data users can see. This is especially useful when dealing with sensitive data or implementing row-level security.</li>
+<li>Data abstraction and encapsulation: Views provide a layer of abstraction over the underlying tables. They allow you to hide the underlying table structure and provide a simplified interface for querying the data. This can be useful when you want to present a subset of data or modify the structure of the data without impacting the underlying tables.</li>
+<li>Report generation: Views can be used to create pre-defined reports that can be easily accessed by users. You can define a view that encapsulates the necessary joins, filters, and calculations required for generating a report. Users can then query the view to retrieve the report data without having to understand the underlying complexity.</li>
+</ul>
   </content>
 </article>
 
