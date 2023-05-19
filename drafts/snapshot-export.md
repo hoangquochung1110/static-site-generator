@@ -17,6 +17,11 @@ category: blog
 * At the **Read Committed** isolation level, a snapshot is taken at the beginning of each statement, and it remains active only for the duration of this statement. -> Non-repeatable may happen.
 * At the **Repeatable Read** and **Serializable** levels, a snapshot is taken at the beginning of the first statement of a transaction, and it remains active until the whole transaction is complete. -> Reading data may be stale -> Should be ready to retry transactions.
 
+Snapshots are characteristic of 3 values:
+- **xmin**: the snapshot's lower boundary which is represented by the *ID* the oldest active transaction.
+- **xmax**:
+- **xip_list**: is the list of IDs of all active transactions
+
 ### Export snapshots
 
 In some situations, concurrent transactions must see one and the same snapshot by all means
