@@ -5,7 +5,7 @@ description: Learn how to run additional scripts during the initialization of a 
 category: blog
 ---
 
-Today, I've just explored a feature when you start a postgres instance on Docker which allows you to set up initial data like `CREATE ROLE` or `GRANT <PRIVILEGE>`.
+Today, I've just explored a feature which allows you to set up initial data like `CREATE ROLE` or `GRANT <PRIVILEGE>` when you start a postgres instance on Docker for the first time.
 
 You may learn more details [here](https://github.com/docker-library/docs/tree/master/postgres#initialization-scripts)
 
