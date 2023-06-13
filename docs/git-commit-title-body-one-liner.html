@@ -76,20 +76,20 @@
   <h1>Commit message with title and body with one-liner git command</h1>
   <content>
     <p>When you use git, one of the most frequent used command is</p>
-<pre class="lang-bash">git commit -m <span class="s2">&quot;my commit message&quot;</span>
+<pre class="lang-bash">git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;my commit message&quot;</span>
 </pre>
 <p>But most of the time, you would give a more meaningful commit message. Meaningful I mean here is that the message should consist of subject line (a short description of your changes in code) and body (to give more detailed description of what you did)</p>
 <p>Today I learn that <code>git commit</code> accept multiple message flag 😉
 If you run this command</p>
-<pre class="lang-bash">git commit -m <span class="s2">&quot;subject line&quot;</span> -m <span class="s2">&quot;commit description&quot;</span>
+<pre class="lang-bash">git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;subject line&quot;</span><span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;commit description&quot;</span>
 </pre>
 <p>It will result in this</p>
-<pre class="lang-bash">Author: hunghoang-saritasa &lt;hung.hoang@saritasa.com&gt;
-Date:   Thu Aug <span class="m">11</span> <span class="m">16</span>:29:07 <span class="m">2022</span> +0700
+<pre class="lang-bash">Author:<span class="w"> </span>hunghoang-saritasa<span class="w"> </span>&lt;hung.hoang@saritasa.com&gt;
+Date:<span class="w">   </span>Thu<span class="w"> </span>Aug<span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="m">16</span>:29:07<span class="w"> </span><span class="m">2022</span><span class="w"> </span>+0700
 
-    Subject line
+<span class="w">    </span>Subject<span class="w"> </span>line
 
-    Commit message
+<span class="w">    </span>Commit<span class="w"> </span>message
 </pre>
 <p>This new finding helps me save time a lot. No need to open a vim editor when committing message with subject and body. And actually <a href="https://git-scm.com/docs/git-commit#Documentation/git-commit.txt--mltmsggt">the git documentation</a> do mention it.</p>
 <p>Bonus: Another way to achieve this commit message structure is opening quotes then press enter and closing the commit with quotes again
