@@ -39,7 +39,7 @@ jobs:
         git config --global user.name "Hung's bot"
         git diff --quiet || (
           changed_files=$(git diff --name-only srcs)
-          && git add docs
-          && git commit -m "Publish new post: $changed_files"
+          git add docs
+          git commit -m "Publish new post: $changed_files"
         )
         git push
