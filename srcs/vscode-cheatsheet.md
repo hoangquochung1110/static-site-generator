@@ -1,6 +1,6 @@
 ---
 title: My favorite Visual Studio Code cheatsheet for Mac
-date: 2022-10-15 10:00
+date: 2022-10-15 11:00
 description: My most frequent keyboard shortcuts in Visual Studio Code
 tag: cheatsheet
 category: cheatsheet
