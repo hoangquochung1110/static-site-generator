@@ -46,3 +46,4 @@ tags:
 | &#8984 ,                              | User Settings               |
 | &#8679; &#8984 V                      | Open Markdown preview       |
 | &#8963; `                             | Open/close terminal         |
+| &#8984 &#8679; [ (or ])               | Move to next/prev terminal  |
