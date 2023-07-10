@@ -81,45 +81,45 @@
   <content>
     <h3 id="grep-r-for-pattern-matching-in-all-files-within-a-directory-and-its-subdirectories"><code>grep -r</code> for pattern matching in all files within a directory and its subdirectories.</h3>
 <p>There's a situation that I don't know which file contains the specific pattern that you are looking for. Then <code>grep -r</code> comes into play.</p>
-<pre class="lang-shell">$ grep <span class="s1">&#39;ˆZ&#39;</span> -r ~/Desktop
+<pre class="lang-shell">$<span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;ˆZ&#39;</span><span class="w"> </span>-r<span class="w"> </span>~/Desktop
 </pre>
 <p>The above grep command search for any line starting with <code>Z</code> in Desktop directory.</p>
 <h2 id="grep-v-to-search-for-the-whole-word"><code>grep -v</code> to search for the whole word</h2>
-<pre class="lang-shell">hunghoang@MacBook-Pro Desktop % cat examples.txt
-my example
-linux exam on 19th
-hunghoang@MacBook-Pro Desktop % grep <span class="s2">&quot;exam&quot;</span> examples.txt
-my example
-linux exam on 19th
-hunghoang@MacBook-Pro Desktop % grep -w <span class="s2">&quot;exam&quot;</span> examples.txt
-linux exam on 19th
+<pre class="lang-shell">hunghoang@MacBook-Pro<span class="w"> </span>Desktop<span class="w"> </span>%<span class="w"> </span>cat<span class="w"> </span>examples.txt
+my<span class="w"> </span>example
+linux<span class="w"> </span>exam<span class="w"> </span>on<span class="w"> </span>19th
+hunghoang@MacBook-Pro<span class="w"> </span>Desktop<span class="w"> </span>%<span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;exam&quot;</span><span class="w"> </span>examples.txt
+my<span class="w"> </span>example
+linux<span class="w"> </span>exam<span class="w"> </span>on<span class="w"> </span>19th
+hunghoang@MacBook-Pro<span class="w"> </span>Desktop<span class="w"> </span>%<span class="w"> </span>grep<span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;exam&quot;</span><span class="w"> </span>examples.txt
+linux<span class="w"> </span>exam<span class="w"> </span>on<span class="w"> </span>19th
 </pre>
 <h2 id="grep-a-and-grep-b-to-print-number-of-lines-after-and-before-matching-line"><code>grep -A</code> and <code>grep -B</code> to print number of lines after and before matching line</h2>
 <p>The grep -A option stands for "after" and specifies the number of lines to be displayed after a match is found. When using this option, grep will display the matched line followed by the specified number of lines after it.</p>
 <p>The grep -B option stands for "before" and similarly specifies the number of lines to be displayed before a match is found. With this option, grep will display the specified number of lines before the matched line.</p>
 <p>Both -A and -B options are useful for context sensitive searching, when you need to see some lines before or after the match to understand it better. For example, grep -A 3 error log.txt would show three lines after each line containing the word "error" in the file "log.txt".</p>
-<pre class="lang-shell">hunghoang@MacBook-Pro Desktop % cat premier-league-table.txt
-<span class="m">1</span>. Arsenal
-<span class="m">2</span>. Liverpool
-<span class="m">3</span>. Man City
-<span class="m">4</span>. Chelsea
-hunghoang@MacBook-Pro Desktop % grep -A2 Arsenal premier-league-table.txt
-<span class="m">1</span>. Arsenal
-<span class="m">2</span>. Liverpool
-<span class="m">3</span>. Man City
-hunghoang@MacBook-Pro Desktop % grep -B1 <span class="s1">&#39;Man City&#39;</span> premier-league-table.txt
-<span class="m">2</span>. Liverpool
-<span class="m">3</span>. Man City
+<pre class="lang-shell">hunghoang@MacBook-Pro<span class="w"> </span>Desktop<span class="w"> </span>%<span class="w"> </span>cat<span class="w"> </span>premier-league-table.txt
+<span class="m">1</span>.<span class="w"> </span>Arsenal
+<span class="m">2</span>.<span class="w"> </span>Liverpool
+<span class="m">3</span>.<span class="w"> </span>Man<span class="w"> </span>City
+<span class="m">4</span>.<span class="w"> </span>Chelsea
+hunghoang@MacBook-Pro<span class="w"> </span>Desktop<span class="w"> </span>%<span class="w"> </span>grep<span class="w"> </span>-A2<span class="w"> </span>Arsenal<span class="w"> </span>premier-league-table.txt
+<span class="m">1</span>.<span class="w"> </span>Arsenal
+<span class="m">2</span>.<span class="w"> </span>Liverpool
+<span class="m">3</span>.<span class="w"> </span>Man<span class="w"> </span>City
+hunghoang@MacBook-Pro<span class="w"> </span>Desktop<span class="w"> </span>%<span class="w"> </span>grep<span class="w"> </span>-B1<span class="w"> </span><span class="s1">&#39;Man City&#39;</span><span class="w"> </span>premier-league-table.txt
+<span class="m">2</span>.<span class="w"> </span>Liverpool
+<span class="m">3</span>.<span class="w"> </span>Man<span class="w"> </span>City
 </pre>
 <p><code>grep -A2 Arsenal premier-league-table.txt</code> indicates that we want to show <strong>2</strong> lines <strong>after</strong> the line which contains <code>Arsenal</code> pattern while <code>grep -B1 'Man City' premier-league-table.txt</code> means the terminal should display <strong>1</strong> line <strong>before</strong> the line which matches <code>Man City</code> pattern.</p>
 <h2 id="grep-v-to-perform-invert-match"><code>grep -v</code> to perform invert match</h2>
 <p>This option is to display all lines that do NOT match the specified pattern.</p>
 <p>Given <code>premier-league-table.txt</code> file as above example:
 This will print only the lines that don’t match the pattern given:</p>
-<pre class="lang-shell">hunghoang@MacBook-Pro Desktop % grep -v Arsenal premier-league-table.txt
-<span class="m">2</span>. Liverpool
-<span class="m">3</span>. Man City
-<span class="m">4</span>. Chelsea
+<pre class="lang-shell">hunghoang@MacBook-Pro<span class="w"> </span>Desktop<span class="w"> </span>%<span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>Arsenal<span class="w"> </span>premier-league-table.txt
+<span class="m">2</span>.<span class="w"> </span>Liverpool
+<span class="m">3</span>.<span class="w"> </span>Man<span class="w"> </span>City
+<span class="m">4</span>.<span class="w"> </span>Chelsea
 </pre>
   </content>
 </article>

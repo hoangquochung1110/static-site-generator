@@ -118,7 +118,7 @@
 <p>To complete the implementation of Factory Method, you add a new method ._get_serializer() that takes the desired format. This method evaluates the value of format and returns the matching serialization function:</p>
 <pre class="lang-python3"><span class="k">class</span> <span class="nc">SongSerializer</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">_get_serializer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`creator` component in Factory Method pattern.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;`creator` component in Factory Method pattern.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s1">&#39;JSON&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serialize_to_json</span>
         <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s1">&#39;XML&#39;</span><span class="p">:</span>
@@ -129,12 +129,12 @@
 <p>Now, you can change the .serialize() method of SongSerializer to use ._get_serializer() to complete the Factory Method implementation. The next example shows the complete code:</p>
 <pre class="lang-python3"><span class="k">class</span> <span class="nc">SongSerializer</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">song</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`product` component in Factory Method pattern.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;`product` component in Factory Method pattern.&quot;&quot;&quot;</span>
         <span class="n">serializer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_serializer</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">serializer</span><span class="p">(</span><span class="n">song</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_serializer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;`creator` component in Factory Method pattern.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;`creator` component in Factory Method pattern.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s1">&#39;JSON&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serialize_to_json</span>
         <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s1">&#39;XML&#39;</span><span class="p">:</span>

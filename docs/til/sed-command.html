@@ -83,20 +83,20 @@
 <h3 id="replace-string-using-the-sed-command">Replace String Using the sed Command</h3>
 <p>The Linux sed command is most commonly used for substituting text. It searches for the specified pattern in a file and replaces it with the wanted string.</p>
 <p>Example:</p>
-<pre class="lang-shell">sed -i <span class="s1">&#39;s/old_string/new_string/&#39;</span> filename.txt
+<pre class="lang-shell">sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/old_string/new_string/&#39;</span><span class="w"> </span>filename.txt
 </pre>
 <p>option <code>i</code> means overwriting original file.</p>
 <p>By default, sed only replaces the first occurrence of the specified string in each line. It searches for the first instance of the specified word in a line, replaces it, and moves on to the next line.</p>
 <p>If you have multiple instances of the same word within a single line, add the g flag to the command to change all of them.</p>
 <p>The command for substituting each occurrence of a given string within a text is:</p>
-<pre class="lang-shell">sed <span class="s1">&#39;s/old_string/new_string/g&#39;</span> filename.txt
+<pre class="lang-shell">sed<span class="w"> </span><span class="s1">&#39;s/old_string/new_string/g&#39;</span><span class="w"> </span>filename.txt
 </pre>
 <h3 id="replace-specific-occurrence-in-a-line-using-the-sed-command">Replace Specific Occurrence in a Line Using the sed Command</h3>
 <p>The sed command lets you choose which occurrence of a specified string you want to replace within each line. To do so, add a number flag such as 1, 2, etc.:</p>
-<pre class="lang-shell">sed <span class="s1">&#39;s/old_string/new_string/#&#39;</span> filename.txt
+<pre class="lang-shell">sed<span class="w"> </span><span class="s1">&#39;s/old_string/new_string/#&#39;</span><span class="w"> </span>filename.txt
 </pre>
 <p>For example, to substitute the second occurrence of the word box in each line of the text with the word bin, use this command:</p>
-<pre class="lang-shell">sed <span class="s1">&#39;s/box/bin/2&#39;</span> foxinbox.txt
+<pre class="lang-shell">sed<span class="w"> </span><span class="s1">&#39;s/box/bin/2&#39;</span><span class="w"> </span>foxinbox.txt
 </pre>
 <p>For advance usage, please refer <a href="https://phoenixnap.com/kb/linux-sed">this post</a></p>
   </content>

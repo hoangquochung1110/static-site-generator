@@ -95,24 +95,24 @@
 <pre class="lang-python3"><span class="kn">import</span> <span class="nn">re</span>
 
 <span class="k">class</span> <span class="nc">Renderer</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Class to implement regex.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to implement regex.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">placeholder_to_value_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">placeholder_to_value_map</span> <span class="o">=</span> <span class="n">placeholder_to_value_map</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">re_pattern</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_pattern</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">build_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return regex pattern object.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return regex pattern object.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
             <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">placeholder_to_value_map</span><span class="p">))</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">repl_placeholders</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">match_obj</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return actual values if match.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return actual values if match.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">placeholder_to_value_map</span><span class="p">[</span><span class="n">match_obj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Replace placeholders with actual values.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Replace placeholders with actual values.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">re_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repl_placeholders</span><span class="p">,</span> <span class="n">template</span><span class="p">)</span>
 
 
@@ -136,10 +136,10 @@
     <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 </pre>
 <p>Output</p>
-<pre class="lang-shell">hunghoang@localhost project4 % python re_revise.py
-Hello Michael. This is Saritasa. We wanted to follow-up with you
-to confirm Luca<span class="err">&#39;</span>s appointment on tomorrow.
-Please call123456789 <span class="k">if</span> you need to reschedule.
+<pre class="lang-shell">hunghoang@localhost<span class="w"> </span>project4<span class="w"> </span>%<span class="w"> </span>python<span class="w"> </span>re_revise.py
+Hello<span class="w"> </span>Michael.<span class="w"> </span>This<span class="w"> </span>is<span class="w"> </span>Saritasa.<span class="w"> </span>We<span class="w"> </span>wanted<span class="w"> </span>to<span class="w"> </span>follow-up<span class="w"> </span>with<span class="w"> </span>you
+to<span class="w"> </span>confirm<span class="w"> </span>Luca<span class="err">&#39;</span>s<span class="w"> </span>appointment<span class="w"> </span>on<span class="w"> </span>tomorrow.
+Please<span class="w"> </span>call123456789<span class="w"> </span><span class="k">if</span><span class="w"> </span>you<span class="w"> </span>need<span class="w"> </span>to<span class="w"> </span>reschedule.
 </pre>
 <ul>
 <li>
@@ -158,23 +158,23 @@ This method is called for every occurrence of pattern. Let's say we have 4 match
 <p>Let's try to print it out to see if it's true</p>
 <pre class="lang-python3"><span class="o">...</span>
 <span class="k">class</span> <span class="nc">Renderer</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Class to implement regex.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to implement regex.&quot;&quot;&quot;</span>
     <span class="n">time</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="o">...</span>
     <span class="k">def</span> <span class="nf">repl_placeholders</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">match_obj</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return actual values if match.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return actual values if match.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;run </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">placeholder_to_value_map</span><span class="p">[</span><span class="n">match_obj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span>
 <span class="o">...</span>
 </pre>
 <p>Result as we expected   :</p>
-<pre class="lang-shell">hunghoang@localhost project4 % python re_revise.py
-run <span class="m">1</span>
-run <span class="m">2</span>
-run <span class="m">3</span>
-run <span class="m">4</span>
-Hello Michael. This is Saritasa. We wanted to follow-up with you to confirm Luca<span class="err">&#39;</span>s appointment on tomorrow. Please call123456789 <span class="k">if</span> you need to reschedule.
+<pre class="lang-shell">hunghoang@localhost<span class="w"> </span>project4<span class="w"> </span>%<span class="w"> </span>python<span class="w"> </span>re_revise.py
+run<span class="w"> </span><span class="m">1</span>
+run<span class="w"> </span><span class="m">2</span>
+run<span class="w"> </span><span class="m">3</span>
+run<span class="w"> </span><span class="m">4</span>
+Hello<span class="w"> </span>Michael.<span class="w"> </span>This<span class="w"> </span>is<span class="w"> </span>Saritasa.<span class="w"> </span>We<span class="w"> </span>wanted<span class="w"> </span>to<span class="w"> </span>follow-up<span class="w"> </span>with<span class="w"> </span>you<span class="w"> </span>to<span class="w"> </span>confirm<span class="w"> </span>Luca<span class="err">&#39;</span>s<span class="w"> </span>appointment<span class="w"> </span>on<span class="w"> </span>tomorrow.<span class="w"> </span>Please<span class="w"> </span>call123456789<span class="w"> </span><span class="k">if</span><span class="w"> </span>you<span class="w"> </span>need<span class="w"> </span>to<span class="w"> </span>reschedule.
 </pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>A few key takeaways:</p>
