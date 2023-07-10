@@ -45,6 +45,10 @@
   <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
   <!-- End Google Console Verify-->
 
+  <!-- beam analytics -->
+  <script src="https://beamanalytics.b-cdn.net/beam.min.js" data-token="19aab194-2a12-4585-bf30-e8b0c1e45d01" async></script>
+  <!-- End beam analytics -->
+
   
 <meta property="og:title" content="How to exclude commits from git blame - Hung Hoang">
 <meta property="twitter:title" content="How to exclude commits from git blame - Hung Hoang">
@@ -80,7 +84,7 @@
 <p><img alt="Before apply .git-blame-ignore-revs" src="https://user-images.githubusercontent.com/99159244/224463554-bf525dd6-57b3-45e2-ad75-fc1d8048a314.png" /></p>
 <h2 id="-ignore-rev-option-comes-to-rescue"><code>--ignore-rev</code> option comes to rescue</h2>
 <p>This options help you blame a file without considering an unwanted commit</p>
-<pre class="lang-bash">git<span class="w"> </span>blame<span class="w"> </span>--ignore-rev<span class="w"> </span>d87e05<span class="w"> </span>build.py
+<pre class="lang-bash">git blame --ignore-rev d87e05 build.py
 </pre>
 <p>This is good didn't help much as I rarely use <code>git blame</code> in CLI.</p>
 <h2 id="exclude-commits-with-blameignorerevsfile-option">Exclude commits with <code>blame.ignoreRevsFile</code> option</h2>

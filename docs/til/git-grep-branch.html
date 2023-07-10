@@ -45,6 +45,10 @@
   <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
   <!-- End Google Console Verify-->
 
+  <!-- beam analytics -->
+  <script src="https://beamanalytics.b-cdn.net/beam.min.js" data-token="19aab194-2a12-4585-bf30-e8b0c1e45d01" async></script>
+  <!-- End beam analytics -->
+
   
 <meta property="og:title" content="grep a pattern on a Git branch - Hung Hoang">
 <meta property="twitter:title" content="grep a pattern on a Git branch - Hung Hoang">
@@ -76,7 +80,7 @@
   <h1>grep a pattern on a Git branch</h1>
   <content>
     <p>To grep a pattern in a git branch in specified HTML files, you can use the following command:</p>
-<pre class="lang-shell">git<span class="w"> </span>grep<span class="w"> </span>&lt;pattern&gt;<span class="w"> </span>&lt;branch&gt;<span class="w"> </span>--<span class="w"> </span><span class="s1">&#39;*.html&#39;</span>
+<pre class="lang-shell">git grep &lt;pattern&gt; &lt;branch&gt; -- <span class="s1">&#39;*.html&#39;</span>
 </pre>
 <p>The -- '*.html' option specifies that the search should be limited to HTML files.</p>
   </content>
