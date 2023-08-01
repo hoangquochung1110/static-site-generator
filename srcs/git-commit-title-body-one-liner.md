@@ -18,7 +18,7 @@ But most of the time, you would give a more meaningful commit message. Meaningfu
 Today I learn that `git commit` accept multiple message flag 😉
 If you run this command
 ```bash
-git commit -m "subject line" -m "commit description"
+git commit -m "Title of the commit" -m "Body message describing the changes in more detail."
 ```
 
 It will result in this
@@ -26,12 +26,9 @@ It will result in this
 Author: hunghoang-saritasa <hung.hoang@saritasa.com>
 Date:   Thu Aug 11 16:29:07 2022 +0700
 
-    Subject line
+    Title of the commit
 
-    Commit message
+    Body message describing the changes in more detail.
 ```
 
 This new finding helps me save time a lot. No need to open a vim editor when committing message with subject and body. And actually [the git documentation](https://git-scm.com/docs/git-commit#Documentation/git-commit.txt--mltmsggt) do mention it.
-
-Bonus: Another way to achieve this commit message structure is opening quotes then press enter and closing the commit with quotes again
-![git commit -m](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/c4gijdfwk9wg7l8kmue2.jpg)
