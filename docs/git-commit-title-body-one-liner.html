@@ -85,19 +85,17 @@
 <p>But most of the time, you would give a more meaningful commit message. Meaningful I mean here is that the message should consist of subject line (a short description of your changes in code) and body (to give more detailed description of what you did)</p>
 <p>Today I learn that <code>git commit</code> accept multiple message flag 😉
 If you run this command</p>
-<pre class="lang-bash">git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;subject line&quot;</span><span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;commit description&quot;</span>
+<pre class="lang-bash">git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Title of the commit&quot;</span><span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Body message describing the changes in more detail.&quot;</span>
 </pre>
 <p>It will result in this</p>
 <pre class="lang-bash">Author:<span class="w"> </span>hunghoang-saritasa<span class="w"> </span>&lt;hung.hoang@saritasa.com&gt;
 Date:<span class="w">   </span>Thu<span class="w"> </span>Aug<span class="w"> </span><span class="m">11</span><span class="w"> </span><span class="m">16</span>:29:07<span class="w"> </span><span class="m">2022</span><span class="w"> </span>+0700
 
-<span class="w">    </span>Subject<span class="w"> </span>line
+<span class="w">    </span>Title<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>commit
 
-<span class="w">    </span>Commit<span class="w"> </span>message
+<span class="w">    </span>Body<span class="w"> </span>message<span class="w"> </span>describing<span class="w"> </span>the<span class="w"> </span>changes<span class="w"> </span><span class="k">in</span><span class="w"> </span>more<span class="w"> </span>detail.
 </pre>
 <p>This new finding helps me save time a lot. No need to open a vim editor when committing message with subject and body. And actually <a href="https://git-scm.com/docs/git-commit#Documentation/git-commit.txt--mltmsggt">the git documentation</a> do mention it.</p>
-<p>Bonus: Another way to achieve this commit message structure is opening quotes then press enter and closing the commit with quotes again
-<img alt="git commit -m" src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/c4gijdfwk9wg7l8kmue2.jpg" /></p>
   </content>
 </article>
 
