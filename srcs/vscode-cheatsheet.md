@@ -43,7 +43,6 @@ tags:
 | &#8679; &#8984 T                      | Reopen closed editor        |
 | &#8984 K P                            | Copy path of active editor  |
 | &#8984 K R                            | Reveal active file in Finder|
-
 | **Misc**                              |                             |
 | &#8984 ,                              | User Settings               |
 | &#8679; &#8984 V                      | Open Markdown preview       |
