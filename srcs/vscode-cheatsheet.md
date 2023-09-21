@@ -35,13 +35,15 @@ tags:
 | F12                                   | Go to Definition |
 | &#8984K F12                           | Open Definition to the side |
 | F2                                    | Rename symbol               |
-| **File/Editor Management**
+| **File/Editor Management**            |                             |
 | &#8963; &#8677;                       | Open next/prev              |
 | &#8984 W                              | Close File/Editor           |
 | &#8984 K &#8984 W                     | Close All                   |
+| &#8984; ⏎                             | Open File to the Side       |
 | &#8679; &#8984 T                      | Reopen closed editor        |
 | &#8984 K P                            | Copy path of active editor  |
 | &#8984 K R                            | Reveal active file in Finder|
+
 | **Misc**                              |                             |
 | &#8984 ,                              | User Settings               |
 | &#8679; &#8984 V                      | Open Markdown preview       |
