@@ -1,0 +1,1 @@
+Our tests are living documentation: they describe the behavior of our system—​the rules upon which we agreed with our business stakeholders—​in nice readable code. When our business requirements change, we have confidence that our tests will help us to prove the new functionality, and when new developers join the project, they can read our tests to understand how things work.
