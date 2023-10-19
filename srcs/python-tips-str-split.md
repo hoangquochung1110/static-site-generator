@@ -7,17 +7,17 @@ category: python
 
 ### Whitespace splitting
 
-```
+```python
 text = '   1   2   3   '
 ```
 You probably don't need to split on a space character:
-```
+```python
 >>> numbers = text.split(" ")
 ['', '', '', '1', '', '', '2', '', '', '3', '', '', '']
 ```
 
 Instead let's split without specifying a delimiter:
-```
+```python
 >>> numbers = text.split()
 ['1', '2', '3']
 ```
@@ -28,12 +28,12 @@ When called without a delimiter, the `split` method regards a chain of of consec
 ### Line splitting
 
 Need to split your string into lines ?
-```
+```python
 poem = "Old silent pond.\nA frog jumps into the pond—\nSplash! Silence again.\n"
 ```
 
 If you split on \n you may notice an empty string at the end of your list:
-```
+```python
 >>> poem.split("\n")
 ['Old silent pond.', 'A frog jumps into the pond—', 'Splash! Silence again.', '']
 ```
@@ -41,7 +41,7 @@ If you split on \n you may notice an empty string at the end of your list:
 And if your text has carriage returns (\r) in it, as is common in text sent from web browsers, then you'll find those carriage returns are still in the string as well!
 
 The string splitlines method is the better way to split a string into lines:
-```
+```python
 >>> poem.splitlines()
 ['Old silent pond.', 'A frog jumps into the pond—', 'Splash! Silence again.']
 ```
