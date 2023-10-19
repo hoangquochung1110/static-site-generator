@@ -76,30 +76,30 @@
   <h1>Python tip: don't split on space or newlines</h1>
   <content>
     <h3 id="whitespace-splitting">Whitespace splitting</h3>
-<pre><code>text = '   1   2   3   '
-</code></pre>
+<pre class="lang-python3"><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;   1   2   3   &#39;</span>
+</pre>
 <p>You probably don't need to split on a space character:</p>
-<pre><code>&gt;&gt;&gt; numbers = text.split(&quot; &quot;)
-['', '', '', '1', '', '', '2', '', '', '3', '', '', '']
-</code></pre>
+<pre class="lang-python3"><span class="o">&gt;&gt;&gt;</span> <span class="n">numbers</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+<span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">]</span>
+</pre>
 <p>Instead let's split without specifying a delimiter:</p>
-<pre><code>&gt;&gt;&gt; numbers = text.split()
-['1', '2', '3']
-</code></pre>
+<pre class="lang-python3"><span class="o">&gt;&gt;&gt;</span> <span class="n">numbers</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">]</span>
+</pre>
 <p>When called without a delimiter, the <code>split</code> method regards a chain of of consecutive whitespace as a single separator. In addition, using the <code>split</code> method without a delimiter will strip any leading and trailing whitespace, which is often desirable.</p>
 <h3 id="line-splitting">Line splitting</h3>
 <p>Need to split your string into lines ?</p>
-<pre><code>poem = &quot;Old silent pond.\nA frog jumps into the pond—\nSplash! Silence again.\n&quot;
-</code></pre>
+<pre class="lang-python3"><span class="n">poem</span> <span class="o">=</span> <span class="s2">&quot;Old silent pond.</span><span class="se">\n</span><span class="s2">A frog jumps into the pond—</span><span class="se">\n</span><span class="s2">Splash! Silence again.</span><span class="se">\n</span><span class="s2">&quot;</span>
+</pre>
 <p>If you split on \n you may notice an empty string at the end of your list:</p>
-<pre><code>&gt;&gt;&gt; poem.split(&quot;\n&quot;)
-['Old silent pond.', 'A frog jumps into the pond—', 'Splash! Silence again.', '']
-</code></pre>
+<pre class="lang-python3"><span class="o">&gt;&gt;&gt;</span> <span class="n">poem</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="p">[</span><span class="s1">&#39;Old silent pond.&#39;</span><span class="p">,</span> <span class="s1">&#39;A frog jumps into the pond—&#39;</span><span class="p">,</span> <span class="s1">&#39;Splash! Silence again.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">]</span>
+</pre>
 <p>And if your text has carriage returns (\r) in it, as is common in text sent from web browsers, then you'll find those carriage returns are still in the string as well!</p>
 <p>The string splitlines method is the better way to split a string into lines:</p>
-<pre><code>&gt;&gt;&gt; poem.splitlines()
-['Old silent pond.', 'A frog jumps into the pond—', 'Splash! Silence again.']
-</code></pre>
+<pre class="lang-python3"><span class="o">&gt;&gt;&gt;</span> <span class="n">poem</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+<span class="p">[</span><span class="s1">&#39;Old silent pond.&#39;</span><span class="p">,</span> <span class="s1">&#39;A frog jumps into the pond—&#39;</span><span class="p">,</span> <span class="s1">&#39;Splash! Silence again.&#39;</span><span class="p">]</span>
+</pre>
 <p>The splitlines method strips a trailing newline from the end of the string (if there is one) and it'll split on any line ending (\r\n, \n, or \r).</p>
   </content>
 </article>
