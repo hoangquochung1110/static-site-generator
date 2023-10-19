@@ -9,6 +9,13 @@
 
   
   <item>
+    <title>Python tip: don&#39;t split on space or newlines</title>
+    <link>https://www.hung.codes/python-tips-str-split</link>
+    <guid>https://www.hung.codes/python-tips-str-split</guid>
+    <pubDate>2023-10-19 16:00</pubDate>
+  </item>
+  
+  <item>
     <title>Run additional script when Postgres container starts</title>
     <link>https://www.hung.codes/postgres-init-script</link>
     <guid>https://www.hung.codes/postgres-init-script</guid>
