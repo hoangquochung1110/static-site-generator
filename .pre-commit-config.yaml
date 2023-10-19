@@ -6,9 +6,9 @@ repos:
       - id: check-toml
       - id: check-json
       - id: end-of-file-fixer
-        exclude: docs, drafts
+        exclude: drafts
       - id: trailing-whitespace
-        exclude: docs
+        exclude: ^(docs/|drafts/)`
       - id: detect-aws-credentials
         args: [--allow-missing-credentials]
       - id: pretty-format-json
