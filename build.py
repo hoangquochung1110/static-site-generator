@@ -11,7 +11,7 @@ import highlighting
 import settings
 import witchhazel
 
-ROOT_URL = "https://www.hung.codes"
+ROOT_URL = "https://hoangquochung1110.github.io/static-site-generator"
 
 # Jinja will look up templates in `templates` folder
 jinja_env = jinja2.Environment(
