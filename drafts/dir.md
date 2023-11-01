@@ -1,0 +1,1 @@
+Without arguments, return the list of names in the current local scope
