@@ -1,6 +1,6 @@
 ---
 title: Developer tools
-date: 2022-04-25 10:00
+date: 2024-03-20 10:00
 description: my daily developer tools.
 category: blog
 ---
