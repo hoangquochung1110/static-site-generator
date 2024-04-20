@@ -93,6 +93,13 @@
   </item>
   
   <item>
+    <title>Developer tools</title>
+    <link>https://hoangquochung1110.github.io/static-site-generator/developer-tools</link>
+    <guid>https://hoangquochung1110.github.io/static-site-generator/developer-tools</guid>
+    <pubDate>2022-04-25 10:00</pubDate>
+  </item>
+  
+  <item>
     <title>How to exclude commits from git blame</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/git-blame-ignore-revs</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/git-blame-ignore-revs</guid>
@@ -100,16 +107,16 @@
   </item>
   
   <item>
-    <title>Manage State in ReactJS with to-do app</title>
-    <link>https://hoangquochung1110.github.io/static-site-generator/react-todo-list</link>
-    <guid>https://hoangquochung1110.github.io/static-site-generator/react-todo-list</guid>
+    <title>How Django meets htmx &amp;#58; A quick tour of modern server side rendering.</title>
+    <link>https://hoangquochung1110.github.io/static-site-generator/django-htmx-intro</link>
+    <guid>https://hoangquochung1110.github.io/static-site-generator/django-htmx-intro</guid>
     <pubDate>2022-03-10 10:00</pubDate>
   </item>
   
   <item>
-    <title>How Django meets htmx &amp;#58; A quick tour of modern server side rendering.</title>
-    <link>https://hoangquochung1110.github.io/static-site-generator/django-htmx-intro</link>
-    <guid>https://hoangquochung1110.github.io/static-site-generator/django-htmx-intro</guid>
+    <title>Manage State in ReactJS with to-do app</title>
+    <link>https://hoangquochung1110.github.io/static-site-generator/react-todo-list</link>
+    <guid>https://hoangquochung1110.github.io/static-site-generator/react-todo-list</guid>
     <pubDate>2022-03-10 10:00</pubDate>
   </item>
   

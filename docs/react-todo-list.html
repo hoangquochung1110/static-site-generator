@@ -92,205 +92,205 @@
 ></iframe>
 
 <h3 id="app-component">App component</h3>
-<pre class="lang-jsx">// App component to handle input form with the logic
-import &#39;./App.css&#39;;
-import Overview from &#39;./components/Overview&#39;;
-import { useState } from &#39;react&#39;;
-import uniqid from &quot;uniqid&quot;;
+<pre class="lang-jsx"><span class="c1">// App component to handle input form with the logic</span>
+<span class="k">import</span><span class="w"> </span><span class="s1">&#39;./App.css&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">Overview</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./components/Overview&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useState</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;react&#39;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">uniqid</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;uniqid&quot;</span><span class="p">;</span>
 
-function App() {
+<span class="kd">function</span><span class="w"> </span><span class="nx">App</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 
-  const [task, setTask] = useState({
-    text: &#39;&#39;,
-    order: 1,
-    id: uniqid()
-  });
-  const [tasks, setTasks] = useState([]);
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">task</span><span class="p">,</span><span class="w"> </span><span class="nx">setTask</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">order</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="nx">uniqid</span><span class="p">()</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">tasks</span><span class="p">,</span><span class="w"> </span><span class="nx">setTasks</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">([]);</span>
 
-  // order remains regardless of how much input changes
-  // order changes its value only when form is submitted or an item deleted
-  const inputChangeHandler = (e) =&gt;{
-    setTask((prevTask) =&gt; ({
-      ...prevTask,
-      text: e.target.value
-    }));
-  }
+<span class="w">  </span><span class="c1">// order remains regardless of how much input changes</span>
+<span class="w">  </span><span class="c1">// order changes its value only when form is submitted or an item deleted</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">inputChangeHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;{</span>
+<span class="w">    </span><span class="nx">setTask</span><span class="p">((</span><span class="nx">prevTask</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<span class="w">      </span><span class="p">...</span><span class="nx">prevTask</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span>
+<span class="w">    </span><span class="p">}));</span>
+<span class="w">  </span><span class="p">}</span>
 
-  const submitHandler = (e) =&gt; {
-    e.preventDefault();
-    // Avoid setTask right before setTasks whose value depends on Task !!!
-    setTasks((prevTasks) =&gt; [...prevTasks, task]);
-    setTask((prevTask) =&gt; ({
-      text: &#39;&#39;,
-      order: prevTask.order + 1,
-      id: uniqid()
-    }))
-  }
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">submitHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// Avoid setTask right before setTasks whose value depends on Task !!!</span>
+<span class="w">    </span><span class="nx">setTasks</span><span class="p">((</span><span class="nx">prevTasks</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">[...</span><span class="nx">prevTasks</span><span class="p">,</span><span class="w"> </span><span class="nx">task</span><span class="p">]);</span>
+<span class="w">    </span><span class="nx">setTask</span><span class="p">((</span><span class="nx">prevTask</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<span class="w">      </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">order</span><span class="o">:</span><span class="w"> </span><span class="nx">prevTask</span><span class="p">.</span><span class="nx">order</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="nx">uniqid</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}))</span>
+<span class="w">  </span><span class="p">}</span>
 
-  const deleteHandler = (e) =&gt; {
-    const id = e.target.parentNode.id;
-    let deletedAt;
-    // Remove target item
-    let reducedList = tasks
-      .filter((task, index) =&gt; {
-        if(task.id == id){
-          deletedAt = index;
-          return false;
-        }
-        return true;
-      })
-      .map((item, index) =&gt; {
-        if(index &gt;= deletedAt) return {...item, order: item.order -1};
-        else return item;
-      })
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">deleteHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">deletedAt</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Remove target item</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">reducedList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tasks</span>
+<span class="w">      </span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">task</span><span class="p">,</span><span class="w"> </span><span class="nx">index</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="nx">task</span><span class="p">.</span><span class="nx">id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">id</span><span class="p">){</span>
+<span class="w">          </span><span class="nx">deletedAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">index</span><span class="p">;</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">      </span><span class="p">})</span>
+<span class="w">      </span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span><span class="w"> </span><span class="nx">index</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="nx">index</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="nx">deletedAt</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">{...</span><span class="nx">item</span><span class="p">,</span><span class="w"> </span><span class="nx">order</span><span class="o">:</span><span class="w"> </span><span class="nx">item</span><span class="p">.</span><span class="nx">order</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">};</span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">item</span><span class="p">;</span>
+<span class="w">      </span><span class="p">})</span>
 
-    // Update tasks
-    setTasks([...reducedList]);
+<span class="w">    </span><span class="c1">// Update tasks</span>
+<span class="w">    </span><span class="nx">setTasks</span><span class="p">([...</span><span class="nx">reducedList</span><span class="p">]);</span>
 
-    // clear text field, decrease order after item deleted
-    setTask({
-      text: &#39;&#39;,
-      order: task.order - 1,
-      id: uniqid()
-    })
-  }
+<span class="w">    </span><span class="c1">// clear text field, decrease order after item deleted</span>
+<span class="w">    </span><span class="nx">setTask</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">order</span><span class="o">:</span><span class="w"> </span><span class="nx">task</span><span class="p">.</span><span class="nx">order</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="nx">uniqid</span><span class="p">()</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="w">  </span><span class="p">}</span>
 
-  return (
-      &lt;&gt;
-          &lt;form onSubmit={submitHandler}&gt;
-              &lt;input type=&quot;text&quot; id=&quot;taskInput&quot; value={task.text} onChange={inputChangeHandler} placeholder=&quot;Create a task&quot;&gt;&lt;/input&gt;
-              &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
-          &lt;/form&gt;
-          &lt;Overview tasks={tasks} handleDelete={deleteHandler}/&gt;
-      &lt;/&gt;
-  )
-}
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">      </span><span class="p">&lt;&gt;</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">form</span><span class="w"> </span><span class="na">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="nx">submitHandler</span><span class="p">}&gt;</span>
+<span class="w">              </span><span class="p">&lt;</span><span class="nt">input</span><span class="w"> </span><span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span><span class="w"> </span><span class="na">id</span><span class="o">=</span><span class="s">&quot;taskInput&quot;</span><span class="w"> </span><span class="na">value</span><span class="o">=</span><span class="p">{</span><span class="nx">task</span><span class="p">.</span><span class="nx">text</span><span class="p">}</span><span class="w"> </span><span class="na">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">inputChangeHandler</span><span class="p">}</span><span class="w"> </span><span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Create a task&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">input</span><span class="p">&gt;</span>
+<span class="w">              </span><span class="p">&lt;</span><span class="nt">button</span><span class="w"> </span><span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span><span class="nx">Submit</span><span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">Overview</span><span class="w"> </span><span class="na">tasks</span><span class="o">=</span><span class="p">{</span><span class="nx">tasks</span><span class="p">}</span><span class="w"> </span><span class="na">handleDelete</span><span class="o">=</span><span class="p">{</span><span class="nx">deleteHandler</span><span class="p">}/&gt;</span>
+<span class="w">      </span><span class="p">&lt;/&gt;</span>
+<span class="w">  </span><span class="p">)</span>
+<span class="p">}</span>
 
-export default App;
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">App</span><span class="p">;</span>
 </pre>
 <h4 id="app-breakdown">App breakdown</h4>
 <ul>
 <li>Declaring a state variable</li>
 </ul>
-<pre class="lang-jsx">  const [task, setTask] = useState({
-    text: &quot;&quot;,
-    order: 0,
-    id: uniqid()
-  });
-  const [tasks, setTasks] = useState([]);
+<pre class="lang-jsx"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">task</span><span class="p">,</span><span class="w"> </span><span class="nx">setTask</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">({</span>
+<span class="w">    </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">order</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="nx">uniqid</span><span class="p">()</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">[</span><span class="nx">tasks</span><span class="p">,</span><span class="w"> </span><span class="nx">setTasks</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useState</span><span class="p">([]);</span>
 </pre>
 <p><code>useState(initialValue)</code> returns a pair of value <code>[state, setState]</code>. initialValue can be anything, from a number, a string to an obj or an array. <code>setState</code> is an updater function. Here I declare <code>task</code> to manage a single to-do item data and <code>tasks</code> to keep track of many items.</p>
 <ul>
 <li>Reading state</li>
 </ul>
 <p>In functional components, you can read a state directly:</p>
-<pre class="lang-jsx">&lt;input
-          ...
-          value={task.text}
-&gt;&lt;/input&gt;
+<pre class="lang-jsx"><span class="p">&lt;</span><span class="nt">input</span>
+<span class="w">          </span><span class="na">...</span>
+<span class="w">          </span><span class="na">value</span><span class="o">=</span><span class="p">{</span><span class="nx">task</span><span class="p">.</span><span class="nx">text</span><span class="p">}</span>
+<span class="p">&gt;&lt;/</span><span class="nt">input</span><span class="p">&gt;</span>
 </pre>
 <ul>
 <li>Updating state</li>
 </ul>
 <p>As mentioned above,<code>setState</code> function to set or update a state, whatever returned by this function is set as a new state value.
 <code>setState</code> has two forms. The first one is by passing a new value as an argument: <code>setState(newStateValue)</code>. Refer to line 65 where we update <code>tasks</code> array by passing in a new array:</p>
-<pre class="lang-jsx">    let reducedList = tasks.filter(...)
+<pre class="lang-jsx"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">reducedList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tasks</span><span class="p">.</span><span class="nx">filter</span><span class="p">(...)</span>
 
-    // Update tasks
-    setTasks([...reducedList]);
+<span class="w">    </span><span class="c1">// Update tasks</span>
+<span class="w">    </span><span class="nx">setTasks</span><span class="p">([...</span><span class="nx">reducedList</span><span class="p">]);</span>
 </pre>
 <p><strong>IMPORTANT NOTE 1</strong>: State updates may be asynchronous. React may batch multiple setState() calls into a single update for performance. Therefore, never rely on state values to calculate the new, next state.</p>
 <p>The first form of setState() works perfectly for most cases but in some cases, the new state value is calculated based on the previous value like a counter state, increase the old value by 1 whenever the button is clicked.</p>
 <p>The following code may fail to update the task:</p>
-<pre class="lang-jsx">// May fail to update
-setTask({...task, text: &#39;&#39;});// update text, others unchanged
+<pre class="lang-jsx"><span class="c1">// May fail to update</span>
+<span class="nx">setTask</span><span class="p">({...</span><span class="nx">task</span><span class="p">,</span><span class="w"> </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">});</span><span class="c1">// update text, others unchanged</span>
 </pre>
 <p>In our app, we update the input field whenever users press a key. Because we want <code>order</code> and <code>id</code> properties to be unchanged for every <em>onChange</em> events. It means we're going to just update <code>task</code> partially instead of an entirely new state. In this circumstance, the second form of <code>setState()</code> comes in.</p>
 <p><code>setState((state, props) =&gt; newValue)</code></p>
 <p>It accepts a function rather than an object. This function takes previous state as a first argument and props at the time when update is applied as second argument. Implement the second form to our handler:</p>
-<pre class="lang-jsx">  const inputChangeHandler = (e) =&gt; {
-    setTask((prevTask) =&gt; ({
-      ...prevTask,
-      text: e.target.value
-    }));
-  };
+<pre class="lang-jsx"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">inputChangeHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">setTask</span><span class="p">((</span><span class="nx">prevTask</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<span class="w">      </span><span class="p">...</span><span class="nx">prevTask</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span>
+<span class="w">    </span><span class="p">}));</span>
+<span class="w">  </span><span class="p">};</span>
 </pre>
 <p>Use spread operator to keep those properties remained and specify which property to be set.</p>
 <p><code>setTasks</code> works exactly the same as <code>setTask</code>:</p>
-<pre class="lang-jsx">  const submitHandler = (e) =&gt; {
-    e.preventDefault();
-    // Avoid setTask right before setTasks whose value depends on Task&#39;s value !!!
-    setTasks((prevTasks) =&gt; [...prevTasks, task]);
-    setTask((prevTask) =&gt; ({
-      text: &#39;&#39;,
-      order: prevTask.order + 1,
-      id: uniqid()
-    }))
-  }
+<pre class="lang-jsx"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">submitHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+<span class="w">    </span><span class="c1">// Avoid setTask right before setTasks whose value depends on Task&#39;s value !!!</span>
+<span class="w">    </span><span class="nx">setTasks</span><span class="p">((</span><span class="nx">prevTasks</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">[...</span><span class="nx">prevTasks</span><span class="p">,</span><span class="w"> </span><span class="nx">task</span><span class="p">]);</span>
+<span class="w">    </span><span class="nx">setTask</span><span class="p">((</span><span class="nx">prevTask</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+<span class="w">      </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">order</span><span class="o">:</span><span class="w"> </span><span class="nx">prevTask</span><span class="p">.</span><span class="nx">order</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="nx">uniqid</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}))</span>
+<span class="w">  </span><span class="p">}</span>
 </pre>
 <p><strong>IMPORTANT NOTE 2</strong>: In React, state should be treated as immutable. Try to avoid to set state directly like state.order++ because it can lead to unexpected results or bugs. Instead, always use setState() updater function.</p>
 <p>This note can be clearly illustrated by <code>deleteHandler</code> as below:</p>
-<pre class="lang-jsx">  const deleteHandler = (e) =&gt; {
-    const id = e.target.parentNode.id;
-    let deletedAt;
-    // Remove target item
-    let reducedList = tasks
-      .filter((task, index) =&gt; {
-        if(task.id == id){
-          deletedAt = index;
-          return false;
-        }
-        return true;
-      })
-      .map((item, index) =&gt; {
-        if(index &gt;= deletedAt) return {...item, order: item.order -1};
-        else return item;
-      })
+<pre class="lang-jsx"><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">deleteHandler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">deletedAt</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// Remove target item</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nx">reducedList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">tasks</span>
+<span class="w">      </span><span class="p">.</span><span class="nx">filter</span><span class="p">((</span><span class="nx">task</span><span class="p">,</span><span class="w"> </span><span class="nx">index</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="nx">task</span><span class="p">.</span><span class="nx">id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">id</span><span class="p">){</span>
+<span class="w">          </span><span class="nx">deletedAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">index</span><span class="p">;</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">      </span><span class="p">})</span>
+<span class="w">      </span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span><span class="w"> </span><span class="nx">index</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="nx">index</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="nx">deletedAt</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">{...</span><span class="nx">item</span><span class="p">,</span><span class="w"> </span><span class="nx">order</span><span class="o">:</span><span class="w"> </span><span class="nx">item</span><span class="p">.</span><span class="nx">order</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">};</span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">item</span><span class="p">;</span>
+<span class="w">      </span><span class="p">})</span>
 
-    // Update tasks
-    setTasks([...reducedList]);
+<span class="w">    </span><span class="c1">// Update tasks</span>
+<span class="w">    </span><span class="nx">setTasks</span><span class="p">([...</span><span class="nx">reducedList</span><span class="p">]);</span>
 
-    // clear text field, decrease order after item deleted
-    setTask({
-      text: &#39;&#39;,
-      order: task.order - 1,
-      id: uniqid()
-    })
-  }
+<span class="w">    </span><span class="c1">// clear text field, decrease order after item deleted</span>
+<span class="w">    </span><span class="nx">setTask</span><span class="p">({</span>
+<span class="w">      </span><span class="nx">text</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">order</span><span class="o">:</span><span class="w"> </span><span class="nx">task</span><span class="p">.</span><span class="nx">order</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="nx">uniqid</span><span class="p">()</span>
+<span class="w">    </span><span class="p">})</span>
+<span class="w">  </span><span class="p">}</span>
 </pre>
 <p>Just make a copy of <code>Tasks</code> so that we can make some modifications on this copy (remove item, update its value) on the side rather than set its state directly.
 After construct an array of reduced, re-ordered to-do tasks, we now can use first form of <code>setState</code> to safely update <code>Tasks</code></p>
 <p>Never try to update <code>tasks</code> like this:</p>
-<pre class="lang-jsx">setTasks((prevTasks) =&gt; {
-  prevTasks.forEach((item, index) =&gt; {
-        if (index &gt;= deletedAt){
-          item.order -= 1; // You are changing state directly
-        }
-  })
-})
+<pre class="lang-jsx"><span class="nx">setTasks</span><span class="p">((</span><span class="nx">prevTasks</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">prevTasks</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span><span class="w"> </span><span class="nx">index</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">index</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="nx">deletedAt</span><span class="p">){</span>
+<span class="w">          </span><span class="nx">item</span><span class="p">.</span><span class="nx">order</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mf">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// You are changing state directly</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">  </span><span class="p">})</span>
+<span class="p">})</span>
 </pre>
 <h3 id="overview-component">Overview component</h3>
-<pre class="lang-jsx">import React from &quot;react&quot;;
-import &#39;./Overview.css&#39;;
+<pre class="lang-jsx"><span class="k">import</span><span class="w"> </span><span class="nx">React</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;react&quot;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="s1">&#39;./Overview.css&#39;</span><span class="p">;</span>
 
-const Overview = (props) =&gt; {
-  return (
-    &lt;ul className=&quot;task-list&quot;&gt;
-      {props.tasks.map((item) =&gt; {
-        return (
-          &lt;li key={item.id} id={item.id}&gt;
-            &lt;span&gt;
-              {item.order}. {item.text}
-            &lt;/span&gt;
-            &lt;button onClick={props.handleDelete}&gt;X&lt;/button&gt;
-          &lt;/li&gt;
-        );
-      })}
-    &lt;/ul&gt;
-  );
-};
+<span class="kd">const</span><span class="w"> </span><span class="nx">Overview</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">props</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="p">&lt;</span><span class="nt">ul</span><span class="w"> </span><span class="na">className</span><span class="o">=</span><span class="s">&quot;task-list&quot;</span><span class="p">&gt;</span>
+<span class="w">      </span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">          </span><span class="p">&lt;</span><span class="nt">li</span><span class="w"> </span><span class="na">key</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">}</span><span class="w"> </span><span class="na">id</span><span class="o">=</span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">}&gt;</span>
+<span class="w">            </span><span class="p">&lt;</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="w">              </span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">order</span><span class="p">}.</span><span class="w"> </span><span class="p">{</span><span class="nx">item</span><span class="p">.</span><span class="nx">text</span><span class="p">}</span>
+<span class="w">            </span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="w">            </span><span class="p">&lt;</span><span class="nt">button</span><span class="w"> </span><span class="na">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">handleDelete</span><span class="p">}&gt;</span><span class="nx">X</span><span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="w">          </span><span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="w">        </span><span class="p">);</span>
+<span class="w">      </span><span class="p">})}</span>
+<span class="w">    </span><span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="p">);</span>
+<span class="p">};</span>
 
-export default Overview;
+<span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">Overview</span><span class="p">;</span>
 </pre>
 <p>As you can see, we use <code>&lt;ul&gt;</code> to implement an ordered list. The order numbers get updated for every add/delete action. Here we use function map to dynamically render list item.</p>
 <h2 id="conclusiontakeaways">CONCLUSION/TAKEAWAYS:</h2>
