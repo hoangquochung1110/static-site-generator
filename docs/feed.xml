@@ -9,6 +9,13 @@
 
   
   <item>
+    <title>Developer tools</title>
+    <link>https://hoangquochung1110.github.io/static-site-generator/developer-tools</link>
+    <guid>https://hoangquochung1110.github.io/static-site-generator/developer-tools</guid>
+    <pubDate>2024-03-20 10:00</pubDate>
+  </item>
+  
+  <item>
     <title>Python tip: don&#39;t split on space or newlines</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/python-tips-str-split</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/python-tips-str-split</guid>
@@ -89,13 +96,6 @@
     <title>Database indexing in a nutshell with B+tree and Hash in comparison</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/database-index</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/database-index</guid>
-    <pubDate>2022-04-25 10:00</pubDate>
-  </item>
-  
-  <item>
-    <title>Developer tools</title>
-    <link>https://hoangquochung1110.github.io/static-site-generator/developer-tools</link>
-    <guid>https://hoangquochung1110.github.io/static-site-generator/developer-tools</guid>
     <pubDate>2022-04-25 10:00</pubDate>
   </item>
   
