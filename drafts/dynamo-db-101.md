@@ -1,0 +1,76 @@
+### Introduction
+- Designed for OLTP
+- Known request patterns
+
+### How it works
+
+Data is stored in tables. A table contains items with attributes.
+You can think of items as rows or tuples in a relational database and attributes as columns.
+![Tables and Partitions](../screenshots/tables-and-partitions-dynamo-db.png "Tables and Partitions")
+
+#### Primary keys
+![Primary keys](../screenshots/primary-keys-dynamo-db.png "Primary keys")
+
+#### Basic item requests:
+Write
+- PutItem: Write item to specified primary key.
+- UpdateItem: Change attributes for item with specified primary key.
+- BatchWriteItem: Write bunch of items to the specified primary keys.
+- DeleteItem: Remove item associated with specified primary key.
+
+Write
+- GetItem:  Retrieve item associated with specified primary key.
+- BatchGetItem: Retrieve items with this bunch of specified primary keys.
+- Query: For specified partition key, retrieve items matching sort key expression (forward/reverse order).
+- Scan: Give me every item in my table.
+
+Details: [Working with items and attributes in DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithItems.html?t)
+
+#### Secondary indexes: allow to query data based on other attributes than your table's primary key.
+Pros:
+- Improved query performance
+- Support complex queries
+- Non-Unique Indexing: They allow for indexing on non-unique attributes, which broadens the range of query possibilities, such as searching for products by category or timestamps in logs
+
+Cons:
+- Write Performance Overhead: Each time an item in the base table is updated, corresponding entries in the secondary index must also be updated. This can slow down insert and update operations, especially if there are multiple secondary indexes on a table
+- Storage Costs: While secondary indexes reduce data retrieval time, they also consume additional storage space, which can be a consideration in environments with limited resources
+- Limited Use Cases: Secondary indexes should not be applied to attributes with low or very high cardinality; low cardinality can lead to inefficient queries, while high cardinality can result in excessive scanning across nodes
+
+Important notes:
+- The secondary index should not apply to the values with too low (e.g. gender -> male/female) or too high cardinality (e.g. user's unique id)
+    * former case: querying won't be efficient as leads to wide index partitions and automatically we've a lot of data to scan
+    * latter case: queries can be executed at best on 1 node and at worst in all nodes
+    * Learn more: https://www.waitingforcode.com/general-big-data/secondary-index-nosql-data-stores/read?t#sample_implementation
+
+- Local secondary indexes
+    * index is local to partition key
+    * allow you to query items with the same partition key
+- Global secondary indexes:
+    * allow you to query over the entire table
+    * index is across all partitions
+
+
+### Operating DynamoDb (skipped)
+
+### Design considerations
+
+#### Partition keys
+When selecting an attribute as a partition key in a NoSQL database, it is crucial to consider several key factors to ensure that read and write operations are evenly distributed across partitions. Here are the primary considerations:
+- High Cardinality (that means there are lots of unique values):
+	•	Definition: Choose attributes that have a large number of distinct values (high cardinality). For instance, using `user_id`, `email`, or `order_id` can help ensure that data is spread across many partitions.
+	•	Impact: High cardinality minimizes the risk of “hot partitions,” where one partition receives significantly more traffic than others, leading to performance bottlenecks .
+- Avoid Monotonically Increasing Values:
+	•	Examples: Attributes like timestamps or sequential IDs can lead to uneven distribution because new entries will always be directed to the same partition until it reaches its capacity.
+	•	Recommendation: Instead, consider using composite keys or appending random suffixes to create variability in the partition key .
+
+#### Hot and Cold Data
+Separate data that is frequently accessed (hot) from data that is not accessed frequently (cold)
+
+#### Large attributes
+Ideally should keep item size small
+- Compress large data before storing it
+- Store large data in external storage like S3
+- Break it up into smaller items
+
+#### One-to-many tables
