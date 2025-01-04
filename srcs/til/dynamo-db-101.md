@@ -1,3 +1,13 @@
+---
+title: Recap of my take of 'Amazon DynamoDB for Serverless Architectures' course
+date: 2025-01-04 17:00
+description: A brief recap on Amazon DynamoDB capabilities, how it works, how to operate it and a few design considerations
+category: blog
+tags:
+    - nosql
+---
+
+
 ### Introduction
 - Designed for OLTP
 - Known request patterns
@@ -6,10 +16,10 @@
 
 Data is stored in tables. A table contains items with attributes.
 You can think of items as rows or tuples in a relational database and attributes as columns.
-![Tables and Partitions](../screenshots/tables-and-partitions-dynamo-db.png "Tables and Partitions")
+![Tables and Partitions](../../screenshots/tables-and-partitions-dynamo-db.png "Tables and Partitions")
 
 #### Primary keys
-![Primary keys](../screenshots/primary-keys-dynamo-db.png "Primary keys")
+![Primary keys](../../screenshots/dynamo-db-primary-keys.png "Primary keys")
 
 #### Basic item requests:
 Write
