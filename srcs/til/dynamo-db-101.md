@@ -22,13 +22,14 @@ You can think of items as rows or tuples in a relational database and attributes
 ![Primary keys](https://hlogs-bucket.s3.ap-southeast-1.amazonaws.com/dynamo-db-primary-keys.png "Primary keys")
 
 #### Basic item requests:
+
 Write
 - PutItem: Write item to specified primary key.
 - UpdateItem: Change attributes for item with specified primary key.
 - BatchWriteItem: Write bunch of items to the specified primary keys.
 - DeleteItem: Remove item associated with specified primary key.
 
-Write
+Read
 - GetItem:  Retrieve item associated with specified primary key.
 - BatchGetItem: Retrieve items with this bunch of specified primary keys.
 - Query: For specified partition key, retrieve items matching sort key expression (forward/reverse order).
