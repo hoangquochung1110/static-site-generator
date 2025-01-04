@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Hung Hoang">
+  <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
+
+  <title>Recap of my take of 'Amazon DynamoDB for Serverless Architectures' course - Hung Hoang</title>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./static/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./static/style.css" rel="stylesheet">
+
+  <!-- Syntax highlighting css -->
+  <link href="./static/pygments.css" rel="stylesheet">
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TG55DGQ');
+  </script>
+  <!-- End Google Tag Manager -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-235710440-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-235710440-2');
+  </script>
+  <!-- End Global site tag (gtag.js) - Google Analytics -->
+  <!-- Google Console Verify-->
+  <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
+  <!-- End Google Console Verify-->
+
+  <!-- beam analytics -->
+  <script src="https://beamanalytics.b-cdn.net/beam.min.js" data-token="19aab194-2a12-4585-bf30-e8b0c1e45d01" async></script>
+  <!-- End beam analytics -->
+
+  
+<meta property="og:title" content="Recap of my take of 'Amazon DynamoDB for Serverless Architectures' course - Hung Hoang">
+<meta property="twitter:title" content="Recap of my take of 'Amazon DynamoDB for Serverless Architectures' course - Hung Hoang">
+
+
+<meta name="description" content="A brief recap on Amazon DynamoDB capabilities, how it works, how to operate it and a few design considerations">
+<meta property="og:description" content="A brief recap on Amazon DynamoDB capabilities, how it works, how to operate it and a few design considerations">
+<meta property="twitter:description" content="A brief recap on Amazon DynamoDB capabilities, how it works, how to operate it and a few design considerations">
+
+
+
+
+
+
+<meta property="og:url" content="/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
+
+</head>
+<body>
+  <div class="container">
+
+    
+<article>
+  <aside class="timestamp">
+    <time>Posted by Hung Hoang on 2025-01-04 17:00</time>
+    · <a href="./">view all posts</a>
+  </aside>
+  <h1>Recap of my take of 'Amazon DynamoDB for Serverless Architectures' course</h1>
+  <content>
+    <h3 id="introduction">Introduction</h3>
+<ul>
+<li>Designed for OLTP</li>
+<li>Known request patterns</li>
+</ul>
+<h3 id="how-it-works">How it works</h3>
+<p>Data is stored in tables. A table contains items with attributes.
+You can think of items as rows or tuples in a relational database and attributes as columns.
+<img alt="Tables and Partitions" src="../../screenshots/tables-and-partitions-dynamo-db.png" title="Tables and Partitions" /></p>
+<h4 id="primary-keys">Primary keys</h4>
+<p><img alt="Primary keys" src="../../screenshots/dynamo-db-primary-keys.png" title="Primary keys" /></p>
+<h4 id="basic-item-requests">Basic item requests:</h4>
+<p>Write
+- PutItem: Write item to specified primary key.
+- UpdateItem: Change attributes for item with specified primary key.
+- BatchWriteItem: Write bunch of items to the specified primary keys.
+- DeleteItem: Remove item associated with specified primary key.</p>
+<p>Write
+- GetItem:  Retrieve item associated with specified primary key.
+- BatchGetItem: Retrieve items with this bunch of specified primary keys.
+- Query: For specified partition key, retrieve items matching sort key expression (forward/reverse order).
+- Scan: Give me every item in my table.</p>
+<p>Details: <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithItems.html?t">Working with items and attributes in DynamoDB</a></p>
+<h4 id="secondary-indexes-allow-to-query-data-based-on-other-attributes-than-your-tables-primary-key">Secondary indexes: allow to query data based on other attributes than your table's primary key.</h4>
+<p>Pros:
+- Improved query performance
+- Support complex queries
+- Non-Unique Indexing: They allow for indexing on non-unique attributes, which broadens the range of query possibilities, such as searching for products by category or timestamps in logs</p>
+<p>Cons:
+- Write Performance Overhead: Each time an item in the base table is updated, corresponding entries in the secondary index must also be updated. This can slow down insert and update operations, especially if there are multiple secondary indexes on a table
+- Storage Costs: While secondary indexes reduce data retrieval time, they also consume additional storage space, which can be a consideration in environments with limited resources
+- Limited Use Cases: Secondary indexes should not be applied to attributes with low or very high cardinality; low cardinality can lead to inefficient queries, while high cardinality can result in excessive scanning across nodes</p>
+<p>Important notes:
+- The secondary index should not apply to the values with too low (e.g. gender -&gt; male/female) or too high cardinality (e.g. user's unique id)
+    * former case: querying won't be efficient as leads to wide index partitions and automatically we've a lot of data to scan
+    * latter case: queries can be executed at best on 1 node and at worst in all nodes
+    * Learn more: <a href="https://www.waitingforcode.com/general-big-data/secondary-index-nosql-data-stores/read?t#sample_implementation">https://www.waitingforcode.com/general-big-data/secondary-index-nosql-data-stores/read?t#sample_implementation</a></p>
+<ul>
+<li>Local secondary indexes<ul>
+<li>index is local to partition key</li>
+<li>allow you to query items with the same partition key</li>
+</ul>
+</li>
+<li>Global secondary indexes:<ul>
+<li>allow you to query over the entire table</li>
+<li>index is across all partitions</li>
+</ul>
+</li>
+</ul>
+<h3 id="operating-dynamodb-skipped">Operating DynamoDb (skipped)</h3>
+<h3 id="design-considerations">Design considerations</h3>
+<h4 id="partition-keys">Partition keys</h4>
+<p>When selecting an attribute as a partition key in a NoSQL database, it is crucial to consider several key factors to ensure that read and write operations are evenly distributed across partitions. Here are the primary considerations:
+- High Cardinality (that means there are lots of unique values):
+    •   Definition: Choose attributes that have a large number of distinct values (high cardinality). For instance, using <code>user_id</code>, <code>email</code>, or <code>order_id</code> can help ensure that data is spread across many partitions.
+    •   Impact: High cardinality minimizes the risk of “hot partitions,” where one partition receives significantly more traffic than others, leading to performance bottlenecks .
+- Avoid Monotonically Increasing Values:
+    •   Examples: Attributes like timestamps or sequential IDs can lead to uneven distribution because new entries will always be directed to the same partition until it reaches its capacity.
+    •   Recommendation: Instead, consider using composite keys or appending random suffixes to create variability in the partition key .</p>
+<h4 id="hot-and-cold-data">Hot and Cold Data</h4>
+<p>Separate data that is frequently accessed (hot) from data that is not accessed frequently (cold)</p>
+<h4 id="large-attributes">Large attributes</h4>
+<p>Ideally should keep item size small
+- Compress large data before storing it
+- Store large data in external storage like S3
+- Break it up into smaller items</p>
+<h4 id="one-to-many-tables">One-to-many tables</h4>
+  </content>
+</article>
+
+
+    <footer>
+      <div class="row">
+        <div class="col-md-1 d-none d-md-block img-me-container">
+          <img class="img-me img-fluid" src="./static/me.webp">
+        </div>
+        <div class="col-md info">
+          <span class="name">Hung Hoang</span><br>
+          · <a href="https://github.com/hoangquochung1110" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> hoangquochung1110</a>
+          · <a href="https://www.instagram.com/h7ng__/" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i> h7ng__</a>
+          <br>
+          <span class="location"><i class="fas fa-map-marker"></i> Saigon, Vietnam</span>
+        </div>
+        <div class="col-md">
+          <p class="disclaimer">
+            &copy; 2022 &mdash; 2022<br>
+            All text is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> license<br>
+            All code is available under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> license
+          </p>
+      </div>
+
+    </footer>
+  </div>
+
+  <!-- webfonts & icons-->
+  <link href="/static/fontawesome/css/fontawesome-all.min.css" rel="stylesheet">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TG55DGQ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+</body>
+</html>
