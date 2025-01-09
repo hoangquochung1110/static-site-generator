@@ -79,10 +79,12 @@
   </aside>
   <h1>Recap of my take of 'Amazon DynamoDB for Serverless Architectures' course</h1>
   <content>
-    <h3 id="introduction">Introduction</h3>
+    <h3 id="tldr">TL;DR</h3>
 <ul>
-<li>Designed for OLTP</li>
-<li>Known request patterns</li>
+<li>DynamoDB is well designed for at <strong>Online Transaction Processing (OLTP)</strong> workloads where you need consistent single-digit millisecond response times at any scale</li>
+<li>Known request patterns
+ before you start - not as an afterthought, but as a fundamental part of your design process</li>
+<li>Unlike traditional databases, the key to unlocking DynamoDB's power lies in <strong>knowing your request patterns</strong> upfront - not as an afterthought, but as a fundamental part of your design process. You can't just throw any query at it; instead, you design your data model around specific questions you need to answer. This approach makes it ideal for applications with well-defined workflows, like e-commerce carts, user sessions, or game states, but less suitable for exploratory analytics or ad-hoc queries.</li>
 </ul>
 <h3 id="how-it-works">How it works</h3>
 <p>Data is stored in tables. A table contains items with attributes.

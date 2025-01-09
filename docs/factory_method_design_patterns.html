@@ -82,18 +82,18 @@
     <p>Imagine an application that needs to convert a Song object into its string representation using a specified format. Converting an object to a different representation is often called serializing. You’ll often see these requirements implemented in a single function or method that contains all the logic and implementation, like in the following code:</p>
 <pre class="lang-python3"><span class="c1"># In serializer_demo.py</span>
 
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">et</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xml.etree.ElementTree</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">et</span>
 
-<span class="k">class</span> <span class="nc">Song</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">song_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">artist</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Song</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">song_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">artist</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">song_id</span> <span class="o">=</span> <span class="n">song_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">artist</span> <span class="o">=</span> <span class="n">artist</span>
 
 
-<span class="k">class</span> <span class="nc">SongSerializer</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">song</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SongSerializer</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">song</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s1">&#39;JSON&#39;</span><span class="p">:</span>
             <span class="n">song_info</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">song</span><span class="o">.</span><span class="n">song_id</span><span class="p">,</span>
@@ -116,8 +116,8 @@
 <h3 id="basic-implementation-of-factory-method"><strong>Basic implementation of Factory Method</strong></h3>
 <p>The central idea in Factory Method is to provide a separate component with the responsibility to decide which concrete implementation should be used based on some specified parameter. That parameter in our example is the <em>format</em>.</p>
 <p>To complete the implementation of Factory Method, you add a new method ._get_serializer() that takes the desired format. This method evaluates the value of format and returns the matching serialization function:</p>
-<pre class="lang-python3"><span class="k">class</span> <span class="nc">SongSerializer</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">_get_serializer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
+<pre class="lang-python3"><span class="k">class</span><span class="w"> </span><span class="nc">SongSerializer</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_serializer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;`creator` component in Factory Method pattern.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s1">&#39;JSON&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serialize_to_json</span>
@@ -127,13 +127,13 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
 </pre>
 <p>Now, you can change the .serialize() method of SongSerializer to use ._get_serializer() to complete the Factory Method implementation. The next example shows the complete code:</p>
-<pre class="lang-python3"><span class="k">class</span> <span class="nc">SongSerializer</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">song</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
+<pre class="lang-python3"><span class="k">class</span><span class="w"> </span><span class="nc">SongSerializer</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">song</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;`product` component in Factory Method pattern.&quot;&quot;&quot;</span>
         <span class="n">serializer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_serializer</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">serializer</span><span class="p">(</span><span class="n">song</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_get_serializer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_serializer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;`creator` component in Factory Method pattern.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s1">&#39;JSON&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_serialize_to_json</span>
@@ -142,7 +142,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_serialize_to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">song</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_serialize_to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">song</span><span class="p">):</span>
         <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">song</span><span class="o">.</span><span class="n">song_id</span><span class="p">,</span>
             <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="n">song</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
@@ -150,7 +150,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_serialize_to_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">song</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_serialize_to_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">song</span><span class="p">):</span>
         <span class="n">song_element</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="s1">&#39;song&#39;</span><span class="p">,</span> <span class="n">attrib</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">song</span><span class="o">.</span><span class="n">song_id</span><span class="p">})</span>
         <span class="n">title</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">song_element</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">)</span>
         <span class="n">title</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">song</span><span class="o">.</span><span class="n">title</span>
@@ -159,13 +159,13 @@
         <span class="k">return</span> <span class="n">et</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">song_element</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;unicode&#39;</span><span class="p">)</span>
 </pre>
 <p>as you can see, except <code>serialize()</code>, other methods don't use <code>self</code> parameter. This is a good indication that they should be methods of the <code>SongSerializer</code> class, and they can become externals functions:</p>
-<pre class="lang-python3"><span class="k">class</span> <span class="nc">SongSerializer</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">song</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
+<pre class="lang-python3"><span class="k">class</span><span class="w"> </span><span class="nc">SongSerializer</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">song</span><span class="p">,</span> <span class="nb">format</span><span class="p">):</span>
         <span class="n">serializer</span> <span class="o">=</span> <span class="n">get_serializer</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">serializer</span><span class="p">(</span><span class="n">song</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">get_serializer</span><span class="p">(</span><span class="nb">format</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_serializer</span><span class="p">(</span><span class="nb">format</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">format</span> <span class="o">==</span> <span class="s1">&#39;JSON&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_serialize_to_json</span>
     <span class="k">elif</span> <span class="nb">format</span> <span class="o">==</span> <span class="s1">&#39;XML&#39;</span><span class="p">:</span>
@@ -174,7 +174,7 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="nb">format</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_serialize_to_json</span><span class="p">(</span><span class="n">song</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_serialize_to_json</span><span class="p">(</span><span class="n">song</span><span class="p">):</span>
     <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">song</span><span class="o">.</span><span class="n">song_id</span><span class="p">,</span>
         <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="n">song</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
@@ -183,7 +183,7 @@
     <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_serialize_to_xml</span><span class="p">(</span><span class="n">song</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_serialize_to_xml</span><span class="p">(</span><span class="n">song</span><span class="p">):</span>
     <span class="n">song_element</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="s1">&#39;song&#39;</span><span class="p">,</span> <span class="n">attrib</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">song</span><span class="o">.</span><span class="n">song_id</span><span class="p">})</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">song_element</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">)</span>
     <span class="n">title</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">song</span><span class="o">.</span><span class="n">title</span>
