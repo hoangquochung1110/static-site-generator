@@ -7,10 +7,11 @@ tags:
     - nosql
 ---
 
-
-### Introduction
-- Designed for OLTP
+### TL;DR
+- DynamoDB is well designed for at **Online Transaction Processing (OLTP)** workloads where you need consistent single-digit millisecond response times at any scale
 - Known request patterns
+ before you start - not as an afterthought, but as a fundamental part of your design process
+- Unlike traditional databases, the key to unlocking DynamoDB's power lies in **knowing your request patterns** upfront - not as an afterthought, but as a fundamental part of your design process. You can't just throw any query at it; instead, you design your data model around specific questions you need to answer. This approach makes it ideal for applications with well-defined workflows, like e-commerce carts, user sessions, or game states, but less suitable for exploratory analytics or ad-hoc queries.
 
 ### How it works
 
