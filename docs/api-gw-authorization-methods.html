@@ -84,40 +84,46 @@
 <p>I'm developing a utility tool for my internal team using API Gateway + Lambda. One aspect I'd like to apply when it comes to securing APIs is limiting API access. AWS provides us three primary authorization methods exist: IAM, Amazon Cognito, and Lambda Authorizers. Here is my quick evaluation of each method's implementation effort, and ideal use cases.</p>
 <h2 id="authorization-method-comparisons">Authorization Method Comparisons</h2>
 <h3 id="1-iam-authorization">1. IAM Authorization</h3>
+<p><strong>Complexity</strong>: Low</p>
+<p><strong>Best For</strong>: Internal AWS environments</p>
+<p><strong>Implementation Effort</strong>: &#8533;</p>
+<p><strong>Key Advantages</strong>:</p>
 <ul>
-<li><strong>Complexity</strong>: Low</li>
-<li><strong>Best For</strong>: Internal AWS environments</li>
-<li><strong>Implementation Effort</strong>: &#8533;</li>
-<li><strong>Key Advantages</strong>:</li>
 <li>Native AWS ecosystem integration</li>
 <li>Minimal custom code requirements</li>
-<li><strong>Limitations</strong>:</li>
+</ul>
+<p><strong>Limitations</strong>:</p>
+<ul>
 <li>Restricted to AWS infrastructure</li>
 <li>Limited external user support</li>
 </ul>
 <h3 id="2-amazon-cognito">2. Amazon Cognito</h3>
+<p><strong>Complexity</strong>: Medium</p>
+<p><strong>Best For</strong>: User-centric applications</p>
+<p><strong>Implementation Effort</strong>: &#8535;</p>
+<p><strong>Key Advantages</strong>:</p>
 <ul>
-<li><strong>Complexity</strong>: Medium</li>
-<li><strong>Best For</strong>: User-centric applications</li>
-<li><strong>Implementation Effort</strong>: &#8535;</li>
-<li><strong>Key Advantages</strong>:</li>
 <li>Managed user authentication</li>
 <li>Built-in social login capabilities</li>
 <li>Multi-factor authentication support</li>
-<li><strong>Challenges</strong>:</li>
+</ul>
+<p><strong>Challenges</strong>:</p>
+<ul>
 <li>Requires initial configuration</li>
 <li>Steeper learning curve for advanced features</li>
 </ul>
 <h3 id="3-lambda-authorizers">3. Lambda Authorizers</h3>
+<p><strong>Complexity</strong>: High</p>
+<p><strong>Best For</strong>: Enterprise-level, custom authentication scenarios</p>
+<p><strong>Implementation Effort</strong>: 5/5</p>
+<p><strong>Key Advantages</strong>:</p>
 <ul>
-<li><strong>Complexity</strong>: High</li>
-<li><strong>Best For</strong>: Enterprise-level, custom authentication scenarios</li>
-<li><strong>Implementation Effort</strong>: 5/5</li>
-<li><strong>Key Advantages</strong>:</li>
 <li>Maximum authentication customization</li>
 <li>Supports intricate authentication logic</li>
 <li>Integrates with external identity providers</li>
-<li><strong>Challenges</strong>:</li>
+</ul>
+<p><strong>Challenges</strong>:</p>
+<ul>
 <li>Requires custom Lambda function development</li>
 <li>Higher maintenance overhead</li>
 <li>Potential performance implications</li>
