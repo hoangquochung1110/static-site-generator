@@ -1,6 +1,6 @@
 ---
 title: Implementation Effort and Use Cases of Different API Gateway Authorization Methods
-date: 2022-05-06 10:00
+date: 2025-01-25 16:00
 description: My quick evaluation of API Gateway Authorization Methods
 category: blog
 tags:
