@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Hung Hoang">
+  <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
+
+  <title>Implementation Effort and Use Cases of Different API Gateway Authorization Methods - Hung Hoang</title>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./static/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./static/style.css" rel="stylesheet">
+
+  <!-- Syntax highlighting css -->
+  <link href="./static/pygments.css" rel="stylesheet">
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TG55DGQ');
+  </script>
+  <!-- End Google Tag Manager -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-235710440-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-235710440-2');
+  </script>
+  <!-- End Global site tag (gtag.js) - Google Analytics -->
+  <!-- Google Console Verify-->
+  <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
+  <!-- End Google Console Verify-->
+
+  <!-- beam analytics -->
+  <script src="https://beamanalytics.b-cdn.net/beam.min.js" data-token="19aab194-2a12-4585-bf30-e8b0c1e45d01" async></script>
+  <!-- End beam analytics -->
+
+  
+<meta property="og:title" content="Implementation Effort and Use Cases of Different API Gateway Authorization Methods - Hung Hoang">
+<meta property="twitter:title" content="Implementation Effort and Use Cases of Different API Gateway Authorization Methods - Hung Hoang">
+
+
+<meta name="description" content="My quick evaluation of API Gateway Authorization Methods">
+<meta property="og:description" content="My quick evaluation of API Gateway Authorization Methods">
+<meta property="twitter:description" content="My quick evaluation of API Gateway Authorization Methods">
+
+
+
+
+
+
+<meta property="og:url" content="/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
+
+</head>
+<body>
+  <div class="container">
+
+    
+<article>
+  <aside class="timestamp">
+    <time>Posted by Hung Hoang on 2022-05-06 10:00</time>
+    · <a href="./">view all posts</a>
+  </aside>
+  <h1>Implementation Effort and Use Cases of Different API Gateway Authorization Methods</h1>
+  <content>
+    <h1 id="api-gateway-authorization-methods-my-quick-evaluation">API Gateway Authorization Methods: My quick evaluation</h1>
+<h2 id="intro">Intro</h2>
+<p>I'm developing a utility tool for my internal team using API Gateway + Lambda. One aspect I'd like to apply when it comes to securing APIs is limiting API access. AWS provides us three primary authorization methods exist: IAM, Amazon Cognito, and Lambda Authorizers. Here is my quick evaluation of each method's implementation effort, and ideal use cases.</p>
+<h2 id="authorization-method-comparisons">Authorization Method Comparisons</h2>
+<h3 id="1-iam-authorization">1. IAM Authorization</h3>
+<ul>
+<li><strong>Complexity</strong>: Low</li>
+<li><strong>Best For</strong>: Internal AWS environments</li>
+<li><strong>Implementation Effort</strong>: &#8533;</li>
+<li><strong>Key Advantages</strong>:</li>
+<li>Native AWS ecosystem integration</li>
+<li>Minimal custom code requirements</li>
+<li><strong>Limitations</strong>:</li>
+<li>Restricted to AWS infrastructure</li>
+<li>Limited external user support</li>
+</ul>
+<h3 id="2-amazon-cognito">2. Amazon Cognito</h3>
+<ul>
+<li><strong>Complexity</strong>: Medium</li>
+<li><strong>Best For</strong>: User-centric applications</li>
+<li><strong>Implementation Effort</strong>: &#8535;</li>
+<li><strong>Key Advantages</strong>:</li>
+<li>Managed user authentication</li>
+<li>Built-in social login capabilities</li>
+<li>Multi-factor authentication support</li>
+<li><strong>Challenges</strong>:</li>
+<li>Requires initial configuration</li>
+<li>Steeper learning curve for advanced features</li>
+</ul>
+<h3 id="3-lambda-authorizers">3. Lambda Authorizers</h3>
+<ul>
+<li><strong>Complexity</strong>: High</li>
+<li><strong>Best For</strong>: Enterprise-level, custom authentication scenarios</li>
+<li><strong>Implementation Effort</strong>: 5/5</li>
+<li><strong>Key Advantages</strong>:</li>
+<li>Maximum authentication customization</li>
+<li>Supports intricate authentication logic</li>
+<li>Integrates with external identity providers</li>
+<li><strong>Challenges</strong>:</li>
+<li>Requires custom Lambda function development</li>
+<li>Higher maintenance overhead</li>
+<li>Potential performance implications</li>
+</ul>
+<h2 id="recommendation-matrix">Recommendation Matrix</h2>
+<table class="table">
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Recommended Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Small/Internal Projects</td>
+<td>IAM</td>
+</tr>
+<tr>
+<td>User-Focused Applications</td>
+<td>Cognito</td>
+</tr>
+<tr>
+<td>Complex Enterprise Requirements</td>
+<td>Lambda Authorizers</td>
+</tr>
+</tbody>
+</table>
+<h2 id="my-closing-thoughts">My closing thoughts</h2>
+<p>I'm developing some web-bases utility tools for my internal team. IAM Authorization seems a no-brainer to me. Minimal coding and configuration required helps me to ship fast to collect users' feedback as we also use AWS as our cloud provider.</p>
+<p>In case, security concerns and authorization grow more complex, I'll look into Lambda Authorizers thanks to its flexibility while I'd like to avoid AWS Cognito as it requires steep learning curve when requirements are more complex.</p>
+  </content>
+</article>
+
+
+    <footer>
+      <div class="row">
+        <div class="col-md-1 d-none d-md-block img-me-container">
+          <img class="img-me img-fluid" src="./static/me.webp">
+        </div>
+        <div class="col-md info">
+          <span class="name">Hung Hoang</span><br>
+          · <a href="https://github.com/hoangquochung1110" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> hoangquochung1110</a>
+          · <a href="https://www.instagram.com/h7ng__/" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i> h7ng__</a>
+          <br>
+          <span class="location"><i class="fas fa-map-marker"></i> Saigon, Vietnam</span>
+        </div>
+        <div class="col-md">
+          <p class="disclaimer">
+            &copy; 2022 &mdash; 2022<br>
+            All text is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> license<br>
+            All code is available under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> license
+          </p>
+      </div>
+
+    </footer>
+  </div>
+
+  <!-- webfonts & icons-->
+  <link href="/static/fontawesome/css/fontawesome-all.min.css" rel="stylesheet">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TG55DGQ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+</body>
+</html>
