@@ -49,7 +49,7 @@
   <script src="https://beamanalytics.b-cdn.net/beam.min.js" data-token="19aab194-2a12-4585-bf30-e8b0c1e45d01" async></script>
   <!-- End beam analytics -->
 
-  
+
 <meta property="og:title" content="Learning the ropes: understanding Python generics - Hung Hoang">
 <meta property="twitter:title" content="Learning the ropes: understanding Python generics - Hung Hoang">
 
@@ -71,7 +71,7 @@
 <body>
   <div class="container">
 
-    
+
 <article>
   <aside class="timestamp">
     <time>Posted by Hung Hoang on 2024-05-04 20:00</time>
@@ -86,35 +86,35 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PmgHNls70eQ?si=Vddoe-kBdIpZRi4m" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 <p>Also, a select code snippet to highlight use case of <code>Generic</code> and `TypeVar``</p>
-<pre class="lang-python3"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span>
+<pre class="lang-python3"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span>
 
 
-<span class="k">class</span><span class="w"> </span><span class="nc">Food</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">Food</span><span class="p">:</span>
     <span class="k">pass</span>
 
 
 <span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">Food</span><span class="p">)</span>
 
 
-<span class="k">class</span><span class="w"> </span><span class="nc">CatFood</span><span class="p">(</span><span class="n">Food</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">CatFood</span><span class="p">(</span><span class="n">Food</span><span class="p">):</span>
     <span class="k">pass</span>
 
 
-<span class="k">class</span><span class="w"> </span><span class="nc">Animal</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<span class="k">class</span> <span class="nc">Animal</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">feed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">food</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">feed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">food</span><span class="p">:</span> <span class="n">T</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Yum!&quot;</span><span class="p">)</span>
 
 
-<span class="k">class</span><span class="w"> </span><span class="nc">Cat</span><span class="p">(</span><span class="n">Animal</span><span class="p">[</span><span class="n">CatFood</span><span class="p">]):</span>
+<span class="k">class</span> <span class="nc">Cat</span><span class="p">(</span><span class="n">Animal</span><span class="p">[</span><span class="n">CatFood</span><span class="p">]):</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">feed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">food</span><span class="p">:</span> <span class="n">CatFood</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">feed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">food</span><span class="p">:</span> <span class="n">CatFood</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Yum!&quot;</span><span class="p">)</span>
 
 
-<span class="k">class</span><span class="w"> </span><span class="nc">Dog</span><span class="p">(</span><span class="n">Animal</span><span class="p">[</span><span class="n">Food</span><span class="p">]):</span>
+<span class="k">class</span> <span class="nc">Dog</span><span class="p">(</span><span class="n">Animal</span><span class="p">[</span><span class="n">Food</span><span class="p">]):</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">feed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">food</span><span class="p">:</span> <span class="n">Food</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">feed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">food</span><span class="p">:</span> <span class="n">Food</span><span class="p">):</span>
         <span class="o">...</span>
 </pre>
 <p><code>def feed(self, food: CatFood):</code>

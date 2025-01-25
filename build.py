@@ -126,7 +126,7 @@ def write_pygments_style_sheet():
 
 def write_index(posts: Sequence[frontmatter.Post]):
     """Render the index page."""
-    posts = sorted(posts, key=lambda post: post["date"], reverse=True)
+    posts = sorted([post for post in posts if "date" in post], key=lambda post: post["date"], reverse=True)
     path = pathlib.Path("./docs/index.html")
     template = jinja_env.get_template("index.html")
     rendered = template.render(posts=posts)
@@ -134,14 +134,14 @@ def write_index(posts: Sequence[frontmatter.Post]):
 
 def write_til_index(posts: Sequence[frontmatter.Post]):
     """Render the til page."""
-    posts = sorted(posts, key=lambda post: post["date"], reverse=True)
+    posts = sorted([post for post in posts if "date" in post], key=lambda post: post["date"], reverse=True)
     path = pathlib.Path("./docs/til/index.html")
     template = jinja_env.get_template("til.html")
     rendered = template.render(posts=posts)
     path.write_text(rendered)
 
 def write_rss(posts: Sequence[frontmatter.Post]):
-    posts = sorted(posts, key=lambda post: post["date"], reverse=True)
+    posts = sorted([post for post in posts if "date" in post], key=lambda post: post["date"], reverse=True)
     path = pathlib.Path("./docs/feed.xml")
     template = jinja_env.get_template("rss.xml")
     rendered = template.render(posts=posts, root=ROOT_URL)

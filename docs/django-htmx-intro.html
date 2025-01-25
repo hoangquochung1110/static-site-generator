@@ -49,7 +49,7 @@
   <script src="https://beamanalytics.b-cdn.net/beam.min.js" data-token="19aab194-2a12-4585-bf30-e8b0c1e45d01" async></script>
   <!-- End beam analytics -->
 
-  
+
 <meta property="og:title" content="How Django meets htmx &#58; A quick tour of modern server side rendering. - Hung Hoang">
 <meta property="twitter:title" content="How Django meets htmx &#58; A quick tour of modern server side rendering. - Hung Hoang">
 
@@ -71,7 +71,7 @@
 <body>
   <div class="container">
 
-    
+
 <article>
   <aside class="timestamp">
     <time>Posted by Hung Hoang on 2022-03-10 10:00</time>
@@ -149,20 +149,20 @@ templates/
 <p>If <code>hx-target</code> is not specified, its default value is the element that make the request.</p>
 <h2 id="step-2-write-django-views-that-accepts-request-from-browsers-and-handle-the-logic-of-password-update">STEP 2: Write Django views that accepts request from browsers and handle the logic of password update.</h2>
 <pre class="lang-python3"><span class="c1"># views.py</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">django.views.generic</span><span class="w"> </span><span class="kn">import</span> <span class="n">UpdateView</span><span class="p">,</span> <span class="n">TemplateView</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">django.contrib.auth.forms</span><span class="w"> </span><span class="kn">import</span> <span class="n">PasswordChangeForm</span>
+<span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="kn">import</span> <span class="n">UpdateView</span><span class="p">,</span> <span class="n">TemplateView</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.forms</span> <span class="kn">import</span> <span class="n">PasswordChangeForm</span>
 
-<span class="k">class</span><span class="w"> </span><span class="nc">UserProfileView</span><span class="p">(</span><span class="n">TemplateView</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">UserProfileView</span><span class="p">(</span><span class="n">TemplateView</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Display current user profile data.&quot;&quot;&quot;</span>
     <span class="n">template_name</span> <span class="o">=</span> <span class="s2">&quot;users/profile/profile.html&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Provide form to template for first-time loading.&quot;&quot;&quot;</span>
         <span class="n">context_data</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">context_data</span><span class="p">[</span><span class="s2">&quot;form&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">PasswordChangeForm</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">context_data</span>
 
-<span class="k">class</span><span class="w"> </span><span class="nc">PasswordChangeViewAdmin</span><span class="p">(</span><span class="n">PasswordChangeView</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">PasswordChangeViewAdmin</span><span class="p">(</span><span class="n">PasswordChangeView</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Allow change password for current user.&quot;&quot;&quot;</span>
     <span class="n">template_name</span> <span class="o">=</span> <span class="s2">&quot;users/profile/password_update.html&quot;</span>
     <span class="n">form_class</span> <span class="o">=</span> <span class="n">PasswordChangeForm</span>
@@ -170,7 +170,7 @@ templates/
 </pre>
 <pre class="lang-python3"><span class="c1"># urls.py</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">views</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
 
 <span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">path</span><span class="p">(</span><span class="s2">&quot;profile/&quot;</span><span class="p">,</span> <span class="n">include</span><span class="p">([</span>
@@ -192,13 +192,13 @@ templates/
 <p>The second scenario is that the data you submit is valid, according to the initial implementation of <code>PasswordChangeViewAdmin</code>, it should return a response including the admin-login template. Now here comes the problem: the page is expected to load the admin-login page into the form tag. It does not make sense and not what we want to do.</p>
 <h2 id="step-3-redirect-after-successful-form-submission">STEP 3: Redirect after successful form submission</h2>
 <p>The solution to this circumstance is to modify the behavior of <code>hx-post</code>, prevent it from swapping response onto the page. Instead we should redirect users to another page:</p>
-<pre class="lang-python3"><span class="k">class</span><span class="w"> </span><span class="nc">PasswordChangeViewAdmin</span><span class="p">(</span><span class="n">PasswordChangeView</span><span class="p">):</span>
+<pre class="lang-python3"><span class="k">class</span> <span class="nc">PasswordChangeViewAdmin</span><span class="p">(</span><span class="n">PasswordChangeView</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Allow change password for current user.&quot;&quot;&quot;</span>
     <span class="n">template_name</span> <span class="o">=</span> <span class="s2">&quot;users/profile/password_update.html&quot;</span>
     <span class="n">form_class</span> <span class="o">=</span> <span class="n">PasswordChangeForm</span>
     <span class="n">success_url</span> <span class="o">=</span> <span class="n">reverse_lazy</span><span class="p">(</span><span class="s2">&quot;admin-login&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Insert HX-Redirect attribute to response header.</span>
 
 <span class="sd">        The purpose is to modify htmx swapping mechanism</span>

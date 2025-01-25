@@ -49,7 +49,7 @@
   <script src="https://beamanalytics.b-cdn.net/beam.min.js" data-token="19aab194-2a12-4585-bf30-e8b0c1e45d01" async></script>
   <!-- End beam analytics -->
 
-  
+
 <meta property="og:title" content="Application of Regex in my message templating webapp - Hung Hoang">
 <meta property="twitter:title" content="Application of Regex in my message templating webapp - Hung Hoang">
 
@@ -71,7 +71,7 @@
 <body>
   <div class="container">
 
-    
+
 <article>
   <aside class="timestamp">
     <time>Posted by Hung Hoang on 2023-01-03 14:00</time>
@@ -92,26 +92,26 @@
 <p><img alt="actual message content" src="https://hlogs-bucket.s3.ap-southeast-1.amazonaws.com/Screen+Shot+2023-01-03+at+2.56.38+PM.png" /></p>
 <h2 id="implementation">Implementation</h2>
 <p>To replace every <code>placeholder</code> with desired values, we rely on regular expression. Here is our implementation:</p>
-<pre class="lang-python3"><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<pre class="lang-python3"><span class="kn">import</span> <span class="nn">re</span>
 
-<span class="k">class</span><span class="w"> </span><span class="nc">Renderer</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">Renderer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to implement regex.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">placeholder_to_value_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">placeholder_to_value_map</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">placeholder_to_value_map</span> <span class="o">=</span> <span class="n">placeholder_to_value_map</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">re_pattern</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_pattern</span><span class="p">()</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">build_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">build_pattern</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return regex pattern object.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
             <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">placeholder_to_value_map</span><span class="p">))</span>
         <span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">repl_placeholders</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">match_obj</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">repl_placeholders</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">match_obj</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return actual values if match.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">placeholder_to_value_map</span><span class="p">[</span><span class="n">match_obj</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Replace placeholders with actual values.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">re_pattern</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repl_placeholders</span><span class="p">,</span> <span class="n">template</span><span class="p">)</span>
 
@@ -157,11 +157,11 @@ This method is called for every occurrence of pattern. Let's say we have 4 match
 </ul>
 <p>Let's try to print it out to see if it's true</p>
 <pre class="lang-python3"><span class="o">...</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Renderer</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">Renderer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to implement regex.&quot;&quot;&quot;</span>
     <span class="n">time</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="o">...</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">repl_placeholders</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">match_obj</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">repl_placeholders</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">match_obj</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return actual values if match.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;run </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>

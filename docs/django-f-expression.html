@@ -49,7 +49,7 @@
   <script src="https://beamanalytics.b-cdn.net/beam.min.js" data-token="19aab194-2a12-4585-bf30-e8b0c1e45d01" async></script>
   <!-- End beam analytics -->
 
-  
+
 <meta property="og:title" content="Upgrade django queries with F() expression - Hung Hoang">
 <meta property="twitter:title" content="Upgrade django queries with F() expression - Hung Hoang">
 
@@ -71,7 +71,7 @@
 <body>
   <div class="container">
 
-    
+
 <article>
   <aside class="timestamp">
     <time>Posted by Hung Hoang on 2022-07-27 17:00</time>
@@ -88,7 +88,7 @@
 </ul>
 <h3 id="bulk-update">Bulk update</h3>
 <p>Suppose the government in your country raise tax rate by 5% which makes you have to raise your listing product price by 20%. What would your django query look like ?</p>
-<pre class="lang-python3"><span class="k">class</span><span class="w"> </span><span class="nc">Product</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<pre class="lang-python3"><span class="k">class</span> <span class="nc">Product</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
 
     <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
     <span class="n">price</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">()</span>
@@ -110,7 +110,7 @@
 It makes it possible to refer to model field values and perform database operations using them without actually having to pull them out of the database into Python memory.</p>
 </blockquote>
 <p>Let's try the problem with <code>F()</code> and <code>update()</code> queryset method</p>
-<pre class="lang-python3"><span class="kn">from</span><span class="w"> </span><span class="nn">django.db.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">F</span>
+<pre class="lang-python3"><span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">F</span>
 
 <span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">price</span><span class="o">=</span><span class="n">F</span><span class="p">(</span><span class="s2">&quot;price&quot;</span><span class="p">)</span><span class="o">*</span><span class="mf">1.2</span><span class="p">)</span>
 </pre>
@@ -119,7 +119,7 @@ It makes it possible to refer to model field values and perform database operati
 <h3 id="update-a-single-object">Update a single object</h3>
 <p>Let's say you want to update <code>in_stock</code> field after every order payment is completed.</p>
 <p>A naive implementation may be like this:</p>
-<pre class="lang-python3"><span class="k">def</span><span class="w"> </span><span class="nf">process_payment</span><span class="p">(</span><span class="n">product</span><span class="p">:</span> <span class="n">Product</span><span class="p">):</span>
+<pre class="lang-python3"><span class="k">def</span> <span class="nf">process_payment</span><span class="p">(</span><span class="n">product</span><span class="p">:</span> <span class="n">Product</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">():</span>
         <span class="n">payment</span> <span class="o">=</span> <span class="n">Payment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="n">product</span><span class="p">)</span>
         <span class="n">product</span><span class="o">.</span><span class="n">in_stock</span> <span class="o">=</span> <span class="n">product</span><span class="o">.</span><span class="n">in_stock</span> <span class="o">-</span> <span class="mi">1</span>
@@ -160,7 +160,7 @@ Let's imagine there are multiple users trying to make orders for a product, the 
 </table>
 <p>In this case, two processes are updating <code>product.in_stock</code> at the same time but <code>in_stock</code> value just decrease by 1. That's incorrect.</p>
 <p>The main issue is that you decrease <code>in_stock</code> based on what you fetched, what if you give database an instruction to update <code>in_stock</code> based on what is currently stored ?</p>
-<pre class="lang-python3"><span class="k">def</span><span class="w"> </span><span class="nf">process_payment</span><span class="p">(</span><span class="n">product</span><span class="p">:</span> <span class="n">Product</span><span class="p">):</span>
+<pre class="lang-python3"><span class="k">def</span> <span class="nf">process_payment</span><span class="p">(</span><span class="n">product</span><span class="p">:</span> <span class="n">Product</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">():</span>
         <span class="n">payment</span> <span class="o">=</span> <span class="n">Payment</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">product</span><span class="o">=</span><span class="n">product</span><span class="p">)</span>
         <span class="n">product</span><span class="o">.</span><span class="n">in_stock</span> <span class="o">=</span> <span class="n">F</span><span class="p">(</span><span class="s2">&quot;in_stock&quot;</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
