@@ -15,40 +15,62 @@ I'm developing a utility tool for my internal team using API Gateway + Lambda. O
 ## Authorization Method Comparisons
 
 ### 1. IAM Authorization
-- **Complexity**: Low
-- **Best For**: Internal AWS environments
-- **Implementation Effort**: 1/5
-- **Key Advantages**:
+**Complexity**: Low
+
+**Best For**: Internal AWS environments
+
+**Implementation Effort**: 1/5
+
+**Key Advantages**:
+
   * Native AWS ecosystem integration
   * Minimal custom code requirements
-- **Limitations**:
+
+**Limitations**:
+
   * Restricted to AWS infrastructure
   * Limited external user support
 
+
 ### 2. Amazon Cognito
-- **Complexity**: Medium
-- **Best For**: User-centric applications
-- **Implementation Effort**: 3/5
-- **Key Advantages**:
+**Complexity**: Medium
+
+**Best For**: User-centric applications
+
+**Implementation Effort**: 3/5
+
+**Key Advantages**:
+
   * Managed user authentication
   * Built-in social login capabilities
   * Multi-factor authentication support
-- **Challenges**:
+
+**Challenges**:
+
   * Requires initial configuration
   * Steeper learning curve for advanced features
 
+
 ### 3. Lambda Authorizers
-- **Complexity**: High
-- **Best For**: Enterprise-level, custom authentication scenarios
-- **Implementation Effort**: 5/5
-- **Key Advantages**:
-  * Maximum authentication customization
-  * Supports intricate authentication logic
-  * Integrates with external identity providers
-- **Challenges**:
+
+**Complexity**: High
+
+**Best For**: Enterprise-level, custom authentication scenarios
+
+**Implementation Effort**: 5/5
+
+**Key Advantages**:
+
+  - Maximum authentication customization
+  - Supports intricate authentication logic
+  - Integrates with external identity providers
+
+**Challenges**:
+
   * Requires custom Lambda function development
   * Higher maintenance overhead
   * Potential performance implications
+
 
 ## Recommendation Matrix
 
@@ -57,6 +79,7 @@ I'm developing a utility tool for my internal team using API Gateway + Lambda. O
 | Small/Internal Projects | IAM |
 | User-Focused Applications | Cognito |
 | Complex Enterprise Requirements | Lambda Authorizers |
+
 
 ## My closing thoughts
 I'm developing some web-bases utility tools for my internal team. IAM Authorization seems a no-brainer to me. Minimal coding and configuration required helps me to ship fast to collect users' feedback as we also use AWS as our cloud provider.
