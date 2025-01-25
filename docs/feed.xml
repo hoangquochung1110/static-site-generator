@@ -7,140 +7,140 @@
   <atom:link href="https://hoangquochung1110.github.io/static-site-generator/feed.xml"
     rel="self" type="application/rss+xml" />
 
-
+  
   <item>
     <title>Implementation Effort and Use Cases of Different API Gateway Authorization Methods</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/api-gw-authorization-methods</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/api-gw-authorization-methods</guid>
     <pubDate>2025-01-25 16:00</pubDate>
   </item>
-
+  
   <item>
     <title>The fetch-depth parameter in actions/checkout</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/gh-action-checkout</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/gh-action-checkout</guid>
     <pubDate>2024-11-10 11:00</pubDate>
   </item>
-
+  
   <item>
     <title>Learning the ropes: understanding Python generics</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/understanding-python-generics</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/understanding-python-generics</guid>
     <pubDate>2024-05-04 20:00</pubDate>
   </item>
-
+  
   <item>
     <title>Developer tools</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/developer-tools</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/developer-tools</guid>
     <pubDate>2024-03-20 10:00</pubDate>
   </item>
-
+  
   <item>
     <title>Python tip: don&#39;t split on space or newlines</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/python-tips-str-split</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/python-tips-str-split</guid>
     <pubDate>2023-10-19 16:00</pubDate>
   </item>
-
+  
   <item>
     <title>Run additional script when Postgres container starts</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/postgres-init-script</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/postgres-init-script</guid>
     <pubDate>2023-05-19 18:00</pubDate>
   </item>
-
+  
   <item>
     <title>Understanding Dirty Read and Non-Repeatable Phenomena in Postgres: A Visual Demo</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/isolation-level-postgres-p1</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/isolation-level-postgres-p1</guid>
     <pubDate>2023-04-25 15:00</pubDate>
   </item>
-
+  
   <item>
     <title>Pytest introduction in 5 minutes</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/pytest-intro</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/pytest-intro</guid>
     <pubDate>2023-03-09 11:00</pubDate>
   </item>
-
+  
   <item>
     <title>Application of Regex in my message templating webapp</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/message-templating</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/message-templating</guid>
     <pubDate>2023-01-03 14:00</pubDate>
   </item>
-
+  
   <item>
     <title>Ease Postgres SQL queries with auto-completion and syntax-highlighting</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/pgcli-autocomplete</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/pgcli-autocomplete</guid>
     <pubDate>2022-12-14 22:00</pubDate>
   </item>
-
+  
   <item>
     <title>Implementation of the Factory Method pattern in Python</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/factory_method_design_patterns</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/factory_method_design_patterns</guid>
     <pubDate>2022-12-08 16:00</pubDate>
   </item>
-
+  
   <item>
     <title>My favorite Visual Studio Code cheatsheet for Mac</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/vscode-cheatsheet</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/vscode-cheatsheet</guid>
     <pubDate>2022-10-15 11:00</pubDate>
   </item>
-
+  
   <item>
     <title>Commit message with title and body with one-liner git command</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/git-commit-title-body-one-liner</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/git-commit-title-body-one-liner</guid>
     <pubDate>2022-08-11 15:00</pubDate>
   </item>
-
+  
   <item>
     <title>Upgrade django queries with F() expression</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/django-f-expression</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/django-f-expression</guid>
     <pubDate>2022-07-27 17:00</pubDate>
   </item>
-
+  
   <item>
     <title>Do you have readable Git commit history ?</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/clean-commit-history</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/clean-commit-history</guid>
     <pubDate>2022-05-06 10:00</pubDate>
   </item>
-
+  
   <item>
     <title>Database indexing in a nutshell with B+tree and Hash in comparison</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/database-index</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/database-index</guid>
     <pubDate>2022-04-25 10:00</pubDate>
   </item>
-
+  
   <item>
     <title>How to exclude commits from git blame</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/git-blame-ignore-revs</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/git-blame-ignore-revs</guid>
     <pubDate>2022-03-11 11:00</pubDate>
   </item>
-
+  
   <item>
     <title>Manage State in ReactJS with to-do app</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/react-todo-list</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/react-todo-list</guid>
     <pubDate>2022-03-10 10:00</pubDate>
   </item>
-
+  
   <item>
     <title>How Django meets htmx &amp;#58; A quick tour of modern server side rendering.</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/django-htmx-intro</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/django-htmx-intro</guid>
     <pubDate>2022-03-10 10:00</pubDate>
   </item>
-
+  
 
 </channel>
 </rss>
