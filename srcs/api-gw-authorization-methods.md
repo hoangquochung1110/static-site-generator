@@ -7,7 +7,7 @@ tags:
     - aws
 ---
 
-# API Gateway Authorization Methods: My quick evaluation
+## API Gateway Authorization Methods: My quick evaluation
 
 ## Intro
 I'm developing a utility tool for my internal team using API Gateway + Lambda. One aspect I'd like to apply when it comes to securing APIs is limiting API access. AWS provides us three primary authorization methods exist: IAM, Amazon Cognito, and Lambda Authorizers. Here is my quick evaluation of each method's implementation effort, and ideal use cases.
@@ -19,36 +19,36 @@ I'm developing a utility tool for my internal team using API Gateway + Lambda. O
 - **Best For**: Internal AWS environments
 - **Implementation Effort**: 1/5
 - **Key Advantages**:
-  - Native AWS ecosystem integration
-  - Minimal custom code requirements
+  * Native AWS ecosystem integration
+  * Minimal custom code requirements
 - **Limitations**:
-  - Restricted to AWS infrastructure
-  - Limited external user support
+  * Restricted to AWS infrastructure
+  * Limited external user support
 
 ### 2. Amazon Cognito
 - **Complexity**: Medium
 - **Best For**: User-centric applications
 - **Implementation Effort**: 3/5
 - **Key Advantages**:
-  - Managed user authentication
-  - Built-in social login capabilities
-  - Multi-factor authentication support
+  * Managed user authentication
+  * Built-in social login capabilities
+  * Multi-factor authentication support
 - **Challenges**:
-  - Requires initial configuration
-  - Steeper learning curve for advanced features
+  * Requires initial configuration
+  * Steeper learning curve for advanced features
 
 ### 3. Lambda Authorizers
 - **Complexity**: High
 - **Best For**: Enterprise-level, custom authentication scenarios
 - **Implementation Effort**: 5/5
 - **Key Advantages**:
-  - Maximum authentication customization
-  - Supports intricate authentication logic
-  - Integrates with external identity providers
+  * Maximum authentication customization
+  * Supports intricate authentication logic
+  * Integrates with external identity providers
 - **Challenges**:
-  - Requires custom Lambda function development
-  - Higher maintenance overhead
-  - Potential performance implications
+  * Requires custom Lambda function development
+  * Higher maintenance overhead
+  * Potential performance implications
 
 ## Recommendation Matrix
 
