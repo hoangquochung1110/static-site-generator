@@ -1,6 +1,10 @@
 ## - What is serverless about ?
-    * there are never instances, operating systems, or servers to manage. AWS handles everything required to run and scale your application. By building serverless applications, your developers can focus on the code that makes your business unique.
-    * An application that can automatically scale, inherently highly available and run without provisioning or managing an EC2 host is known as a Serverless Application.
+
+* there are never instances, operating systems, or servers to manage. AWS handles everything required to run and scale your application. By building serverless applications, your developers can focus on the code that makes your business unique.
+* An application that can automatically scale, inherently highly available and run without provisioning or managing an EC2 host is known as a Serverless Application.
+
+Benefits:
+
 - scalability
 - deployment speed (no server management)
 - automated high availability
@@ -65,6 +69,8 @@ Cold start: a new execution environment is required to run a Lambda function.
 
 Warm start: the Lambda service retains the environment instead of destroying it immediately. This allows the function to run again within the same execution environment. This saves time by not needing to initialize the environment.
 
+![AWS Lambda execution environment lifecycle](https://hlogs-bucket.s3.ap-southeast-1.amazonaws.com/aws-lambda-exec-env-lifecycle.png)
+
 **Best practice: Write functions to take advantage of warm starts**
 - Store and reference dependencies locally.
 - Limit re-initialization of variables.
@@ -80,7 +86,7 @@ There are two sides that define the necessary scope of permissions – permissio
 
 Tips:
     - Remember to use the principle of least privilege when creating IAM policies and roles. Always start with the most restrictive set of permissions and only grant further permissions as required for the function to run.
-    - You can also use (opens in a new tab)IAM Access Analyzer to help identify the required permissions for the IAM execution role.
+    - You can also use IAM Access Analyzer to help identify the required permissions for the IAM execution role.
 
 Quiz: What IAM entities must be included in an execution role for a Lambda function to interact with other services, such as DynamoDB? (Select TWO.)
 
@@ -92,7 +98,7 @@ Answer:
 When building and testing a function, you must specify three primary configuration settings: memory, timeout, and concurrency
 
 #### Monitoring and Troubleshooting
-- Main tool: Amazon CloudWatch, o help you monitor your code when it runs, Lambda automatically tracks the following:
+- Main tool: Amazon CloudWatch: helps you monitor your code when it runs, Lambda automatically tracks the following:
     * Number of requests
     * Invocation duration per request
     * Number of requests that result in an error
@@ -141,7 +147,6 @@ You have three options for authorizing access to your APIs through API Gateway: 
 
 #### Protect data at rest
 - Encryption uses AWS KMS
-
 
 ### Serverless data protection best practices
 - Make yourself aware of how you can take advantage of AWS managed services to reduce your security management burden.
@@ -390,7 +395,7 @@ Although it is important to consider your current and future needs when creating
 
 #### API Gateway optional cache
 - Why:
-    * It reduces overall latency for serving requests.
+    * It **reduces overall latency** for serving requests.
     * It minimizes the number of requests that need to be made to your backend.
 - Configure caching per API stage: Configuration choices for stage caching include the following.
     * Provision between 0.5 GB and 237 GB of cache
@@ -412,7 +417,7 @@ Although it is important to consider your current and future needs when creating
 - HTTP endpoint: useful for public web applications where you want clients to interact with the endpoint. This type of integration lets an API expose HTTP endpoints in the backend.
 - AWS Service: an integration type that lets an API expose AWS service actions. For example, you might drop a message directly into an Amazon Simple Queue Service (Amazon SQS) queue.
 - Mock
-- VPC Link
+- VPC Link: connect to a VPC Link that allows access to resources within VPCs via a Network Load Balancer (NLB).
 
 #### Test your API methods
 Test results:
