@@ -5,21 +5,28 @@
 
 {% block content %}
 <nav>
-  <h1>Blog posts & articles by Hung Hoang <a class="rss" href="/feed.xml" target="_blank" title="RSS feed"><i class="fas fa-rss"></i></a></h1>
-  <dl class="posts-list">
-  {% for post in posts if not post.get('hidden') %}
-    <a href="./{{post.stem}}">
-      {% if post.tags %}
-        {% for i in range(post.tags|length) %}
-          <div style="background-color: {{ post.background_color[i] }};" class="pile">{{post.tags[i]}}</div>
-        {% endfor %}
-      {% endif %}
-      <dt>{{post.title}}</dt>
-      <dd>
-        <time>{{post['date']}}</time>
-      </dd>
-    </a>
-  {% endfor %}
-  </dl>
+  <div id="h1-nav-wrapper">
+    <h1>Hung Hoang's Webblog <a class="rss" href="/feed.xml" target="_blank" title="RSS feed"><i class="fas fa-rss"></i></a></h1>
+      <ul>
+        <li><a href="./about/">About</a></li>
+        <li><a href="https://hoangquochung1110.github.io/static-site-generator/til/">TILs</a></li>
+      </ul>
+  </div>
 </nav>
+
+<dl class="posts-list">
+{% for post in posts if not post.get('hidden') %}
+  <a href="./{{post.stem}}">
+    {% if post.tags %}
+      {% for i in range(post.tags|length) %}
+        <div style="background-color: {{ post.background_color[i] }};" class="pile">{{post.tags[i]}}</div>
+      {% endfor %}
+    {% endif %}
+    <dt>{{post.title}}</dt>
+    <dd>
+      <time>{{post['date']}}</time>
+    </dd>
+  </a>
+{% endfor %}
+</dl>
 {% endblock %}

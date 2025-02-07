@@ -48,29 +48,29 @@ nav {
   margin-top: 2em;
 }
 
-nav time {
+time {
   font-style: italic;
   color: #607d8b;
   font-size: 80%;
 }
 
-nav .pile {
+.pile {
   margin-top: 1.2rem;
 }
 
-nav dl a {
+dl a {
   color: #41b990;
   text-decoration: none;
   font-size: 120%;
 }
 
-nav dl a:hover,
-nav dl a:focus {
+dl a:hover,
+dl a:focus {
   color: #3a846b;
   text-decoration: none;
 }
 
-nav dt {
+dt {
   font-weight: normal;
 }
 
@@ -286,4 +286,16 @@ footer {
 
 .support-me a, .support-me a:hover, .support-me a:active, .support-me a:visited {
   color: #c2ffdf;
+}
+
+#h1-nav-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-start;
+}
+
+nav li {
+  display: inline;
+  margin-right: 10px; /* Add some spacing between items */
 }
