@@ -1,5 +1,5 @@
 ---
-title: How to Set Up Amazon CloudFront with S3: A Complete Security Guide for 2025
+title: 'How to Set Up Amazon CloudFront with S3: A Complete Security Guide for 2025'
 date: 2025-02-12 17:00
 description: Learn how to securely configure Amazon CloudFront distribution with S3 bucket using Origin Access Control (OAC). This step-by-step guide covers everything from blocking public access to implementing proper bucket policies for enhanced security.
 category: blog
