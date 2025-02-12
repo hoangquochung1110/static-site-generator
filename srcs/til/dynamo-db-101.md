@@ -15,10 +15,10 @@ tags:
 
 Data is stored in tables. A table contains items with attributes.
 You can think of items as rows or tuples in a relational database and attributes as columns.
-![Tables and Partitions](https://hlogs-bucket.s3.ap-southeast-1.amazonaws.com/tables-and-partitions-dynamo-db.png "Tables and Partitions")
+![Tables and Partitions](https://dvy2uzo2tub15.cloudfront.net/tables-and-partitions-dynamo-db.png "Tables and Partitions")
 
 #### Primary keys
-![Primary keys](https://hlogs-bucket.s3.ap-southeast-1.amazonaws.com/dynamo-db-primary-keys.png "Primary keys")
+![Primary keys](https://dvy2uzo2tub15.cloudfront.net/dynamo-db-primary-keys.png "Primary keys")
 
 #### Basic item requests:
 
