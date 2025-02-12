@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Hung Hoang">
+  <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
+
+  <title> - Hung Hoang</title>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./static/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./static/style.css" rel="stylesheet">
+
+  <!-- Syntax highlighting css -->
+  <link href="./static/pygments.css" rel="stylesheet">
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TG55DGQ');
+  </script>
+  <!-- End Google Tag Manager -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-235710440-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-235710440-2');
+  </script>
+  <!-- End Global site tag (gtag.js) - Google Analytics -->
+  <!-- Google Console Verify-->
+  <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
+  <!-- End Google Console Verify-->
+
+  <!-- beam analytics -->
+  <script src="https://beamanalytics.b-cdn.net/beam.min.js" data-token="19aab194-2a12-4585-bf30-e8b0c1e45d01" async></script>
+  <!-- End beam analytics -->
+
+  
+<meta property="og:title" content=" - Hung Hoang">
+<meta property="twitter:title" content=" - Hung Hoang">
+
+
+
+
+
+
+
+<meta property="og:url" content="/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
+
+</head>
+<body>
+  <div class="container">
+
+    
+<article>
+  <aside class="timestamp">
+    <time>Posted by Hung Hoang on </time>
+    · <a href="./">view all posts</a>
+  </aside>
+  <h1></h1>
+  <content>
+    <h1 id="how-to-set-up-amazon-cloudfront-with-s3-a-complete-security-guide-for-2025">How to Set Up Amazon CloudFront with S3: A Complete Security Guide for 2025</h1>
+<p>Learn how to securely configure Amazon CloudFront distribution with S3 bucket using Origin Access Control (OAC). This step-by-step guide covers everything from blocking public access to implementing proper bucket policies for enhanced security.</p>
+<h2 id="what-youll-learn">What You'll Learn</h2>
+<ul>
+<li>How to secure S3 buckets by blocking public access</li>
+<li>Setting up Origin Access Control (OAC) for CloudFront</li>
+<li>Creating optimized CloudFront distributions for Asia-Pacific regions</li>
+<li>Implementing secure bucket policies for CloudFront access</li>
+<li>Verifying your CloudFront and S3 configuration</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before starting this tutorial, ensure you have:
+- AWS CLI installed and configured on your system
+- An existing S3 bucket
+- Access to AWS Console with appropriate permissions
+- Basic understanding of AWS services
+- Commands configured for Singapore region (ap-southeast-1)</p>
+<h2 id="step-1-secure-your-s3-bucket">Step 1: Secure Your S3 Bucket</h2>
+<p>First, we'll block all public access to your S3 bucket to ensure maximum security:</p>
+<pre class="lang-bash"><span class="nv">BUCKET_NAME</span><span class="o">=</span><span class="s2">&quot;your-bucket-name&quot;</span>
+
+aws<span class="w"> </span>s3api<span class="w"> </span>put-public-access-block<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--bucket<span class="w"> </span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--public-access-block-configuration<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;BlockPublicAcls&quot;: true,</span>
+<span class="s1">    &quot;IgnorePublicAcls&quot;: true,</span>
+<span class="s1">    &quot;BlockPublicPolicy&quot;: true,</span>
+<span class="s1">    &quot;RestrictPublicBuckets&quot;: true</span>
+<span class="s1">  }&#39;</span>
+</pre>
+<h2 id="step-2-configure-bucket-domain-name">Step 2: Configure Bucket Domain Name</h2>
+<p>Retrieve your S3 bucket's domain name for CloudFront configuration:</p>
+<pre class="lang-bash"><span class="nv">BUCKET_DOMAIN</span><span class="o">=</span><span class="k">$(</span>aws<span class="w"> </span>s3api<span class="w"> </span>get-bucket-location<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--bucket<span class="w"> </span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--query<span class="w"> </span><span class="s1">&#39;join(``, [`&#39;</span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="s1">&#39;.s3.`, `ap-southeast-1`, `.amazonaws.com`])&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span>text<span class="k">)</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Bucket domain name: </span><span class="nv">$BUCKET_DOMAIN</span><span class="s2">&quot;</span>
+</pre>
+<h2 id="step-3-set-up-origin-access-control-oac">Step 3: Set Up Origin Access Control (OAC)</h2>
+<p>Create an Origin Access Control for secure CloudFront-to-S3 communication:</p>
+<pre class="lang-bash"><span class="nv">OAC_ID</span><span class="o">=</span><span class="k">$(</span>aws<span class="w"> </span>cloudfront<span class="w"> </span>create-origin-access-control<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--origin-access-control-config<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;Name&quot;: &quot;OAC-&#39;</span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="s1">&#39;&quot;,</span>
+<span class="s1">    &quot;Description&quot;: &quot;OAC for &#39;</span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="s1">&#39;&quot;,</span>
+<span class="s1">    &quot;SigningProtocol&quot;: &quot;sigv4&quot;,</span>
+<span class="s1">    &quot;SigningBehavior&quot;: &quot;always&quot;,</span>
+<span class="s1">    &quot;OriginAccessControlOriginType&quot;: &quot;s3&quot;</span>
+<span class="s1">  }&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--query<span class="w"> </span><span class="s1">&#39;OriginAccessControl.Id&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span>text<span class="k">)</span>
+</pre>
+<h2 id="step-4-deploy-cloudfront-distribution">Step 4: Deploy CloudFront Distribution</h2>
+<p>Create an optimized CloudFront distribution with security best practices:</p>
+<pre class="lang-bash">aws<span class="w"> </span>cloudfront<span class="w"> </span>create-distribution<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--distribution-config<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;CallerReference&quot;: &quot;&#39;</span><span class="k">$(</span>date<span class="w"> </span>+%s<span class="k">)</span><span class="s1">&#39;&quot;,</span>
+<span class="s1">    &quot;Origins&quot;: {</span>
+<span class="s1">      &quot;Quantity&quot;: 1,</span>
+<span class="s1">      &quot;Items&quot;: [</span>
+<span class="s1">        {</span>
+<span class="s1">          &quot;Id&quot;: &quot;S3-&#39;</span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="s1">&#39;&quot;,</span>
+<span class="s1">          &quot;DomainName&quot;: &quot;&#39;</span><span class="si">${</span><span class="nv">BUCKET_DOMAIN</span><span class="si">}</span><span class="s1">&#39;&quot;,</span>
+<span class="s1">          &quot;S3OriginConfig&quot;: {</span>
+<span class="s1">            &quot;OriginAccessIdentity&quot;: &quot;&quot;</span>
+<span class="s1">          },</span>
+<span class="s1">          &quot;OriginAccessControlId&quot;: &quot;&#39;</span><span class="si">${</span><span class="nv">OAC_ID</span><span class="si">}</span><span class="s1">&#39;&quot;</span>
+<span class="s1">        }</span>
+<span class="s1">      ]</span>
+<span class="s1">    },</span>
+<span class="s1">    &quot;DefaultCacheBehavior&quot;: {</span>
+<span class="s1">      &quot;TargetOriginId&quot;: &quot;S3-&#39;</span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="s1">&#39;&quot;,</span>
+<span class="s1">      &quot;ViewerProtocolPolicy&quot;: &quot;redirect-to-https&quot;,</span>
+<span class="s1">      &quot;AllowedMethods&quot;: {</span>
+<span class="s1">        &quot;Quantity&quot;: 2,</span>
+<span class="s1">        &quot;Items&quot;: [&quot;GET&quot;, &quot;HEAD&quot;],</span>
+<span class="s1">        &quot;CachedMethods&quot;: {</span>
+<span class="s1">          &quot;Quantity&quot;: 2,</span>
+<span class="s1">          &quot;Items&quot;: [&quot;GET&quot;, &quot;HEAD&quot;]</span>
+<span class="s1">        }</span>
+<span class="s1">      },</span>
+<span class="s1">      &quot;ForwardedValues&quot;: {</span>
+<span class="s1">        &quot;QueryString&quot;: false,</span>
+<span class="s1">        &quot;Cookies&quot;: {</span>
+<span class="s1">          &quot;Forward&quot;: &quot;none&quot;</span>
+<span class="s1">        }</span>
+<span class="s1">      },</span>
+<span class="s1">      &quot;MinTTL&quot;: 0,</span>
+<span class="s1">      &quot;DefaultTTL&quot;: 86400,</span>
+<span class="s1">      &quot;MaxTTL&quot;: 31536000,</span>
+<span class="s1">      &quot;Compress&quot;: true</span>
+<span class="s1">    },</span>
+<span class="s1">    &quot;Enabled&quot;: true,</span>
+<span class="s1">    &quot;Comment&quot;: &quot;Distribution for &#39;</span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="s1">&#39;&quot;,</span>
+<span class="s1">    &quot;PriceClass&quot;: &quot;PriceClass_200&quot;,</span>
+<span class="s1">    &quot;HttpVersion&quot;: &quot;http2&quot;,</span>
+<span class="s1">    &quot;IsIPV6Enabled&quot;: true</span>
+<span class="s1">  }&#39;</span>
+</pre>
+<h2 id="step-5-implement-secure-bucket-policy">Step 5: Implement Secure Bucket Policy</h2>
+<p>Create and apply a least-privilege bucket policy:</p>
+<pre class="lang-bash"><span class="c1"># Get Distribution ID and Account ID</span>
+<span class="nv">DIST_ID</span><span class="o">=</span><span class="k">$(</span>aws<span class="w"> </span>cloudfront<span class="w"> </span>list-distributions<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--query<span class="w"> </span><span class="s1">&#39;DistributionList.Items[?Origins.Items[?Id==`S3-&#39;</span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="s1">&#39;`]].Id&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span>text<span class="k">)</span>
+
+<span class="nv">ACCOUNT_ID</span><span class="o">=</span><span class="k">$(</span>aws<span class="w"> </span>sts<span class="w"> </span>get-caller-identity<span class="w"> </span>--query<span class="w"> </span><span class="s1">&#39;Account&#39;</span><span class="w"> </span>--output<span class="w"> </span>text<span class="k">)</span>
+
+<span class="c1"># Create and apply bucket policy</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>bucket-policy.json<span class="w"> </span><span class="s">&lt;&lt; EOF</span>
+<span class="s">{</span>
+<span class="s">    &quot;Version&quot;: &quot;2012-10-17&quot;,</span>
+<span class="s">    &quot;Statement&quot;: [</span>
+<span class="s">        {</span>
+<span class="s">            &quot;Sid&quot;: &quot;AllowCloudFrontServicePrincipal&quot;,</span>
+<span class="s">            &quot;Effect&quot;: &quot;Allow&quot;,</span>
+<span class="s">            &quot;Principal&quot;: {</span>
+<span class="s">                &quot;Service&quot;: &quot;cloudfront.amazonaws.com&quot;</span>
+<span class="s">            },</span>
+<span class="s">            &quot;Action&quot;: &quot;s3:GetObject&quot;,</span>
+<span class="s">            &quot;Resource&quot;: &quot;arn:aws:s3:::&#39;${BUCKET_NAME}&#39;/*&quot;,</span>
+<span class="s">            &quot;Condition&quot;: {</span>
+<span class="s">                &quot;StringEquals&quot;: {</span>
+<span class="s">                    &quot;AWS:SourceArn&quot;: &quot;arn:aws:cloudfront::&#39;${ACCOUNT_ID}&#39;:distribution/&#39;${DIST_ID}&#39;&quot;</span>
+<span class="s">                }</span>
+<span class="s">            }</span>
+<span class="s">        }</span>
+<span class="s">    ]</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+
+aws<span class="w"> </span>s3api<span class="w"> </span>put-bucket-policy<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--bucket<span class="w"> </span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--policy<span class="w"> </span>file://bucket-policy.json
+</pre>
+<h2 id="step-6-verify-your-setup">Step 6: Verify Your Setup</h2>
+<p>Ensure all components are correctly configured:</p>
+<pre class="lang-bash"><span class="c1"># Verify distribution status</span>
+aws<span class="w"> </span>cloudfront<span class="w"> </span>get-distribution<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--id<span class="w"> </span><span class="nv">$DIST_ID</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--query<span class="w"> </span><span class="s1">&#39;Distribution.{Status:Status,DomainName:DomainName}&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span>table
+
+<span class="c1"># Check bucket policy</span>
+aws<span class="w"> </span>s3api<span class="w"> </span>get-bucket-policy<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--bucket<span class="w"> </span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output<span class="w"> </span>text<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span><span class="s1">&#39;.&#39;</span>
+
+<span class="c1"># Confirm public access block</span>
+aws<span class="w"> </span>s3api<span class="w"> </span>get-public-access-block<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--bucket<span class="w"> </span><span class="si">${</span><span class="nv">BUCKET_NAME</span><span class="si">}</span>
+</pre>
+<h2 id="key-features-and-benefits">Key Features and Benefits</h2>
+<ul>
+<li><strong>Enhanced Security</strong>:</li>
+<li>Complete public access blocking</li>
+<li>Origin Access Control implementation</li>
+<li>HTTPS enforcement</li>
+<li>Least-privilege bucket policies</li>
+<li><strong>Optimized Performance</strong>:</li>
+<li>24-hour default cache duration</li>
+<li>365-day maximum cache duration</li>
+<li>Automatic compression</li>
+<li>HTTP/2 and IPv6 support</li>
+<li><strong>Asia-Pacific Optimization</strong>:</li>
+<li>PriceClass_200 configuration</li>
+<li>Singapore region edge locations</li>
+<li>Optimal latency for APAC users</li>
+</ul>
+<h2 id="important-notes">Important Notes</h2>
+<ol>
+<li>Distribution deployment typically takes 15-20 minutes</li>
+<li>Content is only accessible through CloudFront, not directly via S3</li>
+<li>Replace <code>your-bucket-name</code> with your actual S3 bucket name</li>
+<li>Remember to clean up temporary files after setup:
+   <code>bash
+   rm -f bucket-policy.json</code></li>
+</ol>
+<h2 id="troubleshooting-tips">Troubleshooting Tips</h2>
+<ul>
+<li>If distribution status shows "InProgress" for more than 30 minutes, check CloudFront console for errors</li>
+<li>Verify bucket policy syntax if CloudFront access is denied</li>
+<li>Ensure all public access blocks are enabled for maximum security</li>
+<li>Check CloudWatch metrics for distribution performance</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>By following this guide, you've created a secure, optimized CloudFront distribution for your S3 bucket. This setup ensures your content is delivered efficiently while maintaining strong security controls. Remember to regularly review your configuration and update settings as needed to maintain optimal performance and security.</p>
+  </content>
+</article>
+
+
+    <footer>
+      <div class="row">
+        <div class="col-md-1 d-none d-md-block img-me-container">
+          <img class="img-me img-fluid" src="./static/me.webp">
+        </div>
+        <div class="col-md info">
+          <span class="name">Hung Hoang</span><br>
+          · <a href="https://github.com/hoangquochung1110" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> hoangquochung1110</a>
+          · <a href="https://www.instagram.com/h7ng__/" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i> h7ng__</a>
+          <br>
+          <span class="location"><i class="fas fa-map-marker"></i> Saigon, Vietnam</span>
+        </div>
+        <div class="col-md">
+          <p class="disclaimer">
+            &copy; 2022 &mdash; 2022<br>
+            All text is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> license<br>
+            All code is available under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> license
+          </p>
+      </div>
+
+    </footer>
+  </div>
+
+  <!-- webfonts & icons-->
+  <link href="/static/fontawesome/css/fontawesome-all.min.css" rel="stylesheet">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TG55DGQ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+</body>
+</html>
