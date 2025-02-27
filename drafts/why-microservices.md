@@ -84,6 +84,10 @@ There are two sides that define the necessary scope of permissions – permissio
 **IAM resource-based policy**: define permissions to invoke the function
 **The execution role**: gives your function permissions to interact with other services.
 
+To learn more:
+- Viewing resource-based IAM policies in Lambda: https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html
+- Viewing and updating permissions in the execution role: https://docs.aws.amazon.com/lambda/latest/dg/permissions-executionrole-update.html
+
 Tips:
     - Remember to use the principle of least privilege when creating IAM policies and roles. Always start with the most restrictive set of permissions and only grant further permissions as required for the function to run.
     - You can also use IAM Access Analyzer to help identify the required permissions for the IAM execution role.
@@ -459,6 +463,15 @@ To highlight something that was mentioned in the previous example, Lambda and AP
     * Lambda Authorizer is simply a Lambda function that you can write to perform any custom authorization that you need. There are two types of Lambda Authorizers you should be aware of: Token and Request.
     * ![Lambda Authorizer](https://hlogs-bucket.s3.ap-southeast-1.amazonaws.com/lambda-authorizer.jpg)
 - Cognito Authorizers: As an alternative to using IAM or Lambda authorizers, you can use Amazon Cognito and a Cognito User Pool to control access to your APIs.
+
+#### Permissions
+Three main types of permissions:
+- Execute permission
+- Manage permission
+- Resource policy
+
+To learn more:
+- How API Gateway resource policies affect authorization workflow: https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-authorization-flow.html
 
 #### Throttling and usage plans
 Beyond just allowing or denying access to your APIs, API Gateway also helps you manage the volume of API calls that are processed through your API endpoint.
