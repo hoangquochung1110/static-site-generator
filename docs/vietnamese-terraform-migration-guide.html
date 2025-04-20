@@ -291,7 +291,7 @@ module &quot;iam&quot; {
 <li><strong>Locals &amp; tagging</strong>: định nghĩa <code>local.project</code>, <code>local.environment</code>, <code>local.common_tags</code> trong mỗi môi trường.</li>
 </ul>
 <hr />
-<h2 id="5-migrate-quan-ly-state">5. Migrate &amp; Quản Lý State</h2>
+<h2 id="4-migrate-quan-ly-state">4. Migrate &amp; Quản Lý State</h2>
 <p>Ở phần phần này, mính sẽ giới thiệu qua các lệnh phổ biển của Terraform CLI để dịch chuyển state và các tài nguyên liên quan.</p>
 <p>Có it nhất 2 cách để thực hiện:
 - <code>terraform state rm</code> và <code>terraform import</code> để import tài nguyên vào module mới.
@@ -366,7 +366,7 @@ Ví dụ:</p>
 <pre><code>&gt; terraform import module.lambda.aws_lambda_function.my_lambda_function &lt;resource_id&gt; --var &quot;function_name = 'my_lambda_function'&quot; --var &quot;handler = 'index.handler'&quot; --var &quot;runtime = 'python3.8'&quot;
 </code></pre>
 <hr />
-<h2 id="6-xac-minh-qua-trinh-chuyen-oi">6. Xác Minh Quá Trình Chuyển Đổi</h2>
+<h2 id="5-xac-minh-qua-trinh-chuyen-oi">5. Xác Minh Quá Trình Chuyển Đổi</h2>
 <p><strong>Xác Thực Bằng Plan</strong>
    <code>bash
    terraform plan</code>
@@ -405,7 +405,7 @@ Ví dụ:</p>
     └── cloudwatch/
 </code></pre>
 <hr />
-<h2 id="7-ket-qua">7. Kết Quả</h2>
+<h2 id="6-ket-qua">6. Kết Quả</h2>
 <ul>
 <li><strong>Tách biệt</strong>: mỗi môi trường có state riêng, không có sự nhiễm chéo.</li>
 <li><strong>Mô-đun hóa</strong>: các module đóng gói các phương pháp hay nhất và dễ dàng đánh phiên bản.</li>
