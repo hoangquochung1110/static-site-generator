@@ -9,6 +9,13 @@
 
   
   <item>
+    <title>Tái Cấu Trúc Terraform: Chuyển Đổi Từ State Monolithic Sang Kiến Trúc Mô-đun Theo Môi Trường</title>
+    <link>https://hoangquochung1110.github.io/static-site-generator/vietnamese-terraform-migration-guide</link>
+    <guid>https://hoangquochung1110.github.io/static-site-generator/vietnamese-terraform-migration-guide</guid>
+    <pubDate>2025-04-20 10:00</pubDate>
+  </item>
+  
+  <item>
     <title>Django 5.2&#39;s Smart Shell: Goodbye Manual Model Imports!</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/django-5.2-auto-import-models</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/django-5.2-auto-import-models</guid>

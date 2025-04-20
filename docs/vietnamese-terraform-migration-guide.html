@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Hung Hoang">
+  <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
+
+  <title>Tái Cấu Trúc Terraform: Chuyển Đổi Từ State Monolithic Sang Kiến Trúc Mô-đun Theo Môi Trường - Hung Hoang</title>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./static/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./static/style.css" rel="stylesheet">
+
+  <!-- Syntax highlighting css -->
+  <link href="./static/pygments.css" rel="stylesheet">
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TG55DGQ');
+  </script>
+  <!-- End Google Tag Manager -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-235710440-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-235710440-2');
+  </script>
+  <!-- End Global site tag (gtag.js) - Google Analytics -->
+  <!-- Google Console Verify-->
+  <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
+  <!-- End Google Console Verify-->
+
+  <!-- beam analytics -->
+  <script src="https://beamanalytics.b-cdn.net/beam.min.js" data-token="19aab194-2a12-4585-bf30-e8b0c1e45d01" async></script>
+  <!-- End beam analytics -->
+
+  
+<meta property="og:title" content="Tái Cấu Trúc Terraform: Chuyển Đổi Từ State Monolithic Sang Kiến Trúc Mô-đun Theo Môi Trường - Hung Hoang">
+<meta property="twitter:title" content="Tái Cấu Trúc Terraform: Chuyển Đổi Từ State Monolithic Sang Kiến Trúc Mô-đun Theo Môi Trường - Hung Hoang">
+
+
+<meta name="description" content="Hướng dẫn sơ khai tái cấu trúc Terraform từ state đơn lẻ sang kiến trúc module theo môi trường, giúp quản lý state hiệu quả, tái sử dụng mã và giảm rủi ro triển khai.">
+<meta property="og:description" content="Hướng dẫn sơ khai tái cấu trúc Terraform từ state đơn lẻ sang kiến trúc module theo môi trường, giúp quản lý state hiệu quả, tái sử dụng mã và giảm rủi ro triển khai.">
+<meta property="twitter:description" content="Hướng dẫn sơ khai tái cấu trúc Terraform từ state đơn lẻ sang kiến trúc module theo môi trường, giúp quản lý state hiệu quả, tái sử dụng mã và giảm rủi ro triển khai.">
+
+
+
+
+
+
+<meta property="og:url" content="/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
+
+</head>
+<body>
+  <div class="container">
+
+    
+<article>
+  <aside class="timestamp">
+    <time>Posted by Hung Hoang on 2025-04-20 10:00</time>
+    · <a href="./">view all posts</a>
+  </aside>
+  <h1>Tái Cấu Trúc Terraform: Chuyển Đổi Từ State Monolithic Sang Kiến Trúc Mô-đun Theo Môi Trường</h1>
+  <content>
+    <p>Trong quá trình phát triển công cụ tự đông hoá truy vấn Google Maps theo địa chỉ dưới dạng văn bản trên nền tảng Instagram (chi tiết tại <a href="https://www.facebook.com/groups/j2team.community/posts/2642859852712785/">đây</a>), nhận thấy sự cần thiết trong việc chuyển đổi cấu trúc quản lí trạng thái của Terraform từ dạng phẳng, phi cấu trúc, monolith sang dạng mô-đun, phân tách môi trường theo file directory</p>
+<h1 id="tai-cau-truc-terraform-chuyen-oi-tu-state-monolithic-sang-kien-truc-mo-un-theo-moi-truong">Tái Cấu Trúc Terraform: Chuyển Đổi Từ State Monolithic Sang Kiến Trúc Mô-đun Theo Môi Trường</h1>
+<p>Hướng dẫn sơ khai các bước để tổ chức lại codebase Terraform của bạn để có sự tách biệt, tái sử dụng và triển khai an toàn hơn.</p>
+<hr />
+<h2 id="1-to-chuc-state-ban-au">1. Tổ Chức State Ban Đầu</h2>
+<p><strong>Cấu Trúc &amp; Quy Trình</strong>
+- Một thư mục gốc <code>terraform/</code> với <code>main.tf</code>, <code>variables.tf</code>, v.v.
+- Một file state duy nhất (<code>terraform.tfstate</code>), thường được lưu trữ trong S3 hoặc cục bộ.
+- Sử dụng <code>.tfvars</code> (<code>dev.tfvars</code>, <code>prod.tfvars</code>) ghi đè biến để phân tách môi trường.</p>
+<p><strong>Lợi ích</strong>
+- Cấu trúc đơn giản, trực quan đối với người mới và dự án nhỏ.</p>
+<p><strong>Hạn Chế &amp; Nhược Điểm</strong>
+Sẽ bộc lộ khi số lượng tài nguyên tăng lên:
+- State phình to: tất cả tài nguyên (dev/staging/prod) đều nằm trong một file.
+- Triển khai rủi ro: vô tình thay đổi tài nguyên production.
+- Mô-đun hóa kém: mọi thay đổi đối với API, IAM, Lambda đều nằm trong cùng một file.
+- Không có ranh giới rõ ràng: khó để đào tạo thành viên mới hoặc phân chia trách nhiệm.</p>
+<hr />
+<p><img alt="Modularize Terraform management" src="https://static.ssan.me/tf_modularization_dont_do.png" /></p>
+<h2 id="2-gioi-thieu-ve-module-terraform">2. Giới Thiệu Về Module Terraform</h2>
+<p><strong>Module Là Gì?</strong>
+Một thư mục chứa mã Terraform (resources, inputs, outputs) mà bạn có thể gọi từ một cấu hình khác.
+- <strong>Root module</strong>: <code>main.tf</code> cấp cao nhất và các file liên quan.
+- <strong>Child modules</strong>: các khối xây dựng có thể tái sử dụng (ví dụ: <code>modules/lambda/</code>).</p>
+<p><strong>Kiến Trúc và Giao Tiếp Của Module</strong></p>
+<p>Một module Terraform không chỉ là một thư mục mã—nó là một đối tượng đóng gói độc lập với một hợp đồng (ràng buộc) rõ ràng về cách tương tác với thế giới bên ngoài thông qua biến (<code>var</code>):</p>
+<pre><code>modules/lambda/
+├── **main.tf**         # Định nghĩa tài nguyên chính
+├── **variables.tf**    # Tham số đầu vào (API của module)
+├── **outputs.tf**      # Giá trị được hiển thị cho module cha
+├── locals.tf       # Tính toán và biến đổi nội bộ
+├── data.tf         # Data sources và lookups
+└── README.md       # Tài liệu về mục đích, inputs, và outputs
+</code></pre>
+<p>Mỗi file có một mục đích cụ thể:</p>
+<p><strong>main.tf</strong> - Chứa và tập hợp các định nghĩa tài nguyên cốt lõi (thường đi kèm với nhau) để thực hiện một hành động/tính năng hoàn chỉnh mà module tạo và quản lý. Đối với module Lambda, nó sẽ bao gồm:</p>
+<pre><code>resource &quot;aws_lambda_function&quot; &quot;functions&quot; {
+  for_each = var.functions
+
+  function_name = &quot;${var.name_prefix}-${each.key}&quot;
+  handler       = each.value.handler
+  runtime       = each.value.runtime
+  role          = var.execution_role_arn
+
+  filename         = each.value.source_file
+  source_code_hash = filebase64sha256(each.value.source_file)
+
+  memory_size = each.value.memory_size
+  timeout     = each.value.timeout
+
+  environment {
+    variables = merge(var.common_environment_variables, each.value.environment_variables)
+  }
+
+  tags = merge(var.common_tags, each.value.tags)
+}
+
+# Các tài nguyên bổ sung như permissions, CloudWatch log groups, v.v.
+</code></pre>
+<p><strong>variables.tf</strong> - Định nghĩa các tham số đầu vào của module, với mô tả và ràng buộc kiểu:</p>
+<pre><code>variable &quot;name_prefix&quot; {
+  description = &quot;Tiền tố được thêm vào trước tất cả tên tài nguyên&quot;
+  type        = string
+}
+
+variable &quot;functions&quot; {
+  description = &quot;Bản đồ các hàm Lambda cần tạo&quot;
+  type = map(object({
+    handler               = string
+    runtime               = string
+    source_file           = string
+    memory_size           = number
+    timeout               = number
+    environment_variables = map(string)
+    tags                  = map(string)
+  }))
+}
+
+variable &quot;execution_role_arn&quot; {
+  description = &quot;ARN của IAM role được sử dụng bởi các hàm Lambda&quot;
+  type        = string
+}
+
+variable &quot;common_environment_variables&quot; {
+  description = &quot;Biến môi trường áp dụng cho tất cả các hàm&quot;
+  type        = map(string)
+  default     = {}
+}
+
+variable &quot;common_tags&quot; {
+  description = &quot;Tags áp dụng cho tất cả tài nguyên&quot;
+  type        = map(string)
+  default     = {}
+}
+</code></pre>
+<p><strong>outputs.tf</strong> - Định nghĩa các giá trị mà module hiển thị cho các module cha:</p>
+<pre><code>output &quot;function_arns&quot; {
+  description = &quot;ARNs của các hàm Lambda đã tạo&quot;
+  value = {
+    for name, function in aws_lambda_function.functions : name =&gt; function.arn
+  }
+}
+
+output &quot;function_names&quot; {
+  description = &quot;Tên của các hàm Lambda đã tạo&quot;
+  value = {
+    for name, function in aws_lambda_function.functions : name =&gt; function.function_name
+  }
+}
+
+output &quot;invoke_urls&quot; {
+  description = &quot;URLs cơ sở để gọi các hàm Lambda (nếu tích hợp API Gateway được bật)&quot;
+  value = {
+    for name, _ in var.functions :
+    name =&gt; aws_apigatewayv2_stage.api[name].invoke_url
+    if contains(keys(aws_apigatewayv2_stage.api), name)
+  }
+}
+</code></pre>
+<p><img alt="Module with input and output" src="https://static.ssan.me/tf_module_input_output.png" /></p>
+<p><strong>Sự Kết Hợp và Tái Sử Dụng Module</strong></p>
+<p>Các module có thể gọi các module khác, tạo thành một mẫu kết hợp. Điều này cho phép bạn xây dựng các trừu tượng cấp cao hơn:</p>
+<pre><code># Bên trong một module &quot;serverless_api&quot; kết hợp các module khác
+module &quot;lambda&quot; {
+  source = &quot;../lambda&quot;
+
+  name_prefix        = var.name_prefix
+  functions          = var.functions
+  execution_role_arn = module.iam.lambda_execution_role_arn
+}
+
+module &quot;api_gateway&quot; {
+  source = &quot;../api_gateway&quot;
+
+  name_prefix     = var.name_prefix
+  api_name        = &quot;${var.name_prefix}-api&quot;
+  lambda_function = module.lambda.function_arns[&quot;api_handler&quot;]
+  stage_name      = var.environment
+}
+
+module &quot;iam&quot; {
+  source = &quot;../iam&quot;
+
+  name_prefix = var.name_prefix
+  services    = [&quot;lambda.amazonaws.com&quot;]
+}
+</code></pre>
+<p><strong>Phiên Bản Module</strong></p>
+<p>Để đảm bảo tính ổn định, bạn nên đánh phiên bản cho các module của mình bằng một trong những cách tiếp cận sau:</p>
+<ol>
+<li>
+<p><strong>Tham chiếu Git</strong> - Gắn với một commit hoặc tag cụ thể:
+   <code>module "lambda" {
+     source = "git::https://github.com/company/terraform-modules.git//modules/lambda?ref=v1.2.3"
+     # Cấu hình module...
+   }</code></p>
+</li>
+<li>
+<p><strong>Terraform Registry</strong> - Cho các module trong registry công khai hoặc riêng tư:
+   <code>module "lambda" {
+     source  = "terraform-aws-modules/lambda/aws"
+     version = "2.7.0"
+     # Cấu hình module...
+   }</code></p>
+</li>
+<li>
+<p><strong>Đường dẫn cục bộ với phiên bản</strong> - Cho phát triển nội bộ:
+   <code>module "lambda" {
+     source = "../../modules/lambda"  # Với quy trình kiểm soát phiên bản nội bộ
+     # Cấu hình module...
+   }</code></p>
+</li>
+</ol>
+<p><strong>Lợi Ích</strong>
+- Đóng gói: nhóm các tài nguyên liên quan (Lambda + aliases + permissions).
+- Tái sử dụng: chia sẻ các mẫu tiêu chuẩn giữa các dự án.
+- Tùy biến: hiển thị inputs (<code>var.memory_size</code>, <code>var.aliases</code>) và outputs.
+- Đánh phiên bản: gắn nguồn module với một Git tag hoặc phiên bản registry.</p>
+<p><strong>Cách Sử Dụng</strong></p>
+<pre><code>module &quot;lambda&quot; {
+  source             = &quot;../../modules/lambda&quot;
+  functions          = local.lambda_functions
+  execution_role_arn = module.iam.execution_role_arn
+}
+</code></pre>
+<ul>
+<li>Định nghĩa inputs (maps, lists, primitives).</li>
+<li>Sử dụng outputs (<code>module.lambda.alias_arns["myfunc_dev"]</code>).</li>
+<li>Tận dụng <code>for_each</code> / <code>count</code> cho tính năng động.</li>
+</ul>
+<hr />
+<h2 id="3-cau-truc-moi-mo-un-hoa-huong-theo-moi-truong">3. Cấu Trúc Mới: Mô-đun Hóa, Hướng Theo Môi Trường</h2>
+<pre class="lang-text">terraform/
+├── environments/
+│   ├── dev/
+│   │   └── main.tf
+│   ├── staging/
+│   │   └── main.tf
+│   └── prod/
+│       └── main.tf
+└── modules/
+    ├── lambda/
+    ├── iam/
+    ├── api_gateway/
+    └── cloudwatch/
+</pre>
+<ul>
+<li><strong>Thư mục theo môi trường</strong>: cô lập state, vars, backends.</li>
+<li><strong>Modules</strong>: triển khai các vấn đề cốt lõi (compute, IAM, logging, API).</li>
+<li><strong>Locals &amp; tagging</strong>: định nghĩa <code>local.project</code>, <code>local.environment</code>, <code>local.common_tags</code> trong mỗi môi trường.</li>
+</ul>
+<hr />
+<h2 id="5-migrate-quan-ly-state">5. Migrate &amp; Quản Lý State</h2>
+<p>Ở phần phần này, mính sẽ giới thiệu qua các lệnh phổ biển của Terraform CLI để dịch chuyển state và các tài nguyên liên quan.</p>
+<p>Có it nhất 2 cách để thực hiện:
+- <code>terraform state rm</code> và <code>terraform import</code> để import tài nguyên vào module mới.
+- Sử dụng <code>terraform state mv</code> để di chuyển tài nguyên vào module mới.</p>
+<p>📌 Đi kèm là 2 công cụ đắc lực để theo dõi hiện trạng state: <code>terraform state list</code> và <code>terraform state show</code>.</p>
+<h3 id="su-dung-terraform-state-rm-va-terraform-import-e-import-tai-nguyen-vao-module-moi"><strong>Sử dụng <code>terraform state rm</code> và <code>terraform import</code> để import tài nguyên vào module mới</strong></h3>
+<p>Flow cơ bản:
+1. khởi tạo state cho từng môi trường, ở đây là <code>dev</code></p>
+<pre class="lang-bash"><span class="nb">cd</span><span class="w"> </span>terraform/environments/dev
+terraform<span class="w"> </span>init<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-backend-config<span class="o">=</span><span class="s2">&quot;key=dev/terraform.tfstate&quot;</span>
+</pre>
+<ol>
+<li>Định nghĩa module ở môi trường mới</li>
+</ol>
+<pre><code># my_project/terraform/modules/lambda/main.tf
+resource &quot;aws_lambda_function&quot; &quot;my_lambda_function&quot; {
+  function_name = var.function_name
+
+  # Function-specific configuration
+  handler          = var.handler
+  runtime          = var.runtime
+}
+</code></pre>
+<ol>
+<li>Định nghĩa các biến đầu vào cho module trên</li>
+</ol>
+<pre><code># my_project/terraform/modules/lambda/variables.tf
+variable &quot;function_name&quot; {
+  type = string
+}
+
+variable &quot;handler&quot; {
+  type = string
+}
+
+variable &quot;runtime&quot; {
+  type = string
+}
+</code></pre>
+<ol>
+<li>Gọi module lambda trong file <code>main.tf</code> của môi trường mới</li>
+</ol>
+<p>Để đơn giản, chúng ta hardcode các tham số đầu vào, tuy nhiên thực tế chúng ta nên định nghĩa các biến đầu vào trong <code>variables.tf</code> kết hợp <code>terraform.tfvars</code> của module.</p>
+<pre><code># my_project/terraform/environments/dev/main.tf
+module &quot;lambda&quot; {
+  source = &quot;../../modules/lambda&quot;
+
+  function_name = &quot;my_lambda_function&quot;
+  handler       = &quot;index.handler&quot;
+  runtime       = &quot;python3.8&quot;
+}
+</code></pre>
+<ol>
+<li>Xác định tài nguyên cần di chuyển ở môi trường cũ`
+Tại môi trường cũ, hãy xem các tài nguyên hiện có rồi xoá tài nguyên khỏi file trạng thái:</li>
+</ol>
+<pre><code># my_project/
+&gt; terraform state list
+&gt; terraform state show aws_lambda_function.my_lambda_function
+&gt; terraform state rm aws_lambda_function.my_lambda_function
+</code></pre>
+<p>Rồi xoá thủ công tài nguyên trên khỏi code ở môi trường cũ.</p>
+<ol>
+<li>Import tài nguyên vào module mới</li>
+</ol>
+<pre><code># my_project/terraform/environments/dev
+&gt; terraform import module.lambda.aws_lambda_function.my_lambda_function &lt;resource_id&gt;
+</code></pre>
+<p>Bạn có thể phải cần truyền các tham số đầu vào thông qua flag <code>--var</code> hoặc <code>--var-file</code>.
+Ví dụ:</p>
+<pre><code>&gt; terraform import module.lambda.aws_lambda_function.my_lambda_function &lt;resource_id&gt; --var &quot;function_name = 'my_lambda_function'&quot; --var &quot;handler = 'index.handler'&quot; --var &quot;runtime = 'python3.8'&quot;
+</code></pre>
+<hr />
+<h2 id="6-xac-minh-qua-trinh-chuyen-oi">6. Xác Minh Quá Trình Chuyển Đổi</h2>
+<p><strong>Xác Thực Bằng Plan</strong>
+   <code>bash
+   terraform plan</code>
+   - Xác nhận không có thay đổi (các tài nguyên trỏ đến cùng một cơ sở hạ tầng vật lý).</p>
+<ul>
+<li><strong>Liệt kê state</strong>
+  <code>bash
+  terraform state list</code></li>
+<li><strong>Hiển thị chi tiết tài nguyên</strong>
+  <code>bash
+  terraform state show module.lambda.aws_lambda_function.functions["ig_post_extractor"]</code></li>
+<li><strong>Kết quả plan</strong></li>
+<li>Không có thay đổi đồng nghĩa với thành công.</li>
+<li>Bất kỳ sự khác biệt nào cho thấy một sự ánh xạ sai cần phải sửa bằng <code>state mv</code> hoặc cập nhật biến.</li>
+<li><strong>Triển Khai Qua Các Môi Trường</strong></li>
+<li>Lặp lại init/import/plan trong <code>staging</code> và <code>prod</code>.</li>
+<li>Mỗi môi trường sử dụng khóa backend state riêng (<code>staging/terraform.tfstate</code>, v.v.).</li>
+</ul>
+<p><strong>Cấu Trúc Cuối Cùng Thành Công</strong></p>
+<p>Sau khi di chuyển, cấu trúc của chúng ta trông như thế này:</p>
+<pre><code>terraform/
+├── environments/
+│   ├── dev/
+│   │   ├── main.tf
+│   │   └── terraform.tfstate (trong S3)
+│   ├── staging/
+│   │   ├── main.tf
+│   │   └── terraform.tfstate (trong S3)
+│   └── prod/
+│       ├── main.tf
+│       └── terraform.tfstate (trong S3)
+└── modules/
+    ├── lambda/
+    ├── api_gateway/
+    ├── iam/
+    └── cloudwatch/
+</code></pre>
+<hr />
+<h2 id="7-ket-qua">7. Kết Quả</h2>
+<ul>
+<li><strong>Tách biệt</strong>: mỗi môi trường có state riêng, không có sự nhiễm chéo.</li>
+<li><strong>Mô-đun hóa</strong>: các module đóng gói các phương pháp hay nhất và dễ dàng đánh phiên bản.</li>
+<li><strong>Lặp lại</strong>: tạo môi trường mới bằng cách sao chép một thư mục và điều chỉnh các biến.</li>
+<li><strong>An toàn</strong>: các lệnh <code>plan</code> + <code>state</code> đảm bảo di chuyển có kiểm soát, không bị gián đoạn.</li>
+<li><strong>Dễ bảo trì</strong>: thành viên mới trong nhóm có thể nhanh chóng hiểu cấu trúc codebase.</li>
+<li><strong>Quản trị</strong>: dễ dàng triển khai quy trình phê duyệt cho từng môi trường.</li>
+</ul>
+<p>Sau khi di chuyển, các nhóm có thể làm việc độc lập trên các môi trường hoặc module khác nhau, với ranh giới rõ ràng và giảm nguy cơ thay đổi vô tình các tài nguyên sản xuất.</p>
+  </content>
+</article>
+
+
+    <footer>
+      <div class="row">
+        <div class="col-md-1 d-none d-md-block img-me-container">
+          <img class="img-me img-fluid" src="./static/me.webp">
+        </div>
+        <div class="col-md info">
+          <span class="name">Hung Hoang</span><br>
+          · <a href="https://github.com/hoangquochung1110" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> hoangquochung1110</a>
+          · <a href="https://www.instagram.com/h7ng__/" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i> h7ng__</a>
+          <br>
+          <span class="location"><i class="fas fa-map-marker"></i> Saigon, Vietnam</span>
+        </div>
+        <div class="col-md">
+          <p class="disclaimer">
+            &copy; 2022 &mdash; 2022<br>
+            All text is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> license<br>
+            All code is available under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> license
+          </p>
+      </div>
+
+    </footer>
+  </div>
+
+  <!-- webfonts & icons-->
+  <link href="/static/fontawesome/css/fontawesome-all.min.css" rel="stylesheet">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TG55DGQ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+</body>
+</html>
