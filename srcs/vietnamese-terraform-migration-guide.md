@@ -1,6 +1,6 @@
 ---
 title: 'Tái Cấu Trúc Terraform: Chuyển Đổi Từ State Monolithic Sang Kiến Trúc Mô-đun Theo Môi Trường'
-date: 2025-04-20
+date: 2025-04-20 10:00
 description: 'Hướng dẫn sơ khai tái cấu trúc Terraform từ state đơn lẻ sang kiến trúc module theo môi trường, giúp quản lý state hiệu quả, tái sử dụng mã và giảm rủi ro triển khai.'
 category: terraform
 tags:
