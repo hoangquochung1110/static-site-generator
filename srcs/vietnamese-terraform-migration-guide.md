@@ -262,7 +262,7 @@ terraform/
 
 ---
 
-## 5. Migrate & Quản Lý State
+## 4. Migrate & Quản Lý State
 Ở phần phần này, mính sẽ giới thiệu qua các lệnh phổ biển của Terraform CLI để dịch chuyển state và các tài nguyên liên quan.
 
 Có it nhất 2 cách để thực hiện:
@@ -349,7 +349,7 @@ Ví dụ:
 
 ---
 
-## 6. Xác Minh Quá Trình Chuyển Đổi
+## 5. Xác Minh Quá Trình Chuyển Đổi
 **Xác Thực Bằng Plan**
    ```bash
    terraform plan
@@ -396,7 +396,7 @@ terraform/
 
 ---
 
-## 7. Kết Quả
+## 6. Kết Quả
 
 - **Tách biệt**: mỗi môi trường có state riêng, không có sự nhiễm chéo.
 - **Mô-đun hóa**: các module đóng gói các phương pháp hay nhất và dễ dàng đánh phiên bản.
