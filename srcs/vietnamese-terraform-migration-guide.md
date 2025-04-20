@@ -13,9 +13,7 @@ tags:
 
 Trong quá trình phát triển công cụ tự đông hoá truy vấn Google Maps theo địa chỉ dưới dạng văn bản trên nền tảng Instagram (chi tiết tại [đây](https://www.facebook.com/groups/j2team.community/posts/2642859852712785/)), nhận thấy sự cần thiết trong việc chuyển đổi cấu trúc quản lí trạng thái của Terraform từ dạng phẳng, phi cấu trúc, monolith sang dạng mô-đun, phân tách môi trường theo file directory
 
-# Tái Cấu Trúc Terraform: Chuyển Đổi Từ State Monolithic Sang Kiến Trúc Mô-đun Theo Môi Trường
-
-Hướng dẫn sơ khai các bước để tổ chức lại codebase Terraform của bạn để có sự tách biệt, tái sử dụng và triển khai an toàn hơn.
+Dưới đây là hướng dẫn sơ khai các bước để tổ chức lại codebase Terraform của bạn để có sự tách biệt, tái sử dụng và triển khai an toàn hơn.
 
 ---
 
