@@ -1,10 +1,11 @@
 ---
 title: 'Hands-on Workshops: AI Prompt From Basics to Automation 🚀+ Multimodal RAG with ollama & Milvus'
-date: 2023-03-09 11:00
+date: 2025-04-24 11:00
 description: ​These workshops aim to cut through the noise of AI hypes to help you understand what are truly important for you to learn, offering attendees a unique opportunity to learn from industry leaders and people who really built and operated AI & ML systems in production.
 category: blog
 tags:
-    - python
+    - llm
+    - prompt-engineering
 ---
 
 Tháng 4 vừa rồi tại văn phòng AWS Việt Nam, Viet Engineers Stories đã phối hợp tổ chức workshop. Tôi đã tham gia và rất cảm ơn các chuyên gia đã chia sẻ kinh nghiệm và kiến thức.
