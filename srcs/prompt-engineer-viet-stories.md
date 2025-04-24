@@ -43,6 +43,7 @@ Mr. Thai Tang ở phiên đầu đã đưa đến khán giả:
 ### Các phương thức Chuỗi và Trình tự hóa Prompt (Prompt Chaining and Sequencing) sử dụng LangChain
 
 Các phương thức chính:
+
 - Sequential Chaining: Liên kết output từ prompt này sang input của prompt khác. Lý tưởng cho các tiến trình tuyến tính.
 - Dynamic Prompt Generation: Tương tự Sequential Chaining, tuy nhiên output từ prompt này sẽ được sử dụng để tạo prompt trung gian rồi tiếp tục truyền vào input của prompt sau. Giúp tăng tính linh hoạt trong chuỗi prompt.
 - Error Handling and Validation: Kết hợp xử lí lỗi và valiadation để tăng tính cường tráng của hệ thống.
