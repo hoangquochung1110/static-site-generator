@@ -5,9 +5,6 @@ description: 'Hướng dẫn sơ khai tái cấu trúc Terraform từ state đơ
 category: terraform
 tags:
   - terraform
-  - migration
-  - module
-  - môi-trường
   - IaC
 ---
 

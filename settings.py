@@ -6,4 +6,6 @@ TAGS_MAPPING = {
     "reactjs": "#40b5e3",
     "git": "#cc2c1b",
     "default": "#000802",
+    "terraform": "#f5e214",
+    "aws": "#32a852",
 }
