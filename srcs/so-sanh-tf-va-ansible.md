@@ -6,7 +6,7 @@ category: devops
 ---
 
 # TERRAFORM - ANSIBLE: SỰ PHÂN ĐỊNH TRONG MÔ HÌNH CẤU HÌNH DEVOPS 🌐
-![Tf and Ansible head to head](https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F5o4mzuyhqt9luao3i3eg.png)
+![Tf and Ansible head to head](https://static.ssan.me/terraform-ansible-h2h.png)
 
 ## 1. Tổng quan 🛠️
 
