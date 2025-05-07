@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Hung Hoang">
+  <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
+
+  <title>TERRAFORM - ANSIBLE: SỰ PHÂN ĐỊNH TRONG MÔ HÌNH CẤU HÌNH DEVOPS - Hung Hoang</title>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./static/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./static/style.css" rel="stylesheet">
+
+  <!-- Syntax highlighting css -->
+  <link href="./static/pygments.css" rel="stylesheet">
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TG55DGQ');
+  </script>
+  <!-- End Google Tag Manager -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-235710440-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-235710440-2');
+  </script>
+  <!-- End Global site tag (gtag.js) - Google Analytics -->
+  <!-- Google Console Verify-->
+  <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
+  <!-- End Google Console Verify-->
+
+  <!-- beam analytics -->
+  <script src="https://beamanalytics.b-cdn.net/beam.min.js" data-token="19aab194-2a12-4585-bf30-e8b0c1e45d01" async></script>
+  <!-- End beam analytics -->
+
+  
+<meta property="og:title" content="TERRAFORM - ANSIBLE: SỰ PHÂN ĐỊNH TRONG MÔ HÌNH CẤU HÌNH DEVOPS - Hung Hoang">
+<meta property="twitter:title" content="TERRAFORM - ANSIBLE: SỰ PHÂN ĐỊNH TRONG MÔ HÌNH CẤU HÌNH DEVOPS - Hung Hoang">
+
+
+<meta name="description" content="Phân tích chi tiết sự khác biệt giữa mô hình cấu hình declarative của Terraform và procedural declarative của Ansible.">
+<meta property="og:description" content="Phân tích chi tiết sự khác biệt giữa mô hình cấu hình declarative của Terraform và procedural declarative của Ansible.">
+<meta property="twitter:description" content="Phân tích chi tiết sự khác biệt giữa mô hình cấu hình declarative của Terraform và procedural declarative của Ansible.">
+
+
+
+
+
+
+<meta property="og:url" content="/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
+
+</head>
+<body>
+  <div class="container">
+
+    
+<article>
+  <aside class="timestamp">
+    <time>Posted by Hung Hoang on 2025-05-07 10:00</time>
+    · <a href="./">view all posts</a>
+  </aside>
+  <h1>TERRAFORM - ANSIBLE: SỰ PHÂN ĐỊNH TRONG MÔ HÌNH CẤU HÌNH DEVOPS</h1>
+  <content>
+    <h1 id="terraform-ansible-su-phan-inh-trong-mo-hinh-cau-hinh-devops">TERRAFORM - ANSIBLE: SỰ PHÂN ĐỊNH TRONG MÔ HÌNH CẤU HÌNH DEVOPS 🌐</h1>
+<p><img alt="Tf and Ansible head to head" src="https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2F5o4mzuyhqt9luao3i3eg.png" /></p>
+<h2 id="1-tong-quan">1. Tổng quan 🛠️</h2>
+<h3 id="terraform">Terraform</h3>
+<p>Terraform là một công cụ Infrastructure as Code (IaC) mã nguồn mở được phát triển bởi HashiCorp, tập trung vào việc cung cấp và quản lý cơ sở hạ tầng cloud và on-premises. Terraform sử dụng phương pháp <strong>declarative</strong> thuần túy. 🌟</p>
+<h3 id="ansible">Ansible</h3>
+<p>Ansible là một công cụ tự động hóa, mã nguồn mở được phát triển bởi Red Hat, khéo léo khoác lên mình chiếc áo choàng declarative nhưng thực chất vẫn tuân thủ triết lý imperative, nên thường được gán nhãn là <strong>procedural declarative</strong>. 🤖</p>
+<h2 id="2-mo-hinh-declarative-vs-imperative">2. Mô hình Declarative vs Imperative 🔄</h2>
+<h3 id="declarative-configuration-cau-hinh-khai-bao">Declarative Configuration (Cấu hình khai báo) ✍️</h3>
+<ul>
+<li>Mô tả <strong>trạng thái mong muốn</strong> của hệ thống</li>
+<li>Công cụ tự quyết định cách đạt được trạng thái đó</li>
+<li>Tập trung vào "CÁI GÌ" (what), không phải "LÀM THẾ NÀO" (how)</li>
+<li>Duy trì trạng thái (state) để biết những gì đã tồn tại</li>
+</ul>
+<h3 id="imperative-configuration-cau-hinh-menh-lenh">Imperative Configuration (Cấu hình mệnh lệnh) 🧩</h3>
+<ul>
+<li>Xác định <strong>chuỗi các lệnh cụ thể</strong> để thực hiện</li>
+<li>Người dùng đặc tả chính xác cách thực hiện từng bước</li>
+<li>Tập trung vào "LÀM THẾ NÀO" (how) để đạt được kết quả</li>
+<li>Thường không theo dõi trạng thái hiện tại của hệ thống</li>
+</ul>
+<h2 id="3-phan-tich-sau-ve-terraform-declarative-thuan-tuy">3. Phân tích sâu về Terraform: Declarative thuần túy 🌱</h2>
+<h3 id="uu-iem-cua-cach-tiep-can-declarative">Ưu điểm của cách tiếp cận Declarative</h3>
+<ul>
+<li><strong>Idempotency</strong>: Có thể chạy nhiều lần mà không gây ra tác dụng phụ 🔄</li>
+<li><strong>Consistency</strong>: Đảm bảo trạng thái cuối cùng luôn nhất quán ✅</li>
+<li><strong>Dễ đọc</strong>: Code mô tả chính xác cái gì sẽ được tạo ra 📖</li>
+<li><strong>Quản lý thay đổi</strong>: Dễ dàng thêm, sửa, xóa tài nguyên qua mã dựa trên đồ thị phụ thuộc giữa các tài nguyên ✏️</li>
+</ul>
+<h2 id="4-phan-tich-sau-ve-ansible-procedural-declarative">4. Phân tích sâu về Ansible: "Procedural Declarative" ⚙️</h2>
+<h3 id="tinh-chat-procedural-declarative">Tính chất "Procedural Declarative"</h3>
+<ul>
+<li><strong>Declarative</strong>: Mô tả trạng thái mong muốn trong modules (state: present, absent, etc.)</li>
+<li><strong>Task-based</strong>: Thực thi các task theo thứ tự từ trên xuống 📋</li>
+<li><strong>Procedural</strong>: Các task được thực thi tuần tự, không tự động giải quyết phụ thuộc</li>
+<li><strong>Agentless</strong>: Không yêu cầu agent trên máy đích, sử dụng SSH/WinRM 🔒</li>
+<li><strong>Limited State Management</strong>: Không duy trì trạng thái tổng thể của hệ thống</li>
+<li><strong>Idempotency</strong>: Cố gắng đạt được idempotency nhưng đòi hỏi lập trình viên phải đảm bảo</li>
+</ul>
+<h2 id="5-so-sanh-qua-vi-du-cu-the">5. So sánh qua ví dụ cụ thể 🔍</h2>
+<h3 id="vi-du-1-trien-khai-may-chu-web">Ví dụ 1: Triển khai máy chủ web 🌐</h3>
+<h4 id="cach-tiep-can-declarative-terraform">Cách tiếp cận Declarative (Terraform)</h4>
+<p>Với Terraform, bạn khai báo: "Tôi muốn có 3 máy chủ web, mỗi máy có 2GB RAM, sử dụng hệ điều hành Ubuntu 22.04, và tất cả đều nằm trong nhóm bảo mật web_servers."</p>
+<p>Terraform sẽ:
+- Tự động xác định có cần tạo mới, cập nhật hay xóa máy chủ nào không
+- Tự quản lý trình tự tạo tài nguyên (ví dụ: tạo network trước, sau đó mới tạo máy chủ)
+- Đảm bảo trạng thái cuối cùng luôn khớp với mô tả, bất kể trạng thái ban đầu</p>
+<h4 id="cach-tiep-can-procedural-declarative-ansible">Cách tiếp cận Procedural Declarative (Ansible)</h4>
+<p>Với Ansible, bạn sẽ viết:
+1. "Tạo 3 máy chủ web với 2GB RAM và Ubuntu 22.04"
+2. "Cấu hình mỗi máy chủ để chạy dịch vụ web"
+3. "Thêm các máy chủ vào nhóm bảo mật web_servers"</p>
+<p>Ansible sẽ:
+- Thực hiện tuần tự từng bước theo thứ tự đã định
+- Sử dụng các module để đạt được trạng thái mong muốn cho từng bước
+- Không tự động theo dõi trạng thái tổng thể của hệ thống</p>
+<h3 id="vi-du-2-trien-khai-ung-dung">Ví dụ 2: Triển khai ứng dụng 📦</h3>
+<h4 id="cach-tiep-can-declarative-terraform_1">Cách tiếp cận Declarative (Terraform)</h4>
+<p>Với Terraform: "Ứng dụng của tôi cần 1 cơ sở dữ liệu, 2 máy chủ ứng dụng, và 1 cân bằng tải ở phía trước. Cơ sở dữ liệu cần kết nối với các máy chủ ứng dụng, và cân bằng tải cần phân phối lưu lượng đến các máy chủ ứng dụng."</p>
+<p>Terraform sẽ:
+- Tạo một đồ thị phụ thuộc giữa các tài nguyên
+- Xác định thứ tự tạo tài nguyên (cơ sở dữ liệu → máy chủ ứng dụng → cân bằng tải)
+- Đảm bảo tất cả các kết nối và quan hệ phụ thuộc được đáp ứng</p>
+<h4 id="cach-tiep-can-procedural-declarative-ansible_1">Cách tiếp cận Procedural Declarative (Ansible)</h4>
+<p>Với Ansible:
+1. "Tạo cơ sở dữ liệu với cấu hình X"
+2. "Tạo 2 máy chủ ứng dụng với cấu hình Y"
+3. "Cấu hình kết nối giữa cơ sở dữ liệu và máy chủ ứng dụng"
+4. "Tạo cân bằng tải với cấu hình Z"
+5. "Cấu hình cân bằng tải để phân phối lưu lượng đến các máy chủ ứng dụng"</p>
+<p>Ansible sẽ:
+- Thực hiện từng bước theo thứ tự đã định
+- Nhà phát triển phải xác định rõ thứ tự thực hiện
+- Sử dụng các biến và đăng ký kết quả để truyền thông tin giữa các bước</p>
+<h2 id="6-triet-ly-immutable-vs-mutable-infrastructure">6. Triết lý Immutable vs Mutable Infrastructure 🏗️</h2>
+<h3 id="immutable-infrastructure-khong-sua-chi-thay">Immutable Infrastructure: "Không sửa, chỉ thay" 🔄</h3>
+<p>Immutable Infrastructure là phương pháp trong đó các thành phần cơ sở hạ tầng <strong>không bao giờ được sửa đổi</strong> sau khi triển khai. Thay vì cập nhật cấu hình trên máy chủ đang chạy, toàn bộ máy chủ được thay thế bằng phiên bản mới đã được cấu hình sẵn.</p>
+<p><strong>Đặc điểm chính:</strong>
+- Máy chủ được xem như "gia súc" (cattle), không phải "thú cưng" (pet) 🐄
+- Cập nhật = Hủy cũ + Tạo mới
+- Dựa vào các template, image, snapshot 📸
+- Loại bỏ "configuration drift" và "snowflake servers" ❄️</p>
+<h3 id="mutable-infrastructure-sua-chua-tai-cho">Mutable Infrastructure: "Sửa chữa tại chỗ" 🔧</h3>
+<p>Mutable Infrastructure là phương pháp truyền thống, trong đó các thành phần cơ sở hạ tầng được <strong>cập nhật và sửa đổi tại chỗ</strong> khi cần thiết.</p>
+<p><strong>Đặc điểm chính:</strong>
+- Máy chủ được xem như "thú cưng" cần chăm sóc 🐕
+- Thực hiện các thay đổi trực tiếp trên hệ thống đang chạy
+- Dễ dẫn đến "configuration drift"
+- Lịch sử thay đổi có thể không được ghi lại đầy đủ</p>
+<h3 id="terraform-nguoi-ung-ho-trung-thanh-cua-immutable-infrastructure">Terraform: Người ủng hộ trung thành của Immutable Infrastructure 🌟</h3>
+<p>Terraform, với triết lý declarative thuần túy, là công cụ lý tưởng cho Immutable Infrastructure:
+- <strong>Quản lý toàn diện</strong>: Tạo và quản lý toàn bộ vòng đời của tài nguyên
+- <strong>Tất cả hoặc không có gì</strong>: Thay đổi tài nguyên thường đồng nghĩa với việc tạo mới và hủy cái cũ
+- <strong>Nhất quán</strong>: Đảm bảo môi trường luôn ở trạng thái đã định nghĩa
+- <strong>Dễ dàng roll back</strong>: Quay lại version cũ chỉ đơn giản là apply lại cấu hình cũ</p>
+<p>Terraform giống như một kiến trúc sư khó tính: "Nếu cần thay đổi, tôi sẽ xây lại từ đầu!" 🏗️</p>
+<h3 id="ansible-ke-a-nang-trong-the-gioi-infrastructure">Ansible: "Kẻ đa năng" trong thế giới infrastructure 🔧</h3>
+<p>Ansible, với bản chất procedural declarative, thích nghi tốt với Mutable Infrastructure nhưng cũng có thể hỗ trợ Immutable:</p>
+<p><strong>Trong thế giới Mutable:</strong>
+- <strong>Chuyên gia "chỉnh sửa"</strong>: Thay đổi cấu hình trên các máy chủ đang chạy
+- <strong>Linh hoạt</strong>: Thực hiện các thay đổi nhỏ mà không cần rebuild toàn bộ
+- <strong>Nhanh chóng</strong>: Không cần chu kỳ tạo-hủy cho mỗi thay đổi nhỏ</p>
+<p><strong>Hỗ trợ Immutable khi cần:</strong>
+- Xây dựng các image (AMI, Docker)
+- Cấu hình ban đầu cho các instance mới
+- Phần của pipeline CI/CD cho immutable deployments</p>
+<p>Ansible giống như một thợ sửa chữa đa năng: có thể xây mới, nhưng cũng rất giỏi trong việc sửa chữa tại chỗ! 🛠️</p>
+<p><img alt="Tf and Ansible as Human" src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/gtfrobfeekkxrwnmqiji.png" /></p>
+<h2 id="7-truong-hop-su-dung-phu-hop">7. Trường hợp sử dụng phù hợp 🎯</h2>
+<h3 id="khi-nao-nen-su-dung-terraform">Khi nào nên sử dụng Terraform</h3>
+<ul>
+<li><strong>Provisioning hạ tầng</strong>: Tạo mới toàn bộ cơ sở hạ tầng 🏗️</li>
+<li><strong>Quản lý tài nguyên cloud</strong>: AWS, Azure, GCP, etc. ☁️</li>
+<li><strong>Kiến trúc bất biến (Immutable Infrastructure)</strong>: Tạo mới thay vì cập nhật 🔄</li>
+<li><strong>Quản lý trạng thái phức tạp</strong>: Nhiều tài nguyên phụ thuộc lẫn nhau 🔗</li>
+</ul>
+<h3 id="khi-nao-nen-su-dung-ansible">Khi nào nên sử dụng Ansible</h3>
+<ul>
+<li><strong>Cấu hình máy chủ</strong>: Cài đặt phần mềm, cập nhật cấu hình 🖥️</li>
+<li><strong>Triển khai ứng dụng</strong>: Deployment pipelines 🚀</li>
+<li><strong>Tự động hóa tác vụ lặp đi lặp lại</strong>: Patches, updates 🔄</li>
+<li><strong>Điều phối nhiều máy chủ</strong>: Các tác vụ cần thực hiện đồng thời trên nhiều máy ⚡</li>
+</ul>
+<h3 id="ket-hop-ca-hai-cong-cu">Kết hợp cả hai công cụ 🤝</h3>
+<p>Mô hình phổ biến:
+1. Sử dụng <strong>Terraform</strong> để provision infrastructure
+2. Sử dụng <strong>Ansible</strong> để cấu hình và triển khai ứng dụng</p>
+<h2 id="8-ket-luan">8. Kết luận 🏁</h2>
+<p>Terraform và Ansible đại diện cho hai triết lý khác nhau trong quản lý hạ tầng và tự động hóa:</p>
+<ul>
+<li><strong>Terraform</strong>: Declarative thuần túy, tập trung vào việc quản lý trạng thái và mối quan hệ phụ thuộc giữa các tài nguyên.</li>
+<li><strong>Ansible</strong>: Procedural declarative, kết hợp giữa mô tả trạng thái mong muốn và thực thi tuần tự.</li>
+</ul>
+<p>Cả hai công cụ đều có giá trị riêng và thường được sử dụng bổ sung cho nhau trong các pipeline DevOps hiện đại. Hiểu rõ sự khác biệt giữa cách tiếp cận declarative và imperative giúp đội ngũ DevOps lựa chọn công cụ phù hợp cho từng loại tác vụ. 🚀</p>
+  </content>
+</article>
+
+
+    <footer>
+      <div class="row">
+        <div class="col-md-1 d-none d-md-block img-me-container">
+          <img class="img-me img-fluid" src="./static/me.webp">
+        </div>
+        <div class="col-md info">
+          <span class="name">Hung Hoang</span><br>
+          · <a href="https://github.com/hoangquochung1110" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> hoangquochung1110</a>
+          · <a href="https://www.instagram.com/h7ng__/" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i> h7ng__</a>
+          <br>
+          <span class="location"><i class="fas fa-map-marker"></i> Saigon, Vietnam</span>
+        </div>
+        <div class="col-md">
+          <p class="disclaimer">
+            &copy; 2022 &mdash; 2022<br>
+            All text is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> license<br>
+            All code is available under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> license
+          </p>
+      </div>
+
+    </footer>
+  </div>
+
+  <!-- webfonts & icons-->
+  <link href="/static/fontawesome/css/fontawesome-all.min.css" rel="stylesheet">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TG55DGQ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+</body>
+</html>
