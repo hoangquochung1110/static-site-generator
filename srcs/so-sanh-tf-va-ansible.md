@@ -11,10 +11,10 @@ category: devops
 ## 1. Tổng quan 🛠️
 
 ### Terraform
-Terraform là một công cụ Infrastructure as Code (IaC) mã nguồn mở được phát triển bởi HashiCorp, tập trung vào việc cung cấp và quản lý cơ sở hạ tầng cloud và on-premises. Terraform sử dụng phương pháp **declarative** thuần túy. 🌟
+Terraform là một công cụ Infrastructure as Code (IaC) mã nguồn mở được phát triển bởi HashiCorp, **tập trung vào việc cung cấp và quản lý cơ sở hạ tầng cloud và on-premises**. Terraform sử dụng phương pháp **declarative** thuần túy. 🌟
 
 ### Ansible
-Ansible là một công cụ tự động hóa, mã nguồn mở được phát triển bởi Red Hat, khéo léo khoác lên mình chiếc áo choàng declarative nhưng thực chất vẫn tuân thủ triết lý imperative, nên thường được gán nhãn là **procedural declarative**. 🤖
+Ansible là một công cụ tự động hóa, mã nguồn mở được phát triển bởi Red Hat, **tập trung vào triển khai các tác vụ song song trên nhiều máy chủ cùng một lúc**. Ansible sử dụng phương pháp **procedural declarative**. 🤖
 
 ## 2. Mô hình Declarative vs Imperative 🔄
 
@@ -39,6 +39,8 @@ Ansible là một công cụ tự động hóa, mã nguồn mở được phát 
 - **Quản lý thay đổi**: Dễ dàng thêm, sửa, xóa tài nguyên qua mã dựa trên đồ thị phụ thuộc giữa các tài nguyên ✏️
 
 ## 4. Phân tích sâu về Ansible: "Procedural Declarative" ⚙️
+
+Ở góc nhìn "frontend", Ansible khéo léo khoác lên mình chiếc áo choàng declarative nhưng thực chất vẫn tuân thủ triết lý imperative, tức là nó cho phép người dùng định nghĩa trạng thái mong muốn (what) nhưng đồng thời cũng yêu cầu chỉ rõ cách thức đạt được trạng thái đó (how). Điều này tạo nên một mô hình lai độc đáo được gọi là "procedural declarative".
 
 ### Tính chất "Procedural Declarative"
 - **Declarative**: Mô tả trạng thái mong muốn trong modules (state: present, absent, etc.)
