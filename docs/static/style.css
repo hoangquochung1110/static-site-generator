@@ -299,3 +299,40 @@ nav li {
   display: inline;
   margin-right: 10px; /* Add some spacing between items */
 }
+
+/* Basic admonition styling */
+.admonition {
+  margin: 1.5em 0;
+  padding: 0.8em;
+  border-left: 4px solid #448aff;
+  background-color: #e3f2fd;
+  border-radius: 4px;
+}
+
+.admonition-title {
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 0.6em;
+  color: #01579b;
+}
+
+/* Types of admonitions */
+.admonition.note {
+  border-left-color: #448aff;
+  background-color: #e3f2fd;
+}
+
+.admonition.warning {
+  border-left-color: #ff9100;
+  background-color: #fff8e1;
+}
+
+.admonition.danger {
+  border-left-color: #ff1744;
+  background-color: #ffebee;
+}
+
+.admonition.info {
+  border-left-color: #00c853;
+  background-color: #e8f5e9;
+}

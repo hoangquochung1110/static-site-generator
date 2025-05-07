@@ -21,7 +21,7 @@ jinja_env = jinja2.Environment(
 markdown_ = markdown.Markdown(
     extensions=[
         "toc",
-        "admonition",
+        "admonition",  # Bring your own styles
         "tables",
         "abbr",
         "attr_list",
