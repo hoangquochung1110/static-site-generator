@@ -53,8 +53,7 @@ Ngoài ra còn hỗ trợ
   <iframe
     src="https://static.ssan.me/Cloudflare+Access.drawio.html"
     width="100%"
-    height="500px"
-    frameborder="0"
+    height="600px"
     scrolling="auto">
   </iframe>
 </div>
