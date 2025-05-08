@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Hung Hoang">
+  <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
+
+  <title>Cloudflare Access Internals: Understanding the Authentication Flow - Hung Hoang</title>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./static/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./static/style.css" rel="stylesheet">
+
+  <!-- Syntax highlighting css -->
+  <link href="./static/pygments.css" rel="stylesheet">
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TG55DGQ');
+  </script>
+  <!-- End Google Tag Manager -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-235710440-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-235710440-2');
+  </script>
+  <!-- End Global site tag (gtag.js) - Google Analytics -->
+  <!-- Google Console Verify-->
+  <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
+  <!-- End Google Console Verify-->
+
+  <!-- beam analytics -->
+  <script src="https://beamanalytics.b-cdn.net/beam.min.js" data-token="19aab194-2a12-4585-bf30-e8b0c1e45d01" async></script>
+  <!-- End beam analytics -->
+
+  
+<meta property="og:title" content="Cloudflare Access Internals: Understanding the Authentication Flow - Hung Hoang">
+<meta property="twitter:title" content="Cloudflare Access Internals: Understanding the Authentication Flow - Hung Hoang">
+
+
+<meta name="description" content="Deep dive into Cloudflare Access internals, exploring how authentication and authorization work behind the scenes">
+<meta property="og:description" content="Deep dive into Cloudflare Access internals, exploring how authentication and authorization work behind the scenes">
+<meta property="twitter:description" content="Deep dive into Cloudflare Access internals, exploring how authentication and authorization work behind the scenes">
+
+
+
+
+
+
+<meta property="og:url" content="/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
+
+</head>
+<body>
+  <div class="container">
+
+    
+<article>
+  <aside class="timestamp">
+    <time>Posted by Hung Hoang on 2025-05-08 10:00</time>
+    · <a href="./">view all posts</a>
+  </aside>
+  <h1>Cloudflare Access Internals: Understanding the Authentication Flow</h1>
+  <content>
+    <h2 id="gioi-thieu">Giới thiệu</h2>
+<p>Bài viết này là tài liệu tham khảo chuyên sâu về luồng xác thực (authentication flow) và cơ chế hoạt động nội bộ của Cloudflare Access. Không như các hướng dẫn cơ bản, tài liệu này đi sâu vào chi tiết kỹ thuật đằng sau mỗi bước trong quy trình xác thực, từ request ban đầu đến việc duy trì phiên làm việc.</p>
+<h2 id="cach-thuc-hoat-ong">Cách thức hoạt động</h2>
+<div class="embedded-content">
+  <iframe
+    src="https://static.ssan.me/Cloudflare+Access.drawio.html"
+    width="100%"
+    height="500px"
+    frameborder="0"
+    scrolling="auto">
+  </iframe>
+</div>
+
+<h3 id="1-nguoi-dung-gui-request-ban-au">1. Người dùng gửi request ban đầu</h3>
+<p>Khi người dùng nhập URL ứng dụng nội bộ của bạn vào trình duyệt (ví dụ: <a href="https://internal-app.company.com">https://internal-app.company.com</a>):</p>
+<ul>
+<li>Request đầu tiên đi từ trình duyệt của người dùng</li>
+<li>Request này đến mạng edge của Cloudflare (thay vì đi thẳng đến máy chủ của bạn)</li>
+<li>Cloudflare edge kiểm tra và nhận ra rằng domain này được bảo vệ bởi Cloudflare Access</li>
+</ul>
+<h3 id="2-chuyen-huong-en-trang-xac-thuc">2. Chuyển hướng đến trang xác thực</h3>
+<ul>
+<li>Cloudflare Access kiểm tra xem người dùng đã có cookie xác thực hợp lệ chưa</li>
+<li>Vì đây là lần truy cập đầu tiên, người dùng chưa có cookie xác thực</li>
+<li>Access chuyển hướng người dùng đến trang đăng nhập của Cloudflare</li>
+<li>Trang này hiển thị các Identity Provider (IdP) mà quản trị viên đã cấu hình (Okta, Azure AD, Google, v.v.)</li>
+</ul>
+<h3 id="3-xac-thuc-va-xac-nhan-danh-tinh-nguoi-dung-qua-idp">3. Xác thực và xác nhận danh tính người dùng qua IdP</h3>
+<ul>
+<li>Người dùng chọn IdP họ muốn sử dụng và được chuyển hướng đến trang đăng nhập của IdP</li>
+<li>Quá trình này sử dụng chuẩn OAuth/OIDC để trao đổi thông tin xác thực</li>
+<li>Người dùng nhập thông tin đăng nhập và có thể hoàn thành xác thực hai yếu tố (2FA) nếu được cấu hình</li>
+<li>IdP xác minh thông tin đăng nhập và tạo mã thông báo (authorization code)</li>
+<li>IdP chuyển hướng người dùng trở lại Cloudflare cùng với mã này</li>
+<li>Cloudflare Access đổi mã này lấy thông tin chi tiết về người dùng từ IdP (danh tính, nhóm, thuộc tính)</li>
+</ul>
+<h3 id="4-tao-jwt-anh-gia-chinh-sach-va-cap-quyen-truy-cap">4. Tạo JWT, đánh giá chính sách và cấp quyền truy cập</h3>
+<ul>
+<li>Cloudflare Access tạo JSON Web Token (JWT) chứa thông tin người dùng, nhóm, thời gian hết hạn và chữ ký số</li>
+<li>JWT được lưu dưới dạng cookie trong trình duyệt của người dùng</li>
+<li>Cloudflare Access kiểm tra JWT với các chính sách truy cập (policy) do quản trị viên thiết lập</li>
+<li>Access đánh giá nhiều yếu tố: email, nhóm, thiết bị, vị trí địa lý, thời gian truy cập</li>
+<li>Nếu người dùng vượt qua tất cả các kiểm tra, Access cấp quyền và chuyển hướng về URL ban đầu</li>
+<li>Nếu không đạt yêu cầu, Access hiển thị trang từ chối truy cập</li>
+</ul>
+<h3 id="5-chuyen-tiep-request-va-xu-ly-ung-dung">5. Chuyển tiếp request và xử lý ứng dụng</h3>
+<ul>
+<li>Trình duyệt người dùng gửi lại request ban đầu kèm theo cookie JWT</li>
+<li>Cloudflare edge xác minh cookie JWT là hợp lệ và chưa hết hạn</li>
+<li>Cloudflare thiết lập kết nối bảo mật với máy chủ ứng dụng nội bộ</li>
+<li>Cloudflare chuyển tiếp request kèm thông tin người dùng trong header HTTP</li>
+<li>Máy chủ ứng dụng xử lý request và gửi phản hồi</li>
+<li>Phản hồi được định tuyến ngược qua mạng Cloudflare đến người dùng</li>
+</ul>
+<h3 id="6-duy-tri-phien-lam-viec">6. Duy trì phiên làm việc</h3>
+<ul>
+<li>JWT cookie có thời gian sống nhất định (thường là vài giờ)</li>
+<li>Các request tiếp theo sẽ tự động sử dụng cookie này mà không cần đăng nhập lại</li>
+<li>Cloudflare kiểm tra chính sách với mỗi request (không chỉ lần đầu)</li>
+<li>Khi cookie sắp hết hạn, Cloudflare có thể làm mới nó một cách tự động</li>
+<li>Khi người dùng đóng trình duyệt hoặc đăng xuất, cookie sẽ bị xóa</li>
+</ul>
+  </content>
+</article>
+
+
+    <footer>
+      <div class="row">
+        <div class="col-md-1 d-none d-md-block img-me-container">
+          <img class="img-me img-fluid" src="./static/me.webp">
+        </div>
+        <div class="col-md info">
+          <span class="name">Hung Hoang</span><br>
+          · <a href="https://github.com/hoangquochung1110" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> hoangquochung1110</a>
+          · <a href="https://www.instagram.com/h7ng__/" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i> h7ng__</a>
+          <br>
+          <span class="location"><i class="fas fa-map-marker"></i> Saigon, Vietnam</span>
+        </div>
+        <div class="col-md">
+          <p class="disclaimer">
+            &copy; 2022 &mdash; 2022<br>
+            All text is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> license<br>
+            All code is available under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> license
+          </p>
+      </div>
+
+    </footer>
+  </div>
+
+  <!-- webfonts & icons-->
+  <link href="/static/fontawesome/css/fontawesome-all.min.css" rel="stylesheet">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TG55DGQ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+</body>
+</html>

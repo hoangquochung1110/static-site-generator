@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Hung Hoang">
+  <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
+
+  <title>Cloudflare từ A sang Á: Cloudflare Access - Hung Hoang</title>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./static/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./static/style.css" rel="stylesheet">
+
+  <!-- Syntax highlighting css -->
+  <link href="./static/pygments.css" rel="stylesheet">
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TG55DGQ');
+  </script>
+  <!-- End Google Tag Manager -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-235710440-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-235710440-2');
+  </script>
+  <!-- End Global site tag (gtag.js) - Google Analytics -->
+  <!-- Google Console Verify-->
+  <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
+  <!-- End Google Console Verify-->
+
+  <!-- beam analytics -->
+  <script src="https://beamanalytics.b-cdn.net/beam.min.js" data-token="19aab194-2a12-4585-bf30-e8b0c1e45d01" async></script>
+  <!-- End beam analytics -->
+
+  
+<meta property="og:title" content="Cloudflare từ A sang Á: Cloudflare Access - Hung Hoang">
+<meta property="twitter:title" content="Cloudflare từ A sang Á: Cloudflare Access - Hung Hoang">
+
+
+<meta name="description" content="Tìm hiểu về Cloudflare Access - giải pháp bảo mật truy cập ứng dụng của Cloudflare">
+<meta property="og:description" content="Tìm hiểu về Cloudflare Access - giải pháp bảo mật truy cập ứng dụng của Cloudflare">
+<meta property="twitter:description" content="Tìm hiểu về Cloudflare Access - giải pháp bảo mật truy cập ứng dụng của Cloudflare">
+
+
+
+
+
+
+<meta property="og:url" content="/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
+
+</head>
+<body>
+  <div class="container">
+
+    
+<article>
+  <aside class="timestamp">
+    <time>Posted by Hung Hoang on 2025-05-07 10:00</time>
+    · <a href="./">view all posts</a>
+  </aside>
+  <h1>Cloudflare từ A sang Á: Cloudflare Access</h1>
+  <content>
+    <div class="admonition info">
+<p class="admonition-title">Cloudflare từ A sang Á</p>
+<p>Chuỗi bài viết về các dịch vụ nền tảng của Cloudflare</p>
+</div>
+<p>Cloudflare Access là một dịch vụ SaaS nhằm bảo vệ các tài nguyên, ứng dụng (thường là nội bộ) khỏi truy cập công cộng bằng cách xác minh các request dựa vào user identity và device context nâng cao (vị trí, thời gian, loại thiết bị).</p>
+<p>Cloudflare Access đóng vai trò như một Reverse Proxy trang bị tính năng xác thực người dùng (Authentication) nhằm bảo vệ các ứng dụng nội bộ thông qua kiến trúc phân tán toàn cầu của mạng lưới Cloudflare. Khác với các giải pháp proxy truyền thống, Cloudflare Access:</p>
+<ul>
+<li>Xác thực người dùng tại edge node gần nhất với họ trong mạng lưới hơn 250+ trung tâm dữ liệu toàn cầu, chứ không phải tại một máy chủ proxy tập trung</li>
+<li>Chuyển tiếp các yêu cầu đã được xác thực đến ứng dụng nội bộ qua kết nối an toàn, tối ưu hóa về hiệu suất nhờ định tuyến thông minh trên hạ tầng backbone riêng của Cloudflare</li>
+</ul>
+<p>Vì vậy dịch vụ này được cho là:
+✅ Giảm độ trễ đáng kể bằng cách xử lý xác thực tại edge, gần với người dùng nhất, thay vì buộc traffic phải đi qua một điểm trung tâm duy nhất
+✅ Cung cấp khả năng chống DDoS và các tấn công mạng ngay tại edge node, trước khi traffic có thể đến được ứng dụng nội bộ
+✅ Tự động mở rộng quy mô để đáp ứng nhu cầu tăng vọt mà không cần điều chỉnh phần cứng như các proxy truyền thống</p>
+<p>Có thể bảo vệ các loại Web Application chính sau:</p>
+<h3 id="cac-oi-tuong-cloudflare-access-co-the-bao-ve">💡 Các đối tượng Cloudflare Access có thể bảo vệ</h3>
+<p>Họ quy ước gọi là "Application", các đối tượng chính sau:</p>
+<ul>
+<li>SaaS Application</li>
+<li>Self-hosted Application</li>
+</ul>
+<p>Ngoài ra còn hỗ trợ
+- Private Network
+- Infrastructure: Database, Kubernetes Cluster, a server, .etc</p>
+<h2 id="cach-thuc-hoat-ong">Cách thức hoạt động</h2>
+<div class="embedded-content">
+  <iframe
+    src="https://static.ssan.me/Cloudflare+Access.drawio.html"
+    width="100%"
+    height="500px"
+    frameborder="0"
+    scrolling="auto">
+  </iframe>
+</div>
+
+<p>Luồng bắt đầu khi người dùng nhập URL ứng dụng nội bộ của bạn vào trình duyệt (ví dụ: <a href="https://internal-app.company.com">https://internal-app.company.com</a>):</p>
+<p>Cloudflare Access bảo vệ ứng dụng nội bộ bằng cách chặn request ban đầu, chuyển hướng người dùng chưa xác thực đến IdP được cấu hình, và tạo JWT cookie chứa thông tin định danh sau khi xác thực thành công. Sau đó, Access đánh giá JWT này với các chính sách bảo mật được thiết lập, chỉ chuyển tiếp request đến ứng dụng gốc nếu tất cả kiểm tra đều thành công, kèm theo thông tin người dùng trong HTTP header. Cloudflare duy trì phiên làm việc thông qua JWT cookie có thời hạn, kiểm tra chính sách với mỗi request và tự động làm mới token khi cần, tạo nên hệ thống bảo mật Zero Trust hoàn chỉnh không cần VPN.</p>
+<p>Chi tiết xem tại <a href="https://www.cloudflare.com/products/cloudflare-access/">đây</a></p>
+<h2 id="cac-thanh-phan-chinh">🧩 Các thành phần chính</h2>
+<h3 id="applications">🖥️ Applications</h3>
+<p>Như đã giới thiệu phần trên, đây là thành phần chính chúng ta cần cấu hình. Applications trong Cloudflare Access đại diện cho các ứng dụng nội bộ cần được bảo vệ. Mỗi Application được định nghĩa bởi một tập hợp domain hoặc path cụ thể (ví dụ: internal-app.company.com/<em> hoặc company.com/admin/</em>). Khi cấu hình Application, bạn cần xác định:</p>
+<ul>
+<li>📝 Tên ứng dụng để nhận diện trong dashboard</li>
+<li>🌐 Domain và path pattern cần bảo vệ</li>
+<li>⏱️ Session duration (thời lượng phiên làm việc)</li>
+<li>🚀 App Launcher visibility (hiển thị trong App Launcher)</li>
+<li>🎨 Logo và mô tả (tùy chọn)</li>
+</ul>
+<h3 id="chinh-sach-truy-cap">🛡️ Chính sách truy cập</h3>
+<p>Chính sách truy cập (Access Policies) là tập hợp các quy tắc xác định ai có thể truy cập vào Application. Mỗi Application có thể có nhiều chính sách, được đánh giá theo thứ tự ưu tiên. Mỗi chính sách bao gồm:</p>
+<ul>
+<li>✅ Include rules: Xác định người dùng/nhóm được phép truy cập (điều kiện cho phép)</li>
+<li>❌ Exclude rules: Xác định người dùng/nhóm bị chặn truy cập (điều kiện từ chối)</li>
+<li>🔍 Require rules: Các điều kiện bổ sung mà người dùng phải đáp ứng (2FA, địa điểm, thiết bị...)</li>
+</ul>
+<p>Cloudflare Access hỗ trợ nhiều loại điều kiện trong chính sách:
+- 📧 Email/Domain/Group từ IdP
+- 🌎 Country/IP Range giới hạn vị trí địa lý
+- 📱 Device Posture kiểm tra tình trạng thiết bị
+- 🕒 Time constraints giới hạn thời gian truy cập
+- 🔐 Authentication method yêu cầu phương thức xác thực cụ thể</p>
+<p>Chính sách được đánh giá theo nguyên tắc "first match": khi một request khớp với chính sách đầu tiên trong danh sách, quyết định cho phép/từ chối sẽ được áp dụng ngay lập tức.</p>
+<h3 id="phuong-thuc-xac-thuc">🔑 Phương thức xác thực</h3>
+<p>Ngoài các Identity Provider (IdP) truyền thống như Okta, Azure AD, Google Workspace, chúng ta còn có thể sử dụng:</p>
+<ul>
+<li>
+<p><strong>📧 One-time Code thông qua Email</strong>: Người dùng nhập email, Cloudflare gửi mã xác thực tạm thời, người dùng nhập mã để được cấp quyền truy cập. Phù hợp cho khách/đối tác không nằm trong IdP của tổ chức.</p>
+</li>
+<li>
+<p><strong>🔖 Service Tokens</strong>: Token tĩnh dùng cho các ứng dụng, API hoặc service-to-service communication, không liên kết với người dùng cụ thể.</p>
+</li>
+<li>
+<p><strong>🐙 GitHub</strong>: Xác thực thông qua tài khoản GitHub, cho phép giới hạn truy cập theo tổ chức/team GitHub.</p>
+</li>
+<li>
+<p><strong>🔢 PIN Code</strong>: Mã số cố định được cấu hình trước, thường dùng cho môi trường demo/POC.</p>
+</li>
+<li>
+<p><strong>🔄 SAML Authentication</strong>: Tích hợp với bất kỳ Identity Provider hỗ trợ SAML 2.0.</p>
+</li>
+<li>
+<p><strong>🔐 Mutual TLS (mTLS)</strong>: Xác thực dựa trên certificate, thường dùng cho IoT và service-to-service.</p>
+</li>
+</ul>
+<p>Cloudflare Access cho phép kết hợp nhiều phương thức xác thực, tạo nên mô hình xác thực đa lớp. Ví dụ, bạn có thể yêu cầu người dùng đăng nhập qua Okta VÀ phải truy cập từ IP công ty, hoặc đăng nhập qua Azure AD VÀ sử dụng thiết bị được quản lý bởi công ty.</p>
+<h2 id="ket-luan-trien-khai-cuc-ky-nhanh-chong">🚀 Kết luận: Triển khai cực kỳ nhanh chóng!</h2>
+<p>Điểm cực kỳ ấn tượng về Cloudflare Access là tốc độ triển khai siêu nhanh! Sau khi cấu hình các mục trên, chỉ sau 5-10 phút thôi là dịch vụ đã sẵn sàng hoạt động ! Không cần chờ đợi lâu, không setup phức tạp, mọi thứ đều được Cloudflare xử lý một cách mượt mà trong thời gian bạn uống hết một ly cà phê. ☕</p>
+<p>Quan trọng hơn: siêu hời - Cloudflare còn có Free Plan để bạn test thử! Triển khai, thử nghiệm, xem có hợp với team không mà chẳng tốn xu nào! 💸 Thử ngay nào</p>
+  </content>
+</article>
+
+
+    <footer>
+      <div class="row">
+        <div class="col-md-1 d-none d-md-block img-me-container">
+          <img class="img-me img-fluid" src="./static/me.webp">
+        </div>
+        <div class="col-md info">
+          <span class="name">Hung Hoang</span><br>
+          · <a href="https://github.com/hoangquochung1110" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> hoangquochung1110</a>
+          · <a href="https://www.instagram.com/h7ng__/" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i> h7ng__</a>
+          <br>
+          <span class="location"><i class="fas fa-map-marker"></i> Saigon, Vietnam</span>
+        </div>
+        <div class="col-md">
+          <p class="disclaimer">
+            &copy; 2022 &mdash; 2022<br>
+            All text is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> license<br>
+            All code is available under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> license
+          </p>
+      </div>
+
+    </footer>
+  </div>
+
+  <!-- webfonts & icons-->
+  <link href="/static/fontawesome/css/fontawesome-all.min.css" rel="stylesheet">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TG55DGQ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+</body>
+</html>
