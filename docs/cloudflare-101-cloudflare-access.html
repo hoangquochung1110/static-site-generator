@@ -116,7 +116,7 @@
 
 <p>Luồng bắt đầu khi người dùng nhập URL ứng dụng nội bộ của bạn vào trình duyệt (ví dụ: <a href="https://internal-app.company.com">https://internal-app.company.com</a>):</p>
 <p>Cloudflare Access bảo vệ ứng dụng nội bộ bằng cách chặn request ban đầu, chuyển hướng người dùng chưa xác thực đến IdP được cấu hình, và tạo JWT cookie chứa thông tin định danh sau khi xác thực thành công. Sau đó, Access đánh giá JWT này với các chính sách bảo mật được thiết lập, chỉ chuyển tiếp request đến ứng dụng gốc nếu tất cả kiểm tra đều thành công, kèm theo thông tin người dùng trong HTTP header. Cloudflare duy trì phiên làm việc thông qua JWT cookie có thời hạn, kiểm tra chính sách với mỗi request và tự động làm mới token khi cần, tạo nên hệ thống bảo mật Zero Trust hoàn chỉnh không cần VPN.</p>
-<p>Chi tiết xem tại <a href="https://www.cloudflare.com/products/cloudflare-access/">đây</a></p>
+<p>Chi tiết xem tại <a href="./cloudflare-101-cloudflare-access-internals.html">đây</a></p>
 <h2 id="cac-thanh-phan-chinh">🧩 Các thành phần chính</h2>
 <h3 id="applications">🖥️ Applications</h3>
 <p>Như đã giới thiệu phần trên, đây là thành phần chính chúng ta cần cấu hình. Applications trong Cloudflare Access đại diện cho các ứng dụng nội bộ cần được bảo vệ. Mỗi Application được định nghĩa bởi một tập hợp domain hoặc path cụ thể (ví dụ: internal-app.company.com/<em> hoặc company.com/admin/</em>). Khi cấu hình Application, bạn cần xác định:</p>
