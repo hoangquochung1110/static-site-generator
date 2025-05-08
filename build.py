@@ -126,7 +126,12 @@ def write_pygments_style_sheet():
 
 def write_index(posts: Sequence[frontmatter.Post]):
     """Render the index page."""
-    posts = sorted([post for post in posts if "date" in post], key=lambda post: post["date"], reverse=True)
+    posts = sorted([
+        post
+        for post in posts
+        if "date" in post
+        and post.get("hide", False) is False
+    ], key=lambda post: post["date"], reverse=True)
     path = pathlib.Path("./docs/index.html")
     template = jinja_env.get_template("index.html")
     rendered = template.render(posts=posts)
