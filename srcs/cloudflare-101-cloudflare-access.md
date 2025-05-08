@@ -12,7 +12,6 @@ tags:
   - zero-trust
 ---
 
-![Cloudflare Access Overview](https://static.ssan.me/Cloudflare-access-thumbnail-01.png)
 
 !!! info "Cloudflare từ A sang Á"
     Chuỗi bài viết về các dịch vụ nền tảng của Cloudflare
@@ -32,6 +31,8 @@ Vì vậy dịch vụ này được cho là:
 
 ✅ Tự động mở rộng quy mô để đáp ứng nhu cầu tăng vọt mà không cần điều chỉnh phần cứng như các proxy truyền thống
 
+![Cloudflare Access Overview](https://static.ssan.me/Cloudflare-access-thumbnail-01.png)
+
 
 ### 💡 Các đối tượng Cloudflare Access có thể bảo vệ
 
@@ -41,6 +42,7 @@ Họ quy ước gọi là "Application", các đối tượng chính sau:
 - Self-hosted Application
 
 Ngoài ra còn hỗ trợ
+
 - Private Network
 - Infrastructure: Database, Kubernetes Cluster, a server, .etc
 
@@ -112,6 +114,6 @@ Ngoài các Identity Provider (IdP) truyền thống như Okta, Azure AD, Google
 Cloudflare Access cho phép kết hợp nhiều phương thức xác thực, tạo nên mô hình xác thực đa lớp. Ví dụ, bạn có thể yêu cầu người dùng đăng nhập qua Okta VÀ phải truy cập từ IP công ty, hoặc đăng nhập qua Azure AD VÀ sử dụng thiết bị được quản lý bởi công ty.
 
 ## 🚀 Kết luận: Triển khai cực kỳ nhanh chóng!
-Điểm cực kỳ ấn tượng về Cloudflare Access là tốc độ triển khai siêu nhanh! Sau khi cấu hình các mục trên, chỉ sau 5-10 phút thôi là dịch vụ đã sẵn sàng hoạt động ! Không cần chờ đợi lâu, không setup phức tạp, mọi thứ đều được Cloudflare xử lý một cách mượt mà trong thời gian bạn uống hết một ly cà phê. ☕
+Điểm cực kỳ ấn tượng về Cloudflare Access là tốc độ triển khai siêu nhanh! Sau khi cấu hình các mục trên, chỉ sau **5-10 phút** thôi là dịch vụ đã sẵn sàng hoạt động ! Không cần chờ đợi lâu, không setup phức tạp, mọi thứ đều được Cloudflare xử lý một cách mượt mà trong thời gian bạn uống hết một ly cà phê. ☕
 
-Quan trọng hơn: siêu hời - Cloudflare còn có Free Plan để bạn test thử! Triển khai, thử nghiệm, xem có hợp với team không mà chẳng tốn xu nào! 💸 Thử ngay nào
+Quan trọng hơn: siêu hời - Cloudflare còn có **Free Plan** để bạn test thử! Triển khai, thử nghiệm, xem có hợp với team không mà chẳng tốn xu nào! 💸 Thử ngay nào
