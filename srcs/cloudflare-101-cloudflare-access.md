@@ -12,6 +12,7 @@ tags:
   - zero-trust
 ---
 
+![Cloudflare Access Overview](https://static.ssan.me/Cloudflare-access-thumbnail-01.png)
 
 !!! info "Cloudflare từ A sang Á"
     Chuỗi bài viết về các dịch vụ nền tảng của Cloudflare
