@@ -16,20 +16,20 @@ tags:
 !!! info "Cloudflare từ A sang Á"
     Chuỗi bài viết về các dịch vụ nền tảng của Cloudflare
 
-Cloudflare Access là một dịch vụ SaaS nhằm bảo vệ các tài nguyên, ứng dụng (thường là nội bộ) khỏi truy cập công cộng bằng cách xác minh các request dựa vào user identity và device context nâng cao (vị trí, thời gian, loại thiết bị).
 
-Cloudflare Access đóng vai trò như một Reverse Proxy trang bị tính năng xác thực người dùng (Authentication) nhằm bảo vệ các ứng dụng nội bộ thông qua kiến trúc phân tán toàn cầu của mạng lưới Cloudflare. Khác với các giải pháp proxy truyền thống, Cloudflare Access:
+**Cloudflare Access** là một dịch vụ SaaS nhằm bảo vệ các tài nguyên, ứng dụng (thường là nội bộ) khỏi truy cập công cộng bằng cách xác minh các request dựa vào user identity và device context nâng cao (vị trí, thời gian, loại thiết bị).
+
+**Cloudflare Access** đóng vai trò như một Reverse Proxy trang bị tính năng xác thực người dùng (Authentication) nhằm bảo vệ các ứng dụng nội bộ thông qua kiến trúc phân tán toàn cầu của mạng lưới Cloudflare. Khác với các giải pháp proxy truyền thống, Cloudflare Access:
 
 - Xác thực người dùng tại edge node gần nhất với họ trong mạng lưới hơn 250+ trung tâm dữ liệu toàn cầu, chứ không phải tại một máy chủ proxy tập trung
 - Chuyển tiếp các yêu cầu đã được xác thực đến ứng dụng nội bộ qua kết nối an toàn, tối ưu hóa về hiệu suất nhờ định tuyến thông minh trên hạ tầng backbone riêng của Cloudflare
 
 Vì vậy dịch vụ này được cho là:
 ✅ Giảm độ trễ đáng kể bằng cách xử lý xác thực tại edge, gần với người dùng nhất, thay vì buộc traffic phải đi qua một điểm trung tâm duy nhất
+
 ✅ Cung cấp khả năng chống DDoS và các tấn công mạng ngay tại edge node, trước khi traffic có thể đến được ứng dụng nội bộ
+
 ✅ Tự động mở rộng quy mô để đáp ứng nhu cầu tăng vọt mà không cần điều chỉnh phần cứng như các proxy truyền thống
-
-
-Có thể bảo vệ các loại Web Application chính sau:
 
 
 ### 💡 Các đối tượng Cloudflare Access có thể bảo vệ
@@ -73,7 +73,7 @@ Như đã giới thiệu phần trên, đây là thành phần chính chúng ta 
 - 🌐 Domain và path pattern cần bảo vệ
 - ⏱️ Session duration (thời lượng phiên làm việc)
 - 🚀 App Launcher visibility (hiển thị trong App Launcher)
-- 🎨 Logo và mô tả (tùy chọn)
+- 🎨 Logo và mô tả (tùy chọn nhằm cá nhân hoá trang đăng nhập)
 
 ### 🛡️ Chính sách truy cập
 
