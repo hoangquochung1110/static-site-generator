@@ -1,5 +1,5 @@
 ---
-title: 'Cloudflare Access Internals: Understanding the Authentication Flow'
+title: 'Cloudflare Access Internals: Tìm hiểu luồng xác thực'
 date: 2025-05-08 10:00
 author: "Hung Hoang"
 description: "Deep dive into Cloudflare Access internals, exploring how authentication and authorization work behind the scenes"
