@@ -61,7 +61,7 @@ Luồng bắt đầu khi người dùng nhập URL ứng dụng nội bộ của
 
 Cloudflare Access bảo vệ ứng dụng nội bộ bằng cách chặn request ban đầu, chuyển hướng người dùng chưa xác thực đến IdP được cấu hình, và tạo JWT cookie chứa thông tin định danh sau khi xác thực thành công. Sau đó, Access đánh giá JWT này với các chính sách bảo mật được thiết lập, chỉ chuyển tiếp request đến ứng dụng gốc nếu tất cả kiểm tra đều thành công, kèm theo thông tin người dùng trong HTTP header. Cloudflare duy trì phiên làm việc thông qua JWT cookie có thời hạn, kiểm tra chính sách với mỗi request và tự động làm mới token khi cần, tạo nên hệ thống bảo mật Zero Trust hoàn chỉnh không cần VPN.
 
-Chi tiết xem tại [đây](https://www.cloudflare.com/products/cloudflare-access/)
+Chi tiết xem tại [đây](./cloudflare-101-cloudflare-access-internals.html)
 
 ## 🧩 Các thành phần chính
 
