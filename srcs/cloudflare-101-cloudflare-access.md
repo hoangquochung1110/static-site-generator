@@ -24,20 +24,17 @@ tags:
 - Xác thực người dùng tại edge node gần nhất với họ trong mạng lưới hơn 250+ trung tâm dữ liệu toàn cầu, chứ không phải tại một máy chủ proxy tập trung
 - Chuyển tiếp các yêu cầu đã được xác thực đến ứng dụng nội bộ qua kết nối an toàn, tối ưu hóa về hiệu suất nhờ định tuyến thông minh trên hạ tầng backbone riêng của Cloudflare
 
-Vì vậy dịch vụ này được cho là:
+Các lợi ích chính:
 
-✅ Giảm độ trễ đáng kể bằng cách xử lý xác thực tại edge, gần với người dùng nhất, thay vì buộc traffic phải đi qua một điểm trung tâm duy nhất
+✅ Uỷ thác việc xác minh người dùng cho Cloudflare
 
-✅ Cung cấp khả năng chống DDoS và các tấn công mạng ngay tại edge node, trước khi traffic có thể đến được ứng dụng nội bộ
+✅ Quản lí truy cập tài nguyên nội bộ với khả năng chống DDoS và các tấn công mạng ngay tại edge node, trước khi traffic có thể đến được ứng dụng nội bộ
 
-✅ Tự động mở rộng quy mô để đáp ứng nhu cầu tăng vọt mà không cần điều chỉnh phần cứng như các proxy truyền thống
 
 ![Cloudflare Access Overview](https://static.ssan.me/Cloudflare-access-thumbnail-01.png)
 
 
-### 💡 Các đối tượng Cloudflare Access có thể bảo vệ
-
-Họ quy ước gọi là "Application", các đối tượng chính sau:
+### 💡 Các tài nguyên (applications) Cloudflare Access có thể bảo vệ
 
 - SaaS Application
 - Self-hosted Application
