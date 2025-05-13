@@ -25,6 +25,7 @@ tags:
 - Chuyển tiếp các yêu cầu đã được xác thực đến ứng dụng nội bộ qua kết nối an toàn, tối ưu hóa về hiệu suất nhờ định tuyến thông minh trên hạ tầng backbone riêng của Cloudflare
 
 Vì vậy dịch vụ này được cho là:
+
 ✅ Giảm độ trễ đáng kể bằng cách xử lý xác thực tại edge, gần với người dùng nhất, thay vì buộc traffic phải đi qua một điểm trung tâm duy nhất
 
 ✅ Cung cấp khả năng chống DDoS và các tấn công mạng ngay tại edge node, trước khi traffic có thể đến được ứng dụng nội bộ
