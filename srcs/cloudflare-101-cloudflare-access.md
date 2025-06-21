@@ -110,6 +110,13 @@ Ngoài các Identity Provider (IdP) truyền thống như Okta, Azure AD, Google
 
 Cloudflare Access cho phép kết hợp nhiều phương thức xác thực, tạo nên mô hình xác thực đa lớp. Ví dụ, bạn có thể yêu cầu người dùng đăng nhập qua Okta VÀ phải truy cập từ IP công ty, hoặc đăng nhập qua Azure AD VÀ sử dụng thiết bị được quản lý bởi công ty.
 
+## Tình huống sử dụng
+
+1. Truy cập của lực lượng lao động từ xa vào các ứng dụng nội bộ
+2. Truy cập của nhà thầu bên thứ ba (có yếu tố ngắn hạn) với quyền hạn hạn chế
+3. Môi trường BYOD với các yêu cầu tuân thủ thiết bị
+4. Hiện đại hóa ứng dụng kế thừa mà không cần thay đổi mã nguồn
+
 ## 🚀 Kết luận: Triển khai cực kỳ nhanh chóng!
 Điểm cực kỳ ấn tượng về Cloudflare Access là tốc độ triển khai siêu nhanh! Sau khi cấu hình các mục trên, chỉ sau **5-10 phút** thôi là dịch vụ đã sẵn sàng hoạt động ! Không cần chờ đợi lâu, không setup phức tạp, mọi thứ đều được Cloudflare xử lý một cách mượt mà trong thời gian bạn uống hết một ly cà phê. ☕
 
