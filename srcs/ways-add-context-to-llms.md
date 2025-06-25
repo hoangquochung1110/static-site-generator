@@ -45,6 +45,7 @@ Format: Start with a hook sentence, then provide the explanation, and end with a
 💡 Cách tiếp cận này là con đường nhanh nhất để bắt đầu. Nó không đòi hỏi hạ tầng đặc biệt và hoàn hảo cho việc tạo mẫu thử nghiệm và các ứng dụng đơn giản nơi ngữ cảnh nhỏ và thay đổi theo từng truy vấn. Nó xem LLM như một bộ máy suy luận thuần túy, cung cấp tất cả các dữ kiện cần thiết một cách tạm thời.
 
 ✅ Ưu điểm: Rào cản gia nhập cực kỳ thấp; không yêu cầu huấn luyện hay quản lý dữ liệu.
+
 ⚠️ Nhược điểm: Bị giới hạn nghiêm trọng bởi cửa sổ ngữ cảnh (lượng văn bản tối đa mà mô hình có thể xử lý cùng lúc). Nó không hiệu quả khi triển khai ở quy mô lớn, vì bạn liên tục gửi và trả phí cho cùng một ngữ cảnh. Kiến thức này chỉ là tạm thời và sẽ bị "lãng quên" ngay sau khi phản hồi được tạo ra.
 
 ## 2: Sinh Nội dung Tăng cường bằng Truy xuất (RAG)
@@ -60,6 +61,7 @@ Cách thức hoạt động: Đây là một quy trình hai bước:
 🔩 RAG khắc phục những hạn chế chính của việc tạo prompt thủ công. Nó cho phép LLM truy cập vào kho kiến thức có tính chất thay đổi thuờng xuyên. RAG nhằm lọc và đưa những phần thông tin phù hợp nhất vào cửa sổ ngữ cảnh có giới hạn của LLMs, mang lại sự cân bằng tuyệt vời giữa chi phí và lợi ích bởi cho phép truy cập dữ liệu độc quyền mà không tốn kém chi phí khổng lồ để huấn luyện lại mô hình. Nó cũng giảm đáng kể nguy cơ "ảo giác" (hallucination) bằng cách neo mô hình vào các tài liệu nguồn cụ thể.
 
 ✅ Ưu điểm: Khả năng mở rộng cao, cho phép truy cập thông tin thời gian thực và tương đối tiết kiệm chi phí.
+
 ⚠️ Nhược điểm: Mang lại sự phức tạp về mặt kỹ thuật, **đòi hỏi quản lý một chuỗi xử lý dữ liệu**, quy trình nhúng (embedding) và một cơ sở dữ liệu vector. **Chất lượng của câu trả lời cuối cùng phụ thuộc rất nhiều vào chất lượng của bước truy xuất**.
 
 ## 3: Tinh chỉnh Mô hình (Fine-Tuning)
@@ -71,6 +73,7 @@ Tinh chỉnh là việc lấy một mô hình nền tảng đã được huấn 
 🔔 Tinh chỉnh không phải là để dạy cho mô hình những dữ kiện mới; nó là để dạy cho mô hình một kỹ năng, phong cách, hoặc cấu trúc mới. Trong khi RAG cung cấp kiến thức, tinh chỉnh định hình hành vi của mô hình. Đây là lựa chọn đúng đắn khi bạn cần mô hình tuân thủ một phong cách nhất quán hoặc xuất sắc trong một nhiệm vụ chuyên biệt khác với việc huấn luyện chung của nó.
 
 ✅ Ưu điểm: Có thể mang lại hiệu suất vượt trội cho các nhiệm vụ chuyên biệt và cải thiện độ tin cậy về văn phong và định dạng.
+
 ⚠️ Nhược điểm: Đây là một cách không hiệu quả để thêm kiến thức thực tế, vì dữ liệu có thể trở nên lỗi thời. Nó đòi hỏi sự chuẩn bị dữ liệu cẩn thận và có chi phí tính toán cao hơn RAG.
 
 🧷 Phân biệt quan trọng: **Kiến thức** vs. **Hành vi** (RAG vs. Fine-Tuning)
@@ -87,6 +90,7 @@ Cách thức hoạt động: Bao gồm việc thu thập một tập dữ liệu
 Lý do và Lập luận: Lựa chọn này chỉ được theo đuổi khi các mô hình hiện có về cơ bản không phù hợp với lĩnh vực của bạn, chẳng hạn như trong các ngành khoa học chuyên sâu (ví dụ: di truyền học) hoặc để tạo ra một mô hình có kiến trúc hoàn toàn mới. Mục tiêu là xây dựng một "bộ não" đã học được các nguyên tắc cốt lõi của một lĩnh vực từ những nguyên lý đầu tiên.
 
 ✅ Ưu điểm: Cung cấp quyền kiểm soát tối đa, hiệu suất đỉnh cao cho lĩnh vực mục tiêu và tạo ra lợi thế cạnh tranh đáng kể.
+
 ⚠️ Nhược điểm: Chi phí cực kỳ đắt đỏ, đòi hỏi hàng triệu đô la chi phí tính toán và một đội ngũ các nhà khoa học nghiên cứu hàng đầu. Đây là một nỗ lực kéo dài nhiều năm chỉ dành cho một số ít các tổ chức lớn.
 
 # Kết luận: Lựa chọn Chiến lược Phù hợp
