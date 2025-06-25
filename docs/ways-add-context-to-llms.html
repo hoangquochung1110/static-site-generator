@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Hung Hoang">
+  <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
+
+  <title>Bổ sung ngữ cảnh cho LLM: Nâng cao độ chính xác và tin cậy cho ứng dụng AI - Hung Hoang</title>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./static/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./static/style.css" rel="stylesheet">
+
+  <!-- Syntax highlighting css -->
+  <link href="./static/pygments.css" rel="stylesheet">
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TG55DGQ');
+  </script>
+  <!-- End Google Tag Manager -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-235710440-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-235710440-2');
+  </script>
+  <!-- End Global site tag (gtag.js) - Google Analytics -->
+  <!-- Google Console Verify-->
+  <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
+  <!-- End Google Console Verify-->
+
+  <!-- beam analytics -->
+  <script src="https://beamanalytics.b-cdn.net/beam.min.js" data-token="19aab194-2a12-4585-bf30-e8b0c1e45d01" async></script>
+  <!-- End beam analytics -->
+
+  
+<meta property="og:title" content="Bổ sung ngữ cảnh cho LLM: Nâng cao độ chính xác và tin cậy cho ứng dụng AI - Hung Hoang">
+<meta property="twitter:title" content="Bổ sung ngữ cảnh cho LLM: Nâng cao độ chính xác và tin cậy cho ứng dụng AI - Hung Hoang">
+
+
+<meta name="description" content="Có nhiều kỹ thuật để cung cấp cho LLMs ngữ cảnh, mỗi kỹ thuật đại diện cho một mức độ phức tạp, chi phí và năng lực khác nhau. Hiểu rõ các phương pháp này cho phép bạn lựa chọn chiến lược phù hợp với nhu cầu cụ thể của mình. Dưới đây là bốn kỹ thuật thiết yếu, được sắp xếp theo thứ tự từ đơn giản đến phức tạp nhất.">
+<meta property="og:description" content="Có nhiều kỹ thuật để cung cấp cho LLMs ngữ cảnh, mỗi kỹ thuật đại diện cho một mức độ phức tạp, chi phí và năng lực khác nhau. Hiểu rõ các phương pháp này cho phép bạn lựa chọn chiến lược phù hợp với nhu cầu cụ thể của mình. Dưới đây là bốn kỹ thuật thiết yếu, được sắp xếp theo thứ tự từ đơn giản đến phức tạp nhất.">
+<meta property="twitter:description" content="Có nhiều kỹ thuật để cung cấp cho LLMs ngữ cảnh, mỗi kỹ thuật đại diện cho một mức độ phức tạp, chi phí và năng lực khác nhau. Hiểu rõ các phương pháp này cho phép bạn lựa chọn chiến lược phù hợp với nhu cầu cụ thể của mình. Dưới đây là bốn kỹ thuật thiết yếu, được sắp xếp theo thứ tự từ đơn giản đến phức tạp nhất.">
+
+
+
+
+
+
+<meta property="og:url" content="/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
+
+</head>
+<body>
+  <div class="container">
+
+    
+<article>
+  <aside class="timestamp">
+    <time>Posted by Hung Hoang on 2025-06-25 22:00</time>
+    · <a href="./">view all posts</a>
+  </aside>
+  <h1>Bổ sung ngữ cảnh cho LLM: Nâng cao độ chính xác và tin cậy cho ứng dụng AI</h1>
+  <content>
+    <h1 id="cac-phuong-thuc-bo-sung-ngu-canh-cho-llms">Các phương thức bổ sung ngữ cảnh cho LLMs</h1>
+<p>Các Mô hình Ngôn ngữ Lớn (LLM) là những công cụ đa năng mạnh mẽ, nhưng giá trị thực sự của chúng trong môi trường kinh doanh chỉ được khai phá khi chúng có thể hoạt động với thông tin cụ thể và phù hợp. Mặc định, một LLM không có kiến thức về dữ liệu nội bộ, các sự kiện thời gian thực, hay hoàn cảnh riêng của người dùng. Để thu hẹp khoảng cách này, chúng ta phải cung cấp cho nó ngữ cảnh.</p>
+<p>Có nhiều kỹ thuật để làm điều này, mỗi kỹ thuật đại diện cho một mức độ phức tạp, chi phí và năng lực khác nhau. Hiểu rõ các phương pháp này cho phép bạn lựa chọn chiến lược phù hợp với nhu cầu cụ thể của mình. Dưới đây là bốn kỹ thuật thiết yếu, được sắp xếp theo thứ tự từ đơn giản đến phức tạp nhất.</p>
+<p><img alt="Add context to LLMs" src="https://static.ssan.me/llm_context_chart.png" /></p>
+<h2 id="1-ky-thuat-prompt-theo-ngu-canh-contextual-prompt-engineering">1: Kỹ thuật Prompt theo Ngữ cảnh (Contextual Prompt Engineering)</h2>
+<p>Đây là phương pháp trực tiếp và đơn giản nhất. Nó bao gồm việc chèn thông tin mà LLM cần trực tiếp vào câu lệnh (prompt), cùng với truy vấn của người dùng.
+Cách thức hoạt động: Bạn xây dựng một câu lệnh bao gồm cả ngữ cảnh thực tế cần thiết và câu hỏi bạn muốn LLM trả lời. Mô hình sử dụng thông tin được cung cấp này để hình thành phản hồi cho duy nhất lượt tương tác đó.</p>
+<p>❌</p>
+<pre><code>Write about climate change
+</code></pre>
+<p>✅</p>
+<pre><code>You are an environmental science educator writing for high school students.
+
+Write a 300-word explanation of climate change that:
+- Defines climate change in simple terms
+- Explains 2-3 main causes
+- Describes 2-3 observable effects
+- Suggests 2 actionable steps students can take
+
+Use clear, accessible language and include one concrete example or analogy to make the concept relatable. Structure your response with clear paragraphs and avoid technical jargon.
+
+Format: Start with a hook sentence, then provide the explanation, and end with an encouraging call to action.
+</code></pre>
+<p>💡 Cách tiếp cận này là con đường nhanh nhất để bắt đầu. Nó không đòi hỏi hạ tầng đặc biệt và hoàn hảo cho việc tạo mẫu thử nghiệm và các ứng dụng đơn giản nơi ngữ cảnh nhỏ và thay đổi theo từng truy vấn. Nó xem LLM như một bộ máy suy luận thuần túy, cung cấp tất cả các dữ kiện cần thiết một cách tạm thời.</p>
+<p>✅ Ưu điểm: Rào cản gia nhập cực kỳ thấp; không yêu cầu huấn luyện hay quản lý dữ liệu.
+⚠️ Nhược điểm: Bị giới hạn nghiêm trọng bởi cửa sổ ngữ cảnh (lượng văn bản tối đa mà mô hình có thể xử lý cùng lúc). Nó không hiệu quả khi triển khai ở quy mô lớn, vì bạn liên tục gửi và trả phí cho cùng một ngữ cảnh. Kiến thức này chỉ là tạm thời và sẽ bị "lãng quên" ngay sau khi phản hồi được tạo ra.</p>
+<h2 id="2-sinh-noi-dung-tang-cuong-bang-truy-xuat-rag">2: Sinh Nội dung Tăng cường bằng Truy xuất (RAG)</h2>
+<p>RAG là phương pháp tiếp cận phổ biến và thực tế nhất để xây dựng các ứng dụng mạnh mẽ, giàu kiến thức hiện nay. Nó tự động hóa quá trình tìm kiếm và cung cấp ngữ cảnh phù hợp cho LLM.</p>
+<p>Cách thức hoạt động: Đây là một quy trình hai bước:</p>
+<ol>
+<li>
+<p>Truy xuất (Retrieve): Khi người dùng đặt câu hỏi, hệ thống trước tiên sẽ tìm kiếm trong một kho kiến thức riêng (ví dụ: tài liệu công ty, bài viết hỗ trợ, cơ sở dữ liệu) để tìm thông tin phù hợp nhất. Điều này thường được thực hiện bằng cơ sở dữ liệu vector, nơi tìm kiếm tài liệu dựa trên sự tương đồng về ngữ nghĩa.</p>
+</li>
+<li>
+<p>Tăng cường &amp; Sinh nội dung (Augment &amp; Generate): Thông tin được truy xuất sau đó được tự động chèn vào câu lệnh cùng với câu hỏi ban đầu của người dùng. LLM sử dụng ngữ cảnh đã được chọn lọc này để tạo ra một câu trả lời có căn cứ và xác thực.</p>
+</li>
+</ol>
+<p>🔩 RAG khắc phục những hạn chế chính của việc tạo prompt thủ công. Nó cho phép LLM truy cập vào kho kiến thức có tính chất thay đổi thuờng xuyên. RAG nhằm lọc và đưa những phần thông tin phù hợp nhất vào cửa sổ ngữ cảnh có giới hạn của LLMs, mang lại sự cân bằng tuyệt vời giữa chi phí và lợi ích bởi cho phép truy cập dữ liệu độc quyền mà không tốn kém chi phí khổng lồ để huấn luyện lại mô hình. Nó cũng giảm đáng kể nguy cơ "ảo giác" (hallucination) bằng cách neo mô hình vào các tài liệu nguồn cụ thể.</p>
+<p>✅ Ưu điểm: Khả năng mở rộng cao, cho phép truy cập thông tin thời gian thực và tương đối tiết kiệm chi phí.
+⚠️ Nhược điểm: Mang lại sự phức tạp về mặt kỹ thuật, <strong>đòi hỏi quản lý một chuỗi xử lý dữ liệu</strong>, quy trình nhúng (embedding) và một cơ sở dữ liệu vector. <strong>Chất lượng của câu trả lời cuối cùng phụ thuộc rất nhiều vào chất lượng của bước truy xuất</strong>.</p>
+<h2 id="3-tinh-chinh-mo-hinh-fine-tuning">3: Tinh chỉnh Mô hình (Fine-Tuning)</h2>
+<p>Tinh chỉnh là việc lấy một mô hình nền tảng đã được huấn luyện trước và tiếp tục quá trình huấn luyện nó trên một tập dữ liệu nhỏ hơn, đã được tuyển chọn của riêng bạn.</p>
+<p>💡 Cách thức hoạt động: Bạn chuẩn bị một tập dữ liệu chất lượng cao gồm các cặp câu lệnh-phản hồi mẫu để thể hiện một hành vi cụ thể mà bạn muốn mô hình học theo. Ví dụ, học cách trả lời theo giọng văn thương hiệu của công ty, áp dụng một tính cách cụ thể, hoặc luôn xuất ra một định dạng có cấu trúc như JSON.</p>
+<p>🔔 Tinh chỉnh không phải là để dạy cho mô hình những dữ kiện mới; nó là để dạy cho mô hình một kỹ năng, phong cách, hoặc cấu trúc mới. Trong khi RAG cung cấp kiến thức, tinh chỉnh định hình hành vi của mô hình. Đây là lựa chọn đúng đắn khi bạn cần mô hình tuân thủ một phong cách nhất quán hoặc xuất sắc trong một nhiệm vụ chuyên biệt khác với việc huấn luyện chung của nó.</p>
+<p>✅ Ưu điểm: Có thể mang lại hiệu suất vượt trội cho các nhiệm vụ chuyên biệt và cải thiện độ tin cậy về văn phong và định dạng.
+⚠️ Nhược điểm: Đây là một cách không hiệu quả để thêm kiến thức thực tế, vì dữ liệu có thể trở nên lỗi thời. Nó đòi hỏi sự chuẩn bị dữ liệu cẩn thận và có chi phí tính toán cao hơn RAG.</p>
+<p>🧷 Phân biệt quan trọng: <strong>Kiến thức</strong> vs. <strong>Hành vi</strong> (RAG vs. Fine-Tuning)
+Sử dụng <strong>RAG</strong> để cung cấp cho mô hình quyền truy cập vào <strong>kiến thức</strong>.
+Sử dụng <strong>Fine-Tuning</strong> để dạy cho mô hình <strong>cách hành xử</strong>.</p>
+<p>Các hệ thống mạnh mẽ nhất thường kết hợp cả hai: một mô hình được tinh chỉnh để có hành vi chuyên gia, sử dụng RAG để lấy ngữ cảnh thực tế năng động.</p>
+<h2 id="4-huan-luyen-mo-hinh-tu-au">4: Huấn luyện Mô hình từ đầu</h2>
+<p>Đây là phương pháp mạnh mẽ và đòi hỏi khắt khe nhất, chỉ dành cho các trường hợp sử dụng cực kỳ chuyên biệt.</p>
+<p>Cách thức hoạt động: Bao gồm việc thu thập một tập dữ liệu khổng lồ, chuyên sâu về một lĩnh vực (hàng terabyte văn bản) và huấn luyện một mô hình nền tảng mới từ con số không.
+Lý do và Lập luận: Lựa chọn này chỉ được theo đuổi khi các mô hình hiện có về cơ bản không phù hợp với lĩnh vực của bạn, chẳng hạn như trong các ngành khoa học chuyên sâu (ví dụ: di truyền học) hoặc để tạo ra một mô hình có kiến trúc hoàn toàn mới. Mục tiêu là xây dựng một "bộ não" đã học được các nguyên tắc cốt lõi của một lĩnh vực từ những nguyên lý đầu tiên.</p>
+<p>✅ Ưu điểm: Cung cấp quyền kiểm soát tối đa, hiệu suất đỉnh cao cho lĩnh vực mục tiêu và tạo ra lợi thế cạnh tranh đáng kể.
+⚠️ Nhược điểm: Chi phí cực kỳ đắt đỏ, đòi hỏi hàng triệu đô la chi phí tính toán và một đội ngũ các nhà khoa học nghiên cứu hàng đầu. Đây là một nỗ lực kéo dài nhiều năm chỉ dành cho một số ít các tổ chức lớn.</p>
+<h1 id="ket-luan-lua-chon-chien-luoc-phu-hop">Kết luận: Lựa chọn Chiến lược Phù hợp</h1>
+<p>Xây dựng AI có nhận thức về ngữ cảnh là một bài toán về việc đưa ra các quyết định đánh đổi mang tính chiến lược. Con đường tối ưu thường bao gồm:</p>
+<p>Bắt đầu với Kỹ thuật Prompt để nhanh chóng xác thực một ý tưởng.
+Triển khai RAG như một giải pháp mặc định cho hầu hết các ứng dụng cần truy cập thông tin độc quyền hoặc năng động.</p>
+<p>Bổ sung thêm Fine-Tuning nếu bạn cần cải thiện hiệu suất hành vi, phong cách hoặc định dạng của mô hình.
+Cân nhắc huấn luyện từ đầu chỉ khi bạn có đủ nguồn lực và nhu cầu chiến lược mà không một mô hình hiện có nào có thể đáp ứng.</p>
+<p>Bằng cách hiểu rõ các kỹ thuật này, bạn có thể lựa chọn phương pháp phù hợp nhất cho dự án, ngân sách và mục tiêu của mình, từ đó biến đổi một LLM tổng quát thành một công cụ chuyên biệt có giá trị cao.</p>
+  </content>
+</article>
+
+
+    <footer>
+      <div class="row">
+        <div class="col-md-1 d-none d-md-block img-me-container">
+          <img class="img-me img-fluid" src="./static/me.webp">
+        </div>
+        <div class="col-md info">
+          <span class="name">Hung Hoang</span><br>
+          · <a href="https://github.com/hoangquochung1110" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> hoangquochung1110</a>
+          · <a href="https://www.instagram.com/h7ng__/" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i> h7ng__</a>
+          <br>
+          <span class="location"><i class="fas fa-map-marker"></i> Saigon, Vietnam</span>
+        </div>
+        <div class="col-md">
+          <p class="disclaimer">
+            &copy; 2022 &mdash; 2022<br>
+            All text is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> license<br>
+            All code is available under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> license
+          </p>
+      </div>
+
+    </footer>
+  </div>
+
+  <!-- webfonts & icons-->
+  <link href="/static/fontawesome/css/fontawesome-all.min.css" rel="stylesheet">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TG55DGQ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+</body>
+</html>
