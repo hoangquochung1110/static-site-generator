@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Hung Hoang">
+  <link rel="shortcut icon" href="https://hoangquochung1110.github.io/static-site-generator/favicon.ico">
+
+  <title>Triển khai AWS Lambda functions nay đã dễ dàng hơn với Github Actions - Hung Hoang</title>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" href="./rss.xml"/>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./static/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./static/style.css" rel="stylesheet">
+
+  <!-- Syntax highlighting css -->
+  <link href="./static/pygments.css" rel="stylesheet">
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TG55DGQ');
+  </script>
+  <!-- End Google Tag Manager -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-235710440-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-235710440-2');
+  </script>
+  <!-- End Global site tag (gtag.js) - Google Analytics -->
+  <!-- Google Console Verify-->
+  <meta name="google-site-verification" content="OgYcJ0DRlzDfeYySnQ7N5_zh_QDavnLwdffF-NQYb6c" />
+  <!-- End Google Console Verify-->
+
+  <!-- beam analytics -->
+  <script src="https://beamanalytics.b-cdn.net/beam.min.js" data-token="19aab194-2a12-4585-bf30-e8b0c1e45d01" async></script>
+  <!-- End beam analytics -->
+
+  
+<meta property="og:title" content="Triển khai AWS Lambda functions nay đã dễ dàng hơn với Github Actions - Hung Hoang">
+<meta property="twitter:title" content="Triển khai AWS Lambda functions nay đã dễ dàng hơn với Github Actions - Hung Hoang">
+
+
+<meta name="description" content="Sứ dụng action aws-actions/aws-lambda-deploy để triển khai Lambda function nhanh chóng thay vì các bước thủ công sử dụng AWS CLI">
+<meta property="og:description" content="Sứ dụng action aws-actions/aws-lambda-deploy để triển khai Lambda function nhanh chóng thay vì các bước thủ công sử dụng AWS CLI">
+<meta property="twitter:description" content="Sứ dụng action aws-actions/aws-lambda-deploy để triển khai Lambda function nhanh chóng thay vì các bước thủ công sử dụng AWS CLI">
+
+
+
+
+
+
+<meta property="og:url" content="/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
+
+</head>
+<body>
+  <div class="container">
+
+    
+<article>
+  <aside class="timestamp">
+    <time>Posted by Hung Hoang on 2025-08-09 21:00</time>
+    · <a href="./">view all posts</a>
+  </aside>
+  <h1>Triển khai AWS Lambda functions nay đã dễ dàng hơn với Github Actions</h1>
+  <content>
+    <h2 id="tin-vui-cho-cong-ong-serverless">Tin vui cho cộng đồng Serverless! 🚀</h2>
+<p>Ngày 07 tháng 8 vừa rồi, AWS vừa release action <code>aws-actions/aws-lambda-deploy</code> tích hợp trong Github Actions nhằm cập nhật cấu hình và mã nguồn của Lambda functions trên môi trường AWS.</p>
+<p>!!! ìnfo Việc deploy Lambda trước kia như thế nào?
+    Developers cần định nghĩa thủ công các dòng lệnh AWS SDK (hoặc IaC như Terraform hay SAM) để thực hiện build, đóng gói code artifact rồi upload ở dạng zip hoặc thông qua S3 bucket để triển khai Lambda function:
+    1. <strong>Build code</strong> từ source
+    2. <strong>Đóng gói</strong> thành file ZIP hoặc container image
+    3. <strong>Upload</strong> lên S3 bucket hoặc ECR hoặc zip file
+    4. <strong>Update</strong> Lambda function configuration</p>
+<h3 id="giai-phap-moi-chi-can-1-action-duy-nhat">Giải pháp mới: Chỉ cần 1 action duy nhất!</h3>
+<p>Giờ đây bạn chỉ cần khai báo <code>aws-actions/aws-lambda-deploy</code> trong Github Actions workflow kèm các tham số như: <code>function-name</code>, <code>code-artifacts-dir</code> (thư mục chứa mã nguồn Lambda function), <code>handler</code>, <code>runtime</code></p>
+<p>Xem chi tiết thông báo release <a href="https://docs.aws.amazon.com/lambda/latest/dg/deploying-github-actions.html">tại đây</a></p>
+<h3 id="thuc-hanh-voi-du-an-thuc-te">Thực hành với dự án thực tế</h3>
+<p>Dưới đây là một Github Actions workflow lấy từ dự án <a href="https://github.com/hoangquochung1110/insta-post-extractor">Instagram Post Extractor</a>, một Lambda function để extract metadata từ Instagram posts.</p>
+<pre class="lang-yaml"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Lambda CD Pipeline</span>
+<span class="nt">permissions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">id-token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write</span><span class="w"> </span><span class="c1"># Cần thiết cho OIDC authentication</span>
+
+
+<span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">development</span><span class="w"> </span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">workflow_dispatch</span><span class="p">:</span>
+
+
+<span class="nt">env</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">AWS_REGION</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ap-southeast-1</span>
+<span class="w">  </span><span class="nt">S3_BUCKET</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ig-post-extractor-artifact</span>
+<span class="w">  </span><span class="nt">LAMBDA_NAME</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IgPostExtractor</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">deploy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout</span>
+<span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Configure AWS credentials with OIDC</span>
+<span class="w">      </span><span class="c1"># use OpenID Connect (OIDC) to authenticate with AWS to avoid</span>
+<span class="w">      </span><span class="c1"># storing AWS credentials as long-lived GitHub secrets.</span>
+<span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aws-actions/configure-aws-credentials@v4</span>
+<span class="w">      </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">role-to-assume</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.AWS_ROLE_TO_ASSUME }}</span>
+<span class="w">        </span><span class="nt">aws-region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ env.AWS_REGION }}</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy Lambda Function</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deploy</span>
+<span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aws-actions/aws-lambda-deploy@v1</span>
+<span class="w">      </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">function-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ env.LAMBDA_NAME }}</span>
+<span class="w">        </span><span class="nt">code-artifacts-dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src/functions/</span>
+<span class="w">        </span><span class="nt">s3-bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ env.S3_BUCKET }}</span>
+<span class="w">        </span><span class="c1"># Tạo unique S3 key với timestamp và git commit hash</span>
+<span class="w">        </span><span class="nt">s3-key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">functions/&quot;$(date +%Y%m%d%H%M%S)-${{ github.sha }}&quot;</span>
+<span class="w">        </span><span class="nt">handler</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ig_post_extractor.lambda_handler</span>
+<span class="w">        </span><span class="nt">runtime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python3.12</span>
+</pre>
+  </content>
+</article>
+
+
+    <footer>
+      <div class="row">
+        <div class="col-md-1 d-none d-md-block img-me-container">
+          <img class="img-me img-fluid" src="./static/me.webp">
+        </div>
+        <div class="col-md info">
+          <span class="name">Hung Hoang</span><br>
+          · <a href="https://github.com/hoangquochung1110" rel="noopener"><i class="fab fa-github" aria-hidden="true"></i> hoangquochung1110</a>
+          · <a href="https://www.instagram.com/h7ng__/" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i> h7ng__</a>
+          <br>
+          <span class="location"><i class="fas fa-map-marker"></i> Saigon, Vietnam</span>
+        </div>
+        <div class="col-md">
+          <p class="disclaimer">
+            &copy; 2022 &mdash; 2022<br>
+            All text is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a> license<br>
+            All code is available under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a> license
+          </p>
+      </div>
+
+    </footer>
+  </div>
+
+  <!-- webfonts & icons-->
+  <link href="/static/fontawesome/css/fontawesome-all.min.css" rel="stylesheet">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TG55DGQ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+</body>
+</html>

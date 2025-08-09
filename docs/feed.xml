@@ -9,6 +9,13 @@
 
   
   <item>
+    <title>Triển khai AWS Lambda functions nay đã dễ dàng hơn với Github Actions</title>
+    <link>https://hoangquochung1110.github.io/static-site-generator/aws-lambda-deploy-gh-actions</link>
+    <guid>https://hoangquochung1110.github.io/static-site-generator/aws-lambda-deploy-gh-actions</guid>
+    <pubDate>2025-08-09 21:00</pubDate>
+  </item>
+  
+  <item>
     <title>Bổ sung ngữ cảnh cho LLM: Nâng cao độ chính xác và tin cậy cho ứng dụng AI</title>
     <link>https://hoangquochung1110.github.io/static-site-generator/ways-add-context-to-llms</link>
     <guid>https://hoangquochung1110.github.io/static-site-generator/ways-add-context-to-llms</guid>
@@ -177,16 +184,16 @@
   </item>
   
   <item>
-    <title>How Django meets htmx &amp;#58; A quick tour of modern server side rendering.</title>
-    <link>https://hoangquochung1110.github.io/static-site-generator/django-htmx-intro</link>
-    <guid>https://hoangquochung1110.github.io/static-site-generator/django-htmx-intro</guid>
+    <title>Manage State in ReactJS with to-do app</title>
+    <link>https://hoangquochung1110.github.io/static-site-generator/react-todo-list</link>
+    <guid>https://hoangquochung1110.github.io/static-site-generator/react-todo-list</guid>
     <pubDate>2022-03-10 10:00</pubDate>
   </item>
   
   <item>
-    <title>Manage State in ReactJS with to-do app</title>
-    <link>https://hoangquochung1110.github.io/static-site-generator/react-todo-list</link>
-    <guid>https://hoangquochung1110.github.io/static-site-generator/react-todo-list</guid>
+    <title>How Django meets htmx &amp;#58; A quick tour of modern server side rendering.</title>
+    <link>https://hoangquochung1110.github.io/static-site-generator/django-htmx-intro</link>
+    <guid>https://hoangquochung1110.github.io/static-site-generator/django-htmx-intro</guid>
     <pubDate>2022-03-10 10:00</pubDate>
   </item>
   
