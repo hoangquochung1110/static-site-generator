@@ -81,12 +81,14 @@
   <content>
     <h2 id="tin-vui-cho-cong-ong-serverless">Tin vui cho cộng đồng Serverless! 🚀</h2>
 <p>Ngày 07 tháng 8 vừa rồi, AWS vừa release action <code>aws-actions/aws-lambda-deploy</code> tích hợp trong Github Actions nhằm cập nhật cấu hình và mã nguồn của Lambda functions trên môi trường AWS.</p>
-<p>!!! info Việc deploy Lambda trước kia như thế nào?
-    Developers cần định nghĩa thủ công các dòng lệnh AWS SDK (hoặc IaC như Terraform hay SAM) để thực hiện build, đóng gói code artifact rồi upload ở dạng zip hoặc thông qua S3 bucket để triển khai Lambda function:
-    1. <strong>Build code</strong> từ source
-    2. <strong>Đóng gói</strong> thành file ZIP hoặc container image
-    3. <strong>Upload</strong> lên S3 bucket hoặc ECR hoặc zip file
-    4. <strong>Update</strong> Lambda function configuration</p>
+<div class="admonition info">
+<p class="admonition-title">Việc deploy Lambda trước kia như thế nào?</p>
+<p>Developers cần định nghĩa thủ công các dòng lệnh AWS SDK (hoặc IaC như Terraform hay SAM) để thực hiện build, đóng gói code artifact rồi upload ở dạng zip hoặc thông qua S3 bucket để triển khai Lambda function:
+1. <strong>Build code</strong> từ source
+2. <strong>Đóng gói</strong> thành file ZIP hoặc container image
+3. <strong>Upload</strong> lên S3 bucket hoặc ECR hoặc zip file
+4. <strong>Update</strong> Lambda function configuration</p>
+</div>
 <h3 id="giai-phap-moi-chi-can-1-action-duy-nhat">Giải pháp mới: Chỉ cần 1 action duy nhất!</h3>
 <p>Giờ đây bạn chỉ cần khai báo <code>aws-actions/aws-lambda-deploy</code> trong Github Actions workflow kèm các tham số như: <code>function-name</code>, <code>code-artifacts-dir</code> (thư mục chứa mã nguồn Lambda function), <code>handler</code>, <code>runtime</code></p>
 <p>Xem chi tiết thông báo release <a href="https://docs.aws.amazon.com/lambda/latest/dg/deploying-github-actions.html">tại đây</a></p>
