@@ -12,7 +12,7 @@ tags:
 
 Ngày 07 tháng 8 vừa rồi, AWS vừa release action `aws-actions/aws-lambda-deploy` tích hợp trong Github Actions nhằm cập nhật cấu hình và mã nguồn của Lambda functions trên môi trường AWS.
 
-!!! info Việc deploy Lambda trước kia như thế nào?
+!!! info "Việc deploy Lambda trước kia như thế nào?"
     Developers cần định nghĩa thủ công các dòng lệnh AWS SDK (hoặc IaC như Terraform hay SAM) để thực hiện build, đóng gói code artifact rồi upload ở dạng zip hoặc thông qua S3 bucket để triển khai Lambda function:
     1. **Build code** từ source
     2. **Đóng gói** thành file ZIP hoặc container image
